@@ -1084,6 +1084,133 @@ body {
   }
 }
 
+
+/* ==========================================================================
+   LUSION-STYLE INTERACTIVE FLUID MAGNETIC CURSOR
+   ========================================================================== */
+
+@media (pointer: fine) and (hover: hover) {
+  body, 
+  a, 
+  button, 
+  .naigc-holo-projection, 
+  .mq4-btn {
+    cursor: none !important;
+  }
+
+  #lusion-cursor-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99999;
+    overflow: hidden;
+  }
+
+  /* Fullscreen Fluid Trail Canvas */
+  #lusion-trail-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.85;
+    mix-blend-mode: screen;
+  }
+
+  /* Precision Center Dot */
+  #lusion-cursor-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00D9FF, 0 0 20px #00D9FF;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.25s ease, transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+    will-change: transform;
+    z-index: 100001;
+  }
+
+  /* Fluid Follower Ring */
+  #lusion-cursor-follower {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    margin-top: -18px;
+    margin-left: -18px;
+    pointer-events: none;
+    border-radius: 50%;
+    will-change: transform, width, height, border-color, box-shadow;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lusion-follower-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    border: 1.5px solid rgba(0, 217, 255, 0.65);
+    background: radial-gradient(circle, rgba(0, 217, 255, 0.08) 0%, rgba(2, 11, 32, 0.15) 80%);
+    box-shadow: 0 0 16px rgba(0, 217, 255, 0.25), inset 0 0 8px rgba(0, 217, 255, 0.1);
+    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Hover State (Magnetic Focus Ring) */
+  #lusion-cursor-follower.is-hovering {
+    width: 62px;
+    height: 62px;
+    margin-top: -31px;
+    margin-left: -31px;
+  }
+
+  #lusion-cursor-follower.is-hovering .lusion-follower-inner {
+    border-color: #00D9FF;
+    background: radial-gradient(circle, rgba(0, 217, 255, 0.18) 0%, rgba(6, 30, 68, 0.35) 80%);
+    box-shadow: 0 0 24px rgba(0, 217, 255, 0.6), inset 0 0 12px rgba(0, 217, 255, 0.25);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  #lusion-cursor-follower.is-hovering-violet .lusion-follower-inner {
+    border-color: #C084FC;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, rgba(30, 6, 68, 0.35) 80%);
+    box-shadow: 0 0 24px rgba(168, 85, 247, 0.6), inset 0 0 12px rgba(168, 85, 247, 0.25);
+  }
+
+  #lusion-cursor-dot.is-hovering {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+
+  /* Click Down State */
+  #lusion-cursor-follower.is-down {
+    transform: scale(0.75) !important;
+  }
+
+  #lusion-cursor-dot.is-down {
+    transform: translate(-50%, -50%) scale(1.6);
+    background: #00D9FF;
+    box-shadow: 0 0 16px #00D9FF, 0 0 30px #00D9FF;
+  }
+
+  /* Hidden State */
+  #lusion-cursor-container.is-hidden {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+}
+
 </style>
     <noscript><style>.mq4-loader{display:none}</style></noscript>
         
@@ -1102,7 +1229,7 @@ body {
         gtag('config', window.gaMeasurementId);
     </script>
         
-        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust29" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust29" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust29" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust29" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust29" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust29" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust29"></script><style>
+        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust30" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust30" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust30" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust30" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust30" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust30" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust30" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust30"></script><style>
 .mq4-main,
 .mq4 .mq4-btn.mq4-book-cta,
 .mq4-snaps,
@@ -1213,5 +1340,247 @@ body {
 })();
 </script>
 
+
+<script>
+/**
+ * LUSION-STYLE INTERACTIVE FLUID MAGNETIC CURSOR ENGINE
+ * High-performance 60FPS fluid particle wake, velocity-stretching follower,
+ * magnetic hover attraction, and organic impulse physics.
+ */
+(function initLusionCursor() {
+  if (typeof window === "undefined" || !window.matchMedia("(pointer: fine)").matches) {
+    return;
+  }
+
+  // Create Container & Elements
+  const container = document.createElement("div");
+  container.id = "lusion-cursor-container";
+  container.setAttribute("aria-hidden", "true");
+
+  const canvas = document.createElement("canvas");
+  canvas.id = "lusion-trail-canvas";
+
+  const follower = document.createElement("div");
+  follower.id = "lusion-cursor-follower";
+  const followerInner = document.createElement("div");
+  followerInner.className = "lusion-follower-inner";
+  follower.appendChild(followerInner);
+
+  const dot = document.createElement("div");
+  dot.id = "lusion-cursor-dot";
+
+  container.appendChild(canvas);
+  container.appendChild(follower);
+  container.appendChild(dot);
+  document.body.appendChild(container);
+
+  // Canvas Setup
+  const ctx = canvas.getContext("2d");
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
+
+  function resizeCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resizeCanvas, { passive: true });
+
+  // State & Physics Vectors
+  let mouseX = -100, mouseY = -100;
+  let followerX = -100, followerY = -100;
+  let prevFollowerX = -100, prevFollowerY = -100;
+  let targetMagneticX = 0, targetMagneticY = 0;
+  let isHovering = false;
+  let isHoveringViolet = false;
+  let isMouseDown = false;
+  let isInsideWindow = false;
+
+  // Fluid Trail Particles Pool
+  const particles = [];
+  const MAX_PARTICLES = 65;
+
+  class FluidParticle {
+    constructor(x, y, vx, vy, color) {
+      this.x = x;
+      this.y = y;
+      this.vx = vx * 0.45 + (Math.random() - 0.5) * 1.5;
+      this.vy = vy * 0.45 + (Math.random() - 0.5) * 1.5;
+      this.radius = 14 + Math.random() * 18;
+      this.life = 1.0;
+      this.decay = 0.035 + Math.random() * 0.025;
+      this.color = color;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vx *= 0.94;
+      this.vy *= 0.94;
+      this.life -= this.decay;
+    }
+    draw(ctx) {
+      if (this.life <= 0) return;
+      ctx.save();
+      ctx.globalAlpha = this.life * 0.45;
+      let g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+      g.addColorStop(0, this.color);
+      g.addColorStop(0.5, this.color);
+      g.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // Pointer Event Handlers
+  let lastSpawnX = 0, lastSpawnY = 0;
+
+  window.addEventListener("pointermove", (e) => {
+    isInsideWindow = true;
+    container.classList.remove("is-hidden");
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Fluid Particles Emission
+    let dist = Math.hypot(mouseX - lastSpawnX, mouseY - lastSpawnY);
+    if (dist > 12) {
+      let vx = (mouseX - lastSpawnX) * 0.2;
+      let vy = (mouseY - lastSpawnY) * 0.2;
+      let col = isHoveringViolet ? "rgba(168, 85, 247, 0.7)" : "rgba(0, 217, 255, 0.75)";
+      if (particles.length < MAX_PARTICLES) {
+        particles.push(new FluidParticle(mouseX, mouseY, vx, vy, col));
+      }
+      lastSpawnX = mouseX;
+      lastSpawnY = mouseY;
+    }
+  }, { passive: true });
+
+  window.addEventListener("mousedown", () => {
+    isMouseDown = true;
+    follower.classList.add("is-down");
+    dot.classList.add("is-down");
+  });
+
+  window.addEventListener("mouseup", () => {
+    isMouseDown = false;
+    follower.classList.remove("is-down");
+    dot.classList.remove("is-down");
+  });
+
+  document.documentElement.addEventListener("mouseleave", () => {
+    isInsideWindow = false;
+    container.classList.add("is-hidden");
+  });
+
+  document.documentElement.addEventListener("mouseenter", () => {
+    isInsideWindow = true;
+    container.classList.remove("is-hidden");
+  });
+
+  // Magnetic Attraction on Interactive Elements
+  function bindMagneticElements() {
+    const targets = document.querySelectorAll("a, button, .naigc-holo-projection, .mq4-btn, [role='button']");
+    targets.forEach((el) => {
+      if (el.dataset.magneticBound) return;
+      el.dataset.magneticBound = "true";
+
+      el.addEventListener("mouseenter", () => {
+        isHovering = true;
+        isHoveringViolet = el.classList.contains("naigc-theme-violet");
+        follower.classList.add("is-hovering");
+        if (isHoveringViolet) {
+          follower.classList.add("is-hovering-violet");
+        } else {
+          follower.classList.remove("is-hovering-violet");
+        }
+        dot.classList.add("is-hovering");
+      });
+
+      el.addEventListener("mousemove", (e) => {
+        const rect = el.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        // Magnetic pull factor (smoothly biases follower towards element center)
+        targetMagneticX = (centerX - mouseX) * 0.28;
+        targetMagneticY = (centerY - mouseY) * 0.28;
+      });
+
+      el.addEventListener("mouseleave", () => {
+        isHovering = false;
+        isHoveringViolet = false;
+        targetMagneticX = 0;
+        targetMagneticY = 0;
+        follower.classList.remove("is-hovering", "is-hovering-violet");
+        dot.classList.remove("is-hovering");
+      });
+    });
+  }
+
+  bindMagneticElements();
+  const observer = new MutationObserver(bindMagneticElements);
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Main 60FPS Physics Render Loop
+  let currentAngle = 0;
+  let currentScaleX = 1;
+  let currentScaleY = 1;
+
+  function renderLoop() {
+    // Follower Physics (Smooth Spring Lerp)
+    let destX = mouseX + targetMagneticX;
+    let destY = mouseY + targetMagneticY;
+
+    if (followerX === -100) {
+      followerX = destX;
+      followerY = destY;
+      prevFollowerX = destX;
+      prevFollowerY = destY;
+    }
+
+    followerX += (destX - followerX) * (isHovering ? 0.22 : 0.16);
+    followerY += (destY - followerY) * (isHovering ? 0.22 : 0.16);
+
+    // Velocity & Angle Deformation
+    let vx = followerX - prevFollowerX;
+    let vy = followerY - prevFollowerY;
+    let speed = Math.hypot(vx, vy);
+
+    if (speed > 0.8 && !isHovering) {
+      let targetAngle = Math.atan2(vy, vx) * (180 / Math.PI);
+      currentAngle += (targetAngle - currentAngle) * 0.25;
+      let stretch = Math.min(speed * 0.045, 0.55);
+      currentScaleX += (1 + stretch - currentScaleX) * 0.2;
+      currentScaleY += (Math.max(0.65, 1 - stretch * 0.55) - currentScaleY) * 0.2;
+    } else {
+      currentScaleX += (1 - currentScaleX) * 0.15;
+      currentScaleY += (1 - currentScaleY) * 0.15;
+    }
+
+    prevFollowerX = followerX;
+    prevFollowerY = followerY;
+
+    // Apply Hardware Accelerated GPU Transforms
+    follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) rotate(${currentAngle}deg) scale(${currentScaleX}, ${currentScaleY})`;
+    dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+
+    // Render Fluid Particles Canvas
+    ctx.clearRect(0, 0, width, height);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      let p = particles[i];
+      p.update();
+      p.draw(ctx);
+      if (p.life <= 0) {
+        particles.splice(i, 1);
+      }
+    }
+
+    requestAnimationFrame(renderLoop);
+  }
+
+  requestAnimationFrame(renderLoop);
+})();
+
+</script>
 </body>
 </html>
