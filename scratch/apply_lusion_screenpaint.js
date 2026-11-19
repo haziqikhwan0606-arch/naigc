@@ -242,3 +242,4 @@ console.log('Updated cache busters to v=bust32');
 
 fs.writeFileSync(indexPath, html, 'utf8');
 console.log('Updated index.html successfully!');
+
