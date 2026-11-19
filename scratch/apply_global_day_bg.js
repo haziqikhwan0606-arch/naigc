@@ -21,3 +21,4 @@ html = html.replace(/\.mq4-stage\s*\{[\s\S]*?url\('\.\/build\/assets\/kl_skyline
 
 fs.writeFileSync(indexPath, html, 'utf8');
 console.log('Applied global daytime background to stage and body');
+

@@ -46,3 +46,4 @@ html = html.replace(/v=bust32/g, 'v=bust33');
 
 fs.writeFileSync(indexPath, html, 'utf8');
 console.log('index.html updated successfully with daytime skyline and smaller cursor!');
+
