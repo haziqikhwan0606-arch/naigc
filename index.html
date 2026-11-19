@@ -1086,203 +1086,30 @@ body {
 
 
 /* ==========================================================================
-   AUTHENTIC LUSION.CO INTERACTIVE MAGNETIC CURSOR & 3D TILT
+   LUSION.CO SCREENPAINT — LIQUID CHROMATIC DISPERSION TRAIL
    ========================================================================== */
 
-@media (pointer: fine) and (hover: hover) {
-  body, 
-  a, 
-  button, 
-  .naigc-holo-projection, 
-  .mq4-btn {
-    cursor: none !important;
-  }
+#lusion-screenpaint-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99998;
+  mix-blend-mode: screen;
+}
 
-  #lusion-cursor-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 999999;
-    overflow: hidden;
-  }
+/* 3D Interactive Card Perspective Depth */
+.naigc-holo-projection {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+  will-change: transform;
+}
 
-  /* Precision Reticle Dot */
-  #lusion-cursor-dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 6px;
-    height: 6px;
-    background: #00E5FF;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #00E5FF, 0 0 20px #00E5FF;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    will-change: transform, opacity, scale;
-    transition: opacity 0.2s ease, transform 0.15s ease;
-    z-index: 1000002;
-  }
-
-  #lusion-cursor-dot.is-hidden {
-    opacity: 0;
-  }
-
-  #lusion-cursor-dot.is-hovering {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.2);
-  }
-
-  /* Lusion Magnetic Floating Lens / Badge */
-  #lusion-cursor-lens {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 38px;
-    height: 38px;
-    margin-top: -19px;
-    margin-left: -19px;
-    border-radius: 50%;
-    pointer-events: none;
-    will-change: transform, width, height, margin, background, border-color, box-shadow;
-    z-index: 1000001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: width 0.38s cubic-bezier(0.19, 1, 0.22, 1),
-                height 0.38s cubic-bezier(0.19, 1, 0.22, 1),
-                margin 0.38s cubic-bezier(0.19, 1, 0.22, 1),
-                border-color 0.3s ease,
-                background 0.3s ease,
-                box-shadow 0.3s ease;
-  }
-
-  .lusion-lens-surface {
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    border: 1.5px solid rgba(0, 229, 255, 0.75);
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.08) 0%, rgba(2, 11, 32, 0.2) 80%);
-    box-shadow: 0 0 16px rgba(0, 229, 255, 0.25), inset 0 0 8px rgba(0, 229, 255, 0.15);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    transition: inherit;
-  }
-
-  /* Rotating Arrow & Badge Info (Lusion Signature) */
-  .lusion-lens-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    opacity: 0;
-    transform: scale(0.6);
-    transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    color: #FFFFFF;
-    pointer-events: none;
-  }
-
-  .lusion-lens-arrow {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    will-change: transform;
-    color: #00E5FF;
-  }
-
-  .lusion-lens-arrow svg {
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.8));
-  }
-
-  .lusion-lens-text {
-    font-family: 'Space Grotesk', -apple-system, sans-serif;
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
-  }
-
-  /* Active Hover State (Over 8 Pillars & Buttons) */
-  #lusion-cursor-lens.is-hovering {
-    width: 82px;
-    height: 82px;
-    margin-top: -41px;
-    margin-left: -41px;
-  }
-
-  #lusion-cursor-lens.is-hovering .lusion-lens-surface {
-    border-color: #00E5FF;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.28) 0%, rgba(2, 14, 38, 0.85) 85%);
-    box-shadow: 0 0 35px rgba(0, 229, 255, 0.65), 
-                inset 0 0 20px rgba(0, 229, 255, 0.3),
-                0 10px 25px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-
-  #lusion-cursor-lens.is-hovering .lusion-lens-content {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  /* Violet Variant for Alternating Pillars */
-  #lusion-cursor-lens.is-hovering-violet .lusion-lens-surface {
-    border-color: #C084FC;
-    background: radial-gradient(circle, rgba(192, 132, 252, 0.28) 0%, rgba(26, 4, 46, 0.85) 85%);
-    box-shadow: 0 0 35px rgba(192, 132, 252, 0.65), 
-                inset 0 0 20px rgba(192, 132, 252, 0.3),
-                0 10px 25px rgba(0, 0, 0, 0.5);
-  }
-
-  #lusion-cursor-lens.is-hovering-violet .lusion-lens-arrow {
-    color: #C084FC;
-  }
-
-  #lusion-cursor-lens.is-hovering-violet .lusion-lens-arrow svg {
-    filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.8));
-  }
-
-  #lusion-cursor-lens.is-hovering-violet .lusion-lens-text {
-    text-shadow: 0 0 10px rgba(192, 132, 252, 0.8);
-  }
-
-  /* Click Down Impulse */
-  #lusion-cursor-lens.is-down {
-    transform: scale(0.8) !important;
-  }
-
-  /* Hidden State */
-  #lusion-cursor-container.is-hidden {
-    opacity: 0;
-    transition: opacity 0.35s ease;
-  }
-
-  /* 3D Interactive Card Sheen & Tilt */
-  .naigc-holo-projection {
-    perspective: 1000px;
-    transform-style: preserve-3d;
-    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-    will-change: transform;
-  }
-
-  .naigc-holo-projection.is-card-tilted {
-    transition: transform 0.08s ease-out;
-  }
+.naigc-holo-projection.is-card-tilted {
+  transition: transform 0.08s ease-out;
 }
 </style>
     <noscript><style>.mq4-loader{display:none}</style></noscript>
@@ -1302,7 +1129,7 @@ body {
         gtag('config', window.gaMeasurementId);
     </script>
         
-        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust31" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust31" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust31" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust31" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust31" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust31" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust31" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust31"></script><style>
+        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust32" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust32" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust32" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust32" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust32" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust32" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust32" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust32"></script><style>
 .mq4-main,
 .mq4 .mq4-btn.mq4-book-cta,
 .mq4-snaps,
@@ -1416,276 +1243,179 @@ body {
 
 <script>
 /**
- * AUTHENTIC LUSION.CO INTERACTIVE MAGNETIC CURSOR & 3D TILT ENGINE
- * Features:
- * - Second-order spring dynamics (butter-smooth lag-free inertia)
- * - Velocity-oriented arrow rotation & elastic stretching
- * - Lusion magnetic badge with contextual action label ("EXPLORE" / "OPEN")
- * - 3D card tilt & holographic surface sheen tracking
- * - Click impulse response
+ * LUSION.CO SCREENPAINT ENGINE — LIQUID IRIDESCENT RIBBON & CHROMATIC ABERRATION
+ * Recreates the exact signature effect from lusion.co/projects:
+ * - Fluid ribbon spline trailing the cursor
+ * - Multi-pass spectral chromatic aberration (Cyan, Magenta, Amber, Liquid Specular)
+ * - Organic dissipation & curl noise physics
+ * - Native pointer responsiveness (zero lag)
  */
-(function initAuthenticLusionCursor() {
-  if (typeof window === "undefined" || !window.matchMedia("(pointer: fine)").matches) {
-    return;
+(function initLusionScreenPaint() {
+  if (typeof window === "undefined") return;
+
+  // Create High-Performance GPU Canvas
+  const canvas = document.createElement("canvas");
+  canvas.id = "lusion-screenpaint-canvas";
+  canvas.setAttribute("aria-hidden", "true");
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d", { alpha: true });
+  let width = (canvas.width = window.innerWidth * window.devicePixelRatio || 1);
+  let height = (canvas.height = window.innerHeight * window.devicePixelRatio || 1);
+  const dpr = window.devicePixelRatio || 1;
+
+  function resize() {
+    width = canvas.width = window.innerWidth * dpr;
+    height = canvas.height = window.innerHeight * dpr;
   }
+  window.addEventListener("resize", resize, { passive: true });
 
-  // Inject Cursor Elements
-  const container = document.createElement("div");
-  container.id = "lusion-cursor-container";
-  container.setAttribute("aria-hidden", "true");
+  // Mouse State & Trail Buffer
+  const points = [];
+  const TRAIL_LIFETIME = 1200; // ms to dissipate
+  const BASE_WIDTH = 28 * dpr;
+  let mouseX = -1000, mouseY = -1000;
+  let prevMouseX = -1000, prevMouseY = -1000;
+  let isMoving = false;
+  let moveTimeout = null;
 
-  const lens = document.createElement("div");
-  lens.id = "lusion-cursor-lens";
-
-  const lensSurface = document.createElement("div");
-  lensSurface.className = "lusion-lens-surface";
-
-  const lensContent = document.createElement("div");
-  lensContent.className = "lusion-lens-content";
-
-  const lensArrow = document.createElement("div");
-  lensArrow.className = "lusion-lens-arrow";
-  lensArrow.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="5" y1="12" x2="19" y2="12"></line>
-    <polyline points="12 5 19 12 12 19"></polyline>
-  </svg>`;
-
-  const lensText = document.createElement("span");
-  lensText.className = "lusion-lens-text";
-  lensText.textContent = "EXPLORE";
-
-  lensContent.appendChild(lensArrow);
-  lensContent.appendChild(lensText);
-  lensSurface.appendChild(lensContent);
-  lens.appendChild(lensSurface);
-
-  const dot = document.createElement("div");
-  dot.id = "lusion-cursor-dot";
-
-  container.appendChild(lens);
-  container.appendChild(dot);
-  document.body.appendChild(container);
-
-  // Second-Order Dynamics Physics Class (Exact algorithm used in Lusion.co)
-  class SecondOrderDynamics {
-    constructor(f, z, r, x0 = 0) {
-      // f: natural frequency, z: damping coefficient, r: initial response
-      this.computeConstants(f, z, r);
-      this.xp = x0;
-      this.y = x0;
-      this.yd = 0;
-    }
-    computeConstants(f, z, r) {
-      this.k1 = z / (Math.PI * f);
-      this.k2 = 1 / ((2 * Math.PI * f) * (2 * Math.PI * f));
-      this.k3 = (r * z) / (2 * Math.PI * f);
-    }
-    update(t, x, xd = null) {
-      if (xd === null) {
-        xd = (x - this.xp) / t;
-        this.xp = x;
-      }
-      let k2_stable = Math.max(this.k2, 1.1 * (t * t / 4 + t * this.k1 / 2));
-      this.y = this.y + t * this.yd;
-      this.yd = this.yd + t * (x + this.k3 * xd - this.y - this.k1 * this.yd) / k2_stable;
-      return this.y;
-    }
-  }
-
-  // Physics Instances (Frequency 5.5Hz, Damping 0.78, Response 1.15)
-  const lensDynX = new SecondOrderDynamics(5.5, 0.78, 1.15, window.innerWidth / 2);
-  const lensDynY = new SecondOrderDynamics(5.5, 0.78, 1.15, window.innerHeight / 2);
-  const arrowDynRot = new SecondOrderDynamics(4.5, 0.75, 1.2, 0);
-
-  // State Variables
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let prevMouseX = mouseX;
-  let prevMouseY = mouseY;
-  let currentLensX = mouseX;
-  let currentLensY = mouseY;
-  let targetMagneticOffsetX = 0;
-  let targetMagneticOffsetY = 0;
-  let magneticInfluence = 0; // 0 to 1
-
-  let isHovering = false;
-  let isHoveringViolet = false;
-  let hoveredCard = null;
-  let lastTime = performance.now();
-
-  // Pointer Listeners
   window.addEventListener("pointermove", (e) => {
-    container.classList.remove("is-hidden");
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+    const curX = e.clientX * dpr;
+    const curY = e.clientY * dpr;
+
+    if (prevMouseX < 0) {
+      prevMouseX = curX;
+      prevMouseY = curY;
+    }
+
+    const vx = curX - prevMouseX;
+    const vy = curY - prevMouseY;
+    const speed = Math.hypot(vx, vy);
+
+    if (speed > 1.5) {
+      points.push({
+        x: curX,
+        y: curY,
+        vx: vx,
+        vy: vy,
+        speed: speed,
+        age: 0,
+        birth: performance.now(),
+        noiseOffset: (Math.random() - 0.5) * 6 * dpr
+      });
+      prevMouseX = curX;
+      prevMouseY = curY;
+    }
+
+    mouseX = curX;
+    mouseY = curY;
+    isMoving = true;
+    clearTimeout(moveTimeout);
+    moveTimeout = setTimeout(() => { isMoving = false; }, 100);
   }, { passive: true });
 
-  window.addEventListener("pointerdown", () => {
-    lens.classList.add("is-down");
-  }, { passive: true });
-
-  window.addEventListener("pointerup", () => {
-    lens.classList.remove("is-down");
-  }, { passive: true });
-
-  document.documentElement.addEventListener("mouseleave", () => {
-    container.classList.add("is-hidden");
-  });
-
-  document.documentElement.addEventListener("mouseenter", () => {
-    container.classList.remove("is-hidden");
-  });
-
-  // Magnetic & 3D Tilt Setup on 8 Pillar Cards and Buttons
-  function bindInteractiveElements() {
+  // 3D Tilt on Pillar Cards
+  function bindPillarCards() {
     const cards = document.querySelectorAll(".naigc-holo-projection");
     cards.forEach((card) => {
-      if (card.dataset.lusionBound) return;
-      card.dataset.lusionBound = "true";
+      if (card.dataset.tiltBound) return;
+      card.dataset.tiltBound = "true";
 
       card.addEventListener("pointerenter", () => {
-        isHovering = true;
-        hoveredCard = card;
         card.classList.add("is-card-tilted");
-        isHoveringViolet = card.classList.contains("naigc-theme-violet");
-
-        lens.classList.add("is-hovering");
-        if (isHoveringViolet) {
-          lens.classList.add("is-hovering-violet");
-        } else {
-          lens.classList.remove("is-hovering-violet");
-        }
-        dot.classList.add("is-hovering");
-        lensText.textContent = "EXPLORE";
       });
 
       card.addEventListener("pointermove", (e) => {
         const rect = card.getBoundingClientRect();
         const cardCenterX = rect.left + rect.width / 2;
         const cardCenterY = rect.top + rect.height / 2;
-        
-        // Offset from center (-1 to +1)
         const normX = (e.clientX - cardCenterX) / (rect.width / 2);
         const normY = (e.clientY - cardCenterY) / (rect.height / 2);
-
-        // 3D Tilt calculation (max 10 degrees)
-        const tiltX = -normY * 8.5;
-        const tiltY = normX * 8.5;
+        const tiltX = -normY * 7;
+        const tiltY = normX * 7;
         card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateZ(12px)`;
-
-        // Magnetic Attraction Pull
-        targetMagneticOffsetX = (cardCenterX - e.clientX) * 0.22;
-        targetMagneticOffsetY = (cardCenterY - e.clientY) * 0.22;
-        magneticInfluence = 0.55;
       });
 
       card.addEventListener("pointerleave", () => {
-        isHovering = false;
-        hoveredCard = null;
         card.classList.remove("is-card-tilted");
         card.style.transform = "";
-
-        targetMagneticOffsetX = 0;
-        targetMagneticOffsetY = 0;
-        magneticInfluence = 0;
-
-        lens.classList.remove("is-hovering", "is-hovering-violet");
-        dot.classList.remove("is-hovering");
-      });
-    });
-
-    // General Buttons (CTA, nav buttons)
-    const buttons = document.querySelectorAll(".mq4-btn, button:not(.naigc-holo-projection), a.header-menu-link");
-    buttons.forEach((btn) => {
-      if (btn.dataset.lusionBound) return;
-      btn.dataset.lusionBound = "true";
-
-      btn.addEventListener("pointerenter", () => {
-        isHovering = true;
-        lens.classList.add("is-hovering");
-        dot.classList.add("is-hovering");
-        lensText.textContent = "SELECT";
-      });
-
-      btn.addEventListener("pointermove", (e) => {
-        const rect = btn.getBoundingClientRect();
-        const btnCenterX = rect.left + rect.width / 2;
-        const btnCenterY = rect.top + rect.height / 2;
-        targetMagneticOffsetX = (btnCenterX - e.clientX) * 0.32;
-        targetMagneticOffsetY = (btnCenterY - e.clientY) * 0.32;
-        magneticInfluence = 0.7;
-      });
-
-      btn.addEventListener("pointerleave", () => {
-        isHovering = false;
-        targetMagneticOffsetX = 0;
-        targetMagneticOffsetY = 0;
-        magneticInfluence = 0;
-        lens.classList.remove("is-hovering");
-        dot.classList.remove("is-hovering");
       });
     });
   }
+  bindPillarCards();
+  const obs = new MutationObserver(bindPillarCards);
+  obs.observe(document.body, { childList: true, subtree: true });
 
-  bindInteractiveElements();
-  const observer = new MutationObserver(bindInteractiveElements);
-  observer.observe(document.body, { childList: true, subtree: true });
-
-  // Main 60-120FPS Lusion Render Loop
-  let currentAngle = 0;
-  let targetAngle = 0;
-  let currentStretchX = 1;
-  let currentStretchY = 1;
-
-  function render(time) {
-    let dt = Math.min((time - lastTime) / 1000, 0.033);
-    if (dt <= 0) dt = 0.016;
-    lastTime = time;
-
-    // Calculate Mouse Velocity
-    let vx = mouseX - prevMouseX;
-    let vy = mouseY - prevMouseY;
-    let speed = Math.hypot(vx, vy);
-    prevMouseX = mouseX;
-    prevMouseY = mouseY;
-
-    // Desired destination with magnetic pull
-    let targetX = mouseX + targetMagneticOffsetX * magneticInfluence;
-    let targetY = mouseY + targetMagneticOffsetY * magneticInfluence;
-
-    // Second-order physics update for lens position
-    currentLensX = lensDynX.update(dt, targetX);
-    currentLensY = lensDynY.update(dt, targetY);
-
-    // Direction & Dynamic Arrow Rotation (Lusion Signature)
-    if (speed > 1.2) {
-      targetAngle = Math.atan2(vy, vx) * (180 / Math.PI);
-    }
-    // Smooth angle interpolation avoiding wrap-around glitches
-    let angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
-    currentAngle += angleDiff * Math.min(dt * 18, 1);
-    let smoothedAngle = arrowDynRot.update(dt, currentAngle);
-
-    // Dynamic Velocity Stretching (Elastic deformation)
-    if (speed > 1.5 && !isHovering) {
-      let stretchFactor = Math.min(speed * 0.035, 0.6);
-      currentStretchX += (1 + stretchFactor - currentStretchX) * Math.min(dt * 20, 1);
-      currentStretchY += (1 / (1 + stretchFactor * 0.7) - currentStretchY) * Math.min(dt * 20, 1);
-    } else {
-      currentStretchX += (1 - currentStretchX) * Math.min(dt * 15, 1);
-      currentStretchY += (1 - currentStretchY) * Math.min(dt * 15, 1);
-    }
-
-    // Apply GPU-accelerated transforms
-    lens.style.transform = `translate3d(${currentLensX.toFixed(2)}px, ${currentLensY.toFixed(2)}px, 0) rotate(${currentAngle.toFixed(2)}deg) scale(${currentStretchX.toFixed(3)}, ${currentStretchY.toFixed(3)})`;
-    
-    // Lens Arrow Counter-rotates or rotates to movement heading
-    lensArrow.style.transform = `rotate(${(smoothedAngle - currentAngle).toFixed(2)}deg)`;
-
-    // Precision Dot
-    dot.style.transform = `translate3d(${mouseX.toFixed(1)}px, ${mouseY.toFixed(1)}px, 0)`;
-
+  // 60-120FPS Render Loop: Liquid Chromatic Spline Trail
+  function render(now) {
     requestAnimationFrame(render);
+
+    // Prune expired points
+    while (points.length > 0 && (now - points[0].birth) > TRAIL_LIFETIME) {
+      points.shift();
+    }
+
+    ctx.clearRect(0, 0, width, height);
+
+    if (points.length < 3) return;
+
+    // Multi-pass Chromatic Aberration Drawing
+    // Pass 1: Magenta / Violet Fringe (+offset)
+    // Pass 2: Cyan / Ice-Blue Fringe (-offset)
+    // Pass 3: Radiant Liquid White Core
+    const passes = [
+      { color: "rgba(255, 45, 160, ", shift: 3.5 * dpr, blur: 16 * dpr },
+      { color: "rgba(0, 235, 255, ", shift: -3.5 * dpr, blur: 14 * dpr },
+      { color: "rgba(255, 255, 255, ", shift: 0, blur: 6 * dpr }
+    ];
+
+    passes.forEach((p) => {
+      ctx.save();
+      ctx.shadowBlur = p.blur;
+      ctx.shadowColor = p.color + "0.6)";
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      for (let i = 1; i < points.length; i++) {
+        const p0 = points[i - 1];
+        const p1 = points[i];
+
+        const progress0 = Math.max(0, 1 - (now - p0.birth) / TRAIL_LIFETIME);
+        const progress1 = Math.max(0, 1 - (now - p1.birth) / TRAIL_LIFETIME);
+        const alpha = Math.min(progress0, progress1) * 0.85;
+
+        if (alpha <= 0.01) continue;
+
+        // Compute normal vector for chromatic shift & curl
+        const dx = p1.x - p0.x;
+        const dy = p1.y - p0.y;
+        const len = Math.hypot(dx, dy) || 1;
+        const nx = -dy / len;
+        const ny = dx / len;
+
+        // Dynamic width: fluid taper based on age and speed
+        const w0 = Math.max(3 * dpr, BASE_WIDTH * Math.pow(progress0, 0.85) * Math.min(2.2, 0.8 + p0.speed * 0.025));
+        const w1 = Math.max(3 * dpr, BASE_WIDTH * Math.pow(progress1, 0.85) * Math.min(2.2, 0.8 + p1.speed * 0.025));
+        const avgWidth = (w0 + w1) * 0.5;
+
+        // Slight curl displacement over lifetime
+        const curlPhase = (now - p0.birth) * 0.005;
+        const curl = Math.sin(curlPhase) * p0.noiseOffset * (1 - progress0);
+
+        const x0 = p0.x + nx * (p.shift + curl);
+        const y0 = p0.y + ny * (p.shift + curl);
+        const x1 = p1.x + nx * (p.shift + curl);
+        const y1 = p1.y + ny * (p.shift + curl);
+
+        ctx.beginPath();
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y1);
+        ctx.lineWidth = p.shift === 0 ? avgWidth * 0.65 : avgWidth;
+        ctx.strokeStyle = p.color + (alpha * (p.shift === 0 ? 0.95 : 0.75)) + ")";
+        ctx.stroke();
+      }
+      ctx.restore();
+    });
   }
 
   requestAnimationFrame(render);
