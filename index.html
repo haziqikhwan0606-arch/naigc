@@ -352,24 +352,30 @@ body {
 }
 
 /* ==========================================================================
-   NAIGC — CINEMATIC HOLOGRAPHIC PROJECTION PANELS (CYBORG COMMAND CENTRE)
+   NAIGC — REBUILT CINEMATIC HOLOGRAPHIC PROJECTION PANELS
    ========================================================================== */
 
 :root {
-  /* NAIGC Visual Identity Palette */
+  /* NAIGC Official Holographic Palette */
   --naigc-cyan: #00D9FF;
+  --naigc-cyan-dim: rgba(0, 217, 255, 0.45);
+  --naigc-cyan-glow: rgba(0, 217, 255, 0.32);
+  --naigc-cyan-bloom: rgba(0, 217, 255, 0.75);
+
   --naigc-blue-deep: #063B78;
   --naigc-navy-midnight: #020B20;
+  
   --naigc-violet: #A855F7;
+  --naigc-violet-dim: rgba(168, 85, 247, 0.45);
+  --naigc-violet-glow: rgba(168, 85, 247, 0.32);
+  --naigc-violet-bloom: rgba(168, 85, 247, 0.75);
+
   --naigc-ice-blue: #C9F5FF;
   --naigc-white: #FFFFFF;
   --naigc-desc: #A5BDCF;
 
-  /* Holographic Surface Layers */
-  --naigc-holo-bg: linear-gradient(135deg, rgba(2, 11, 32, 0.78) 0%, rgba(6, 30, 68, 0.65) 100%);
-  --naigc-holo-bg-hover: linear-gradient(135deg, rgba(3, 16, 44, 0.88) 0%, rgba(8, 42, 92, 0.76) 100%);
-  --naigc-holo-border: rgba(0, 217, 255, 0.38);
-  --naigc-holo-border-hover: rgba(0, 217, 255, 0.75);
+  /* Layered Surface */
+  --naigc-surface-bg: linear-gradient(135deg, rgba(2, 11, 32, 0.90) 0%, rgba(4, 22, 54, 0.80) 50%, rgba(2, 8, 24, 0.94) 100%);
 }
 
 /* Malaysian Skyline Background on Stage (STRICTLY LOCKED) */
@@ -431,7 +437,7 @@ body {
 /* 8 Pillars Overall Grid Container */
 .naigc-pillars-container {
   display: grid;
-  grid-template-columns: minmax(360px, 420px) 1fr minmax(360px, 420px);
+  grid-template-columns: minmax(370px, 435px) 1fr minmax(370px, 435px);
   width: 100%;
   max-width: 1540px;
   height: calc(100vh - 120px);
@@ -444,252 +450,372 @@ body {
   z-index: 12;
 }
 
-/* Left & Right Columns with 3D Perspective Curvature */
+/* Left & Right Columns */
 .naigc-pillars-col {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.25rem;
   pointer-events: auto;
   z-index: 15;
 }
 
 .naigc-pillars-center {
-  min-width: 200px;
+  min-width: 180px;
   pointer-events: none;
 }
 
 /* ==========================================================================
-   FLOATING HOLOGRAPHIC PROJECTION PANELS
+   LAYER 1 & 2: ANGULAR HOLOGRAPHIC PROJECTION SHELL
    ========================================================================== */
 
-.naigc-holo-panel {
+.naigc-holo-projection {
   position: relative;
   display: flex;
   align-items: center;
   text-decoration: none;
   box-sizing: border-box;
   width: 100%;
-  max-width: 420px;
-  height: 94px;
-  border-radius: 12px;
-  border: 1px solid var(--naigc-holo-border);
-  background: var(--naigc-holo-bg);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 
-    0 10px 32px rgba(2, 11, 32, 0.55),
-    0 0 20px rgba(0, 217, 255, 0.15),
-    inset 0 1px 0 rgba(201, 245, 255, 0.28),
-    inset 0 0 16px rgba(0, 217, 255, 0.08);
+  max-width: 435px;
+  height: 96px;
   cursor: pointer;
-  overflow: hidden;
-  transition: 
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    background 0.35s ease,
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
 }
 
-/* 3D Command-Centre Perspective Curvature */
-.naigc-panel-left {
-  transform: perspective(1000px) rotateY(4deg);
+/* Spatial 3D Command-Centre Perspective Suspended in Space */
+.naigc-proj-left {
+  transform: perspective(1000px) rotateY(6deg) rotateX(1deg);
   transform-origin: right center;
 }
 
-.naigc-panel-right {
-  transform: perspective(1000px) rotateY(-4deg);
+.naigc-proj-right {
+  transform: perspective(1000px) rotateY(-6deg) rotateX(1deg);
   transform-origin: left center;
 }
 
-/* Holographic Micro-Grid & Scanline Texture Overlay */
-.naigc-holo-panel::before {
-  content: "";
+/* Staggered Spatial Depths */
+.naigc-pillars-col a:nth-child(1) { transform: perspective(1000px) rotateY(6deg) translateZ(-6px); }
+.naigc-pillars-col a:nth-child(2) { transform: perspective(1000px) rotateY(6deg) translateZ(10px); }
+.naigc-pillars-col a:nth-child(3) { transform: perspective(1000px) rotateY(6deg) translateZ(14px); }
+.naigc-pillars-col a:nth-child(4) { transform: perspective(1000px) rotateY(6deg) translateZ(-2px); }
+
+.naigc-pillars-right a:nth-child(1) { transform: perspective(1000px) rotateY(-6deg) translateZ(-6px); }
+.naigc-pillars-right a:nth-child(2) { transform: perspective(1000px) rotateY(-6deg) translateZ(10px); }
+.naigc-pillars-right a:nth-child(3) { transform: perspective(1000px) rotateY(-6deg) translateZ(14px); }
+.naigc-pillars-right a:nth-child(4) { transform: perspective(1000px) rotateY(-6deg) translateZ(-2px); }
+
+/* Floating Offset Secondary Frame */
+.naigc-offset-frame {
   position: absolute;
-  inset: 0;
-  background-image: 
-    repeating-linear-gradient(0deg, rgba(0, 217, 255, 0.035) 0px, rgba(0, 217, 255, 0.035) 1px, transparent 1px, transparent 4px),
-    radial-gradient(ellipse at 50% 0%, rgba(0, 217, 255, 0.14), transparent 75%);
+  inset: -6px -8px;
   pointer-events: none;
   z-index: 2;
-  opacity: 0.85;
-  transition: opacity 0.3s ease;
-}
-
-/* Holographic Laser Travelling Sheen on Hover */
-.naigc-holo-sheen {
-  position: absolute;
-  top: 0;
-  left: -130%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.18), rgba(255, 255, 255, 0.25), transparent);
-  transform: skewX(-22deg);
-  pointer-events: none;
-  z-index: 4;
-}
-
-.naigc-holo-panel:hover .naigc-holo-sheen {
-  left: 175%;
-  transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Holographic Corner Anchor Brackets */
-.naigc-holo-corner {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  pointer-events: none;
-  z-index: 5;
   transition: all 0.3s ease;
 }
 
-.naigc-corner-tl {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid var(--naigc-cyan);
-  border-left: 2px solid var(--naigc-cyan);
-  border-top-left-radius: 4px;
+.naigc-tech-bracket {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0.75;
+  transition: all 0.3s ease;
 }
 
-.naigc-corner-br {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid var(--naigc-cyan);
-  border-right: 2px solid var(--naigc-cyan);
-  border-bottom-right-radius: 4px;
+.naigc-theme-cyan .naigc-tech-bracket {
+  border-color: var(--naigc-cyan);
 }
 
-.naigc-holo-violet .naigc-corner-tl {
+.naigc-theme-violet .naigc-tech-bracket {
   border-color: var(--naigc-violet);
 }
 
-.naigc-holo-violet .naigc-corner-br {
-  border-color: var(--naigc-violet);
+.naigc-bracket-tl {
+  top: 0;
+  left: 0;
+  border-top: 2px solid;
+  border-left: 2px solid;
 }
 
-/* Hover Interaction: Floating Forward Dimensional Extrusion */
-.naigc-holo-panel:hover {
-  transform: perspective(1000px) rotateY(0deg) translateY(-4px) translateZ(10px);
-  background: var(--naigc-holo-bg-hover);
-  border-color: var(--naigc-holo-border-hover);
-  box-shadow: 
-    0 16px 44px rgba(2, 11, 32, 0.7),
-    0 0 28px rgba(0, 217, 255, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 0 20px rgba(0, 217, 255, 0.14);
+.naigc-bracket-bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
 }
 
-.naigc-holo-violet:hover {
-  border-color: rgba(168, 85, 247, 0.75);
-  box-shadow: 
-    0 16px 44px rgba(2, 11, 32, 0.7),
-    0 0 28px rgba(168, 85, 247, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 0 20px rgba(168, 85, 247, 0.14);
+.naigc-bracket-tr {
+  top: 0;
+  right: 0;
+  border-top: 2px solid;
+  border-right: 2px solid;
 }
 
-/* Panel Body Inner */
-.naigc-panel-body {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  height: 100%;
-  padding: 0.75rem 1.15rem;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 6;
+.naigc-bracket-br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+/* Micro-Interface Header Tag */
+.naigc-tech-grid-tag {
+  position: absolute;
+  top: -12px;
+  font-family: var(--mq4-font-pixel, monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+  opacity: 0.85;
+}
+
+.naigc-proj-left .naigc-tech-grid-tag {
+  left: 26px;
+}
+
+.naigc-proj-right .naigc-tech-grid-tag {
+  right: 26px;
+}
+
+.naigc-theme-cyan .naigc-tech-grid-tag {
+  color: var(--naigc-cyan);
+  text-shadow: 0 0 6px rgba(0, 217, 255, 0.6);
+}
+
+.naigc-theme-violet .naigc-tech-grid-tag {
+  color: var(--naigc-violet);
+  text-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
 }
 
 /* ==========================================================================
-   HOLOGRAPHIC COMPONENTS: ICON, BADGE, TYPOGRAPHY & ARROW
+   ANGULAR TRAPEZOIDAL / ASYMMETRIC POLYGON GEOMETRY
    ========================================================================== */
 
-/* Holographic Projection Icon Frame */
-.naigc-holo-icon {
+/* Outer Polygon Border Frame */
+.naigc-poly-border {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 1.5px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Left Panels Polygon: Cut corners on left, Tapered apex facing Cyborg on right */
+.naigc-proj-left .naigc-poly-border {
+  clip-path: polygon(
+    22px 0%, 
+    calc(100% - 28px) 0%, 
+    100% 50%, 
+    calc(100% - 28px) 100%, 
+    22px 100%, 
+    0% calc(100% - 22px), 
+    0% 22px
+  );
+}
+
+.naigc-proj-left .naigc-poly-surface {
+  clip-path: polygon(
+    21px 0%, 
+    calc(100% - 27px) 0%, 
+    99.2% 50%, 
+    calc(100% - 27px) 100%, 
+    21px 100%, 
+    0% calc(100% - 21px), 
+    0% 21px
+  );
+  padding: 0.75rem 2.2rem 0.75rem 1.15rem;
+}
+
+/* Right Panels Polygon: Cut corners on right, Tapered apex facing Cyborg on left */
+.naigc-proj-right .naigc-poly-border {
+  clip-path: polygon(
+    28px 0%, 
+    calc(100% - 22px) 0%, 
+    100% 22px, 
+    100% calc(100% - 22px), 
+    calc(100% - 22px) 100%, 
+    28px 100%, 
+    0% 50%
+  );
+}
+
+.naigc-proj-right .naigc-poly-surface {
+  clip-path: polygon(
+    27px 0%, 
+    calc(100% - 21px) 0%, 
+    100% 21px, 
+    100% calc(100% - 21px), 
+    calc(100% - 21px) 100%, 
+    27px 100%, 
+    0.8% 50%
+  );
+  padding: 0.75rem 1.15rem 0.75rem 2.2rem;
+}
+
+/* Border Gradient Illumination */
+.naigc-theme-cyan .naigc-poly-border {
+  background: linear-gradient(135deg, var(--naigc-cyan) 0%, rgba(6, 59, 120, 0.6) 45%, var(--naigc-cyan) 100%);
+  filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.35)) drop-shadow(0 0 22px rgba(0, 217, 255, 0.18));
+}
+
+.naigc-theme-violet .naigc-poly-border {
+  background: linear-gradient(135deg, var(--naigc-violet) 0%, rgba(6, 59, 120, 0.6) 45%, var(--naigc-violet) 100%);
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.35)) drop-shadow(0 0 22px rgba(168, 85, 247, 0.18));
+}
+
+/* Inner Display Surface */
+.naigc-poly-surface {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: var(--naigc-surface-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Internal Micro-Grid & Holographic Texture */
+.naigc-poly-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, rgba(0, 217, 255, 0.045) 0px, rgba(0, 217, 255, 0.045) 1px, transparent 1px, transparent 4px),
+    linear-gradient(90deg, rgba(0, 217, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 4px, 16px 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Vertical Scanning Beam Animation */
+.naigc-scan-beam {
+  position: absolute;
+  top: -40%;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: linear-gradient(180deg, transparent, rgba(0, 217, 255, 0.22), transparent);
+  pointer-events: none;
+  z-index: 2;
+  animation: naigc-scan-anim 4.2s infinite ease-in-out;
+}
+
+.naigc-theme-violet .naigc-scan-beam {
+  background: linear-gradient(180deg, transparent, rgba(168, 85, 247, 0.22), transparent);
+}
+
+@keyframes naigc-scan-anim {
+  0% { top: -40%; }
+  50% { top: 120%; }
+  100% { top: 120%; }
+}
+
+/* ==========================================================================
+   INTERNAL HOLOGRAPHIC COMPONENTS: BADGE, ICON, TEXT, ARROW
+   ========================================================================== */
+
+/* Pillar Number Badge */
+.naigc-badge-capsule {
+  position: absolute;
+  top: 7px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  border-radius: 2px;
+  z-index: 5;
+}
+
+.naigc-proj-left .naigc-badge-capsule {
+  left: 14px;
+}
+
+.naigc-proj-right .naigc-badge-capsule {
+  right: 14px;
+}
+
+.naigc-theme-cyan .naigc-badge-capsule {
+  background: rgba(0, 217, 255, 0.16);
+  border: 1px solid rgba(0, 217, 255, 0.5);
+  box-shadow: 0 0 8px rgba(0, 217, 255, 0.35);
+  color: var(--naigc-cyan);
+}
+
+.naigc-theme-violet .naigc-badge-capsule {
+  background: rgba(168, 85, 247, 0.16);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.35);
+  color: var(--naigc-violet);
+}
+
+.naigc-badge-num {
+  font-family: var(--mq4-font-pixel, monospace);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+
+.naigc-badge-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 4px currentColor;
+}
+
+/* Faceted Hexagonal Icon Chamber */
+.naigc-icon-chamber {
   width: 50px;
   height: 50px;
   min-width: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  background: radial-gradient(circle at center, rgba(0, 217, 255, 0.22) 0%, rgba(2, 11, 32, 0.75) 75%);
-  border: 1px solid rgba(0, 217, 255, 0.4);
-  box-shadow: 0 0 14px rgba(0, 217, 255, 0.22), inset 0 0 8px rgba(0, 217, 255, 0.15);
-  color: var(--naigc-cyan);
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  position: relative;
+  z-index: 5;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.naigc-holo-violet .naigc-holo-icon {
-  background: radial-gradient(circle at center, rgba(168, 85, 247, 0.22) 0%, rgba(2, 11, 32, 0.75) 75%);
-  border-color: rgba(168, 85, 247, 0.4);
-  box-shadow: 0 0 14px rgba(168, 85, 247, 0.22), inset 0 0 8px rgba(168, 85, 247, 0.15);
+.naigc-theme-cyan .naigc-icon-chamber {
+  background: radial-gradient(circle at center, rgba(0, 217, 255, 0.28) 0%, rgba(2, 11, 32, 0.88) 75%);
+  border: 1px solid rgba(0, 217, 255, 0.5);
+  box-shadow: 0 0 14px rgba(0, 217, 255, 0.28);
+  color: var(--naigc-cyan);
+}
+
+.naigc-theme-violet .naigc-icon-chamber {
+  background: radial-gradient(circle at center, rgba(168, 85, 247, 0.28) 0%, rgba(2, 11, 32, 0.88) 75%);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.28);
   color: var(--naigc-violet);
 }
 
-.naigc-holo-panel:hover .naigc-holo-icon {
-  transform: scale(1.06);
-  border-color: currentColor;
-  box-shadow: 0 0 22px currentColor;
-}
-
-.naigc-holo-icon svg {
-  width: 24px;
-  height: 24px;
+.naigc-icon-chamber svg {
+  width: 23px;
+  height: 23px;
   filter: drop-shadow(0 0 6px currentColor);
 }
 
-/* Panel Info Container */
-.naigc-panel-info {
+/* Typography Body */
+.naigc-poly-content {
   display: flex;
   flex-direction: column;
-  gap: 0.22rem;
+  gap: 0.25rem;
   flex: 1;
   min-width: 0;
+  z-index: 5;
 }
 
-/* Header: Badge + Title */
-.naigc-panel-header {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-}
-
-/* Holographic Pillar Number Badge */
-.naigc-holo-badge {
-  font-family: var(--mq4-font-pixel, "Orbitron", monospace);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  padding: 1.5px 7px;
-  border-radius: 4px;
-  line-height: 1.25;
-  background: rgba(0, 217, 255, 0.14);
-  color: var(--naigc-cyan);
-  border: 1px solid rgba(0, 217, 255, 0.45);
-  box-shadow: 0 0 10px rgba(0, 217, 255, 0.28);
-  transition: all 0.25s ease;
-}
-
-.naigc-holo-violet .naigc-holo-badge {
-  background: rgba(168, 85, 247, 0.14);
-  color: var(--naigc-violet);
-  border-color: rgba(168, 85, 247, 0.45);
-  box-shadow: 0 0 10px rgba(168, 85, 247, 0.28);
-}
-
-.naigc-holo-panel:hover .naigc-holo-badge {
-  box-shadow: 0 0 14px currentColor;
-}
-
-/* Title */
-.naigc-holo-title {
+.naigc-poly-title {
   margin: 0;
   font-family: var(--mq4-font, system-ui, sans-serif);
   color: var(--naigc-white);
   font-size: 0.90rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.04em;
   line-height: 1.25;
   text-transform: uppercase;
@@ -700,12 +826,11 @@ body {
   transition: color 0.25s ease;
 }
 
-.naigc-holo-violet .naigc-holo-title {
+.naigc-theme-violet .naigc-poly-title {
   text-shadow: 0 0 10px rgba(168, 85, 247, 0.45);
 }
 
-/* Description */
-.naigc-holo-desc {
+.naigc-poly-desc {
   margin: 0;
   color: var(--naigc-desc);
   font-size: 0.74rem;
@@ -716,42 +841,76 @@ body {
   transition: color 0.25s ease;
 }
 
-.naigc-holo-panel:hover .naigc-holo-desc {
-  color: var(--naigc-ice-blue);
-}
-
-/* Subtle Directional Arrow Indicator */
-.naigc-holo-indicator {
+/* Subtle Directional Arrow Readout */
+.naigc-holo-readout {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 800;
   color: var(--naigc-cyan);
   opacity: 0.35;
-  transform: translateX(0);
+  z-index: 5;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  margin-left: 0.25rem;
 }
 
-.naigc-holo-violet .naigc-holo-indicator {
+.naigc-theme-violet .naigc-holo-readout {
   color: var(--naigc-violet);
 }
 
-.naigc-holo-indicator svg {
-  width: 18px;
-  height: 18px;
+/* ==========================================================================
+   HOVER & INTERACTION (DIMENSIONAL SUSPENDED FLOAT)
+   ========================================================================== */
+
+.naigc-holo-projection:hover {
+  transform: perspective(1000px) rotateY(0deg) translateZ(28px) translateY(-4px) !important;
 }
 
-.naigc-holo-panel:hover .naigc-holo-indicator {
+.naigc-theme-cyan:hover .naigc-poly-border {
+  background: linear-gradient(135deg, #00D9FF 0%, #38BDF8 50%, #00D9FF 100%);
+  filter: drop-shadow(0 0 16px rgba(0, 217, 255, 0.65)) drop-shadow(0 0 32px rgba(0, 217, 255, 0.35));
+}
+
+.naigc-theme-violet:hover .naigc-poly-border {
+  background: linear-gradient(135deg, #C084FC 0%, #E879F9 50%, #C084FC 100%);
+  filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.65)) drop-shadow(0 0 32px rgba(168, 85, 247, 0.35));
+}
+
+.naigc-holo-projection:hover .naigc-poly-surface {
+  background: linear-gradient(135deg, rgba(3, 16, 45, 0.94) 0%, rgba(6, 32, 75, 0.88) 50%, rgba(3, 12, 34, 0.96) 100%);
+}
+
+.naigc-holo-projection:hover .naigc-offset-frame {
+  inset: -8px -11px;
+}
+
+.naigc-holo-projection:hover .naigc-icon-chamber {
+  transform: scale(1.08);
+}
+
+.naigc-theme-cyan:hover .naigc-icon-chamber {
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.7);
+}
+
+.naigc-theme-violet:hover .naigc-icon-chamber {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.7);
+}
+
+.naigc-holo-projection:hover .naigc-poly-desc {
+  color: var(--naigc-ice-blue);
+}
+
+.naigc-holo-projection:hover .naigc-holo-readout {
   opacity: 1;
   transform: translateX(4px);
-  filter: drop-shadow(0 0 6px currentColor);
+  filter: drop-shadow(0 0 8px currentColor);
 }
 
 /* ==========================================================================
-   HOLOGRAPHIC CONNECTIONS & ANIMATED DATA TRAVEL PULSES
+   ANIMATED HOLOGRAPHIC NEURAL LINK TO CENTRAL CYBORG
    ========================================================================== */
 
-.naigc-holo-link {
+.naigc-holo-neural-link {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -769,32 +928,30 @@ body {
   left: -32px;
 }
 
-/* Continuous Light Beam */
-.naigc-link-line {
+.naigc-link-track {
   display: block;
   width: 24px;
   height: 2px;
   background: linear-gradient(90deg, var(--naigc-cyan), rgba(0, 217, 255, 0.15));
   box-shadow: 0 0 8px rgba(0, 217, 255, 0.5);
   position: relative;
-  overflow: hidden;
 }
 
-.naigc-link-left .naigc-link-line {
+.naigc-link-left .naigc-link-track {
   background: linear-gradient(90deg, rgba(0, 217, 255, 0.15), var(--naigc-cyan)) !important;
 }
 
-.naigc-holo-violet .naigc-link-line {
+.naigc-theme-violet .naigc-link-track {
   background: linear-gradient(90deg, var(--naigc-violet), rgba(168, 85, 247, 0.15));
   box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
 }
 
-.naigc-holo-violet .naigc-link-left .naigc-link-line {
+.naigc-theme-violet .naigc-link-left .naigc-link-track {
   background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), var(--naigc-violet)) !important;
 }
 
-/* Animated Data Packet Pulse Travelling Along the Line */
-.naigc-link-pulse {
+/* Animated Data Flow Packet */
+.naigc-link-stream {
   position: absolute;
   top: -1px;
   width: 6px;
@@ -802,33 +959,33 @@ body {
   border-radius: 2px;
   background: #ffffff;
   box-shadow: 0 0 8px #00D9FF, 0 0 14px #00D9FF;
-  animation: naigc-data-pulse-right 2.2s infinite ease-in-out;
+  animation: naigc-pulse-r 2.2s infinite ease-in-out;
 }
 
-.naigc-link-left .naigc-link-pulse {
-  animation: naigc-data-pulse-left 2.2s infinite ease-in-out;
+.naigc-link-left .naigc-link-stream {
+  animation: naigc-pulse-l 2.2s infinite ease-in-out;
 }
 
-.naigc-holo-violet .naigc-link-pulse {
+.naigc-theme-violet .naigc-link-stream {
   box-shadow: 0 0 8px #A855F7, 0 0 14px #A855F7;
 }
 
-@keyframes naigc-data-pulse-right {
+@keyframes naigc-pulse-r {
   0% { left: 0%; opacity: 0; }
   25% { opacity: 1; }
   75% { opacity: 1; }
   100% { left: 100%; opacity: 0; }
 }
 
-@keyframes naigc-data-pulse-left {
+@keyframes naigc-pulse-l {
   0% { right: 0%; opacity: 0; }
   25% { opacity: 1; }
   75% { opacity: 1; }
   100% { right: 100%; opacity: 0; }
 }
 
-/* Connection Node Dot */
-.naigc-link-node {
+/* Terminal Node Dot */
+.naigc-link-terminal {
   display: block;
   width: 7px;
   height: 7px;
@@ -837,7 +994,7 @@ body {
   box-shadow: 0 0 10px var(--naigc-cyan), 0 0 18px var(--naigc-cyan);
 }
 
-.naigc-holo-violet .naigc-link-node {
+.naigc-theme-violet .naigc-link-terminal {
   box-shadow: 0 0 10px var(--naigc-violet), 0 0 18px var(--naigc-violet);
 }
 
@@ -850,26 +1007,26 @@ body {
     grid-template-columns: minmax(310px, 360px) 1fr minmax(310px, 360px);
     padding: 0 1rem;
   }
-  .naigc-holo-panel {
+  .naigc-holo-projection {
     height: 88px;
     transform: none !important;
   }
-  .naigc-holo-title {
+  .naigc-poly-title {
     font-size: 0.82rem;
   }
-  .naigc-holo-desc {
+  .naigc-poly-desc {
     font-size: 0.69rem;
   }
-  .naigc-holo-icon {
+  .naigc-icon-chamber {
     width: 44px;
     height: 44px;
     min-width: 44px;
   }
-  .naigc-holo-icon svg {
+  .naigc-icon-chamber svg {
     width: 21px;
     height: 21px;
   }
-  .naigc-holo-link {
+  .naigc-holo-neural-link {
     display: none;
   }
 }
@@ -893,35 +1050,36 @@ body {
   .naigc-pillars-center {
     display: none;
   }
-  .naigc-holo-panel {
-    height: 74px;
-    border-radius: 10px;
+  .naigc-holo-projection {
+    height: 76px;
     transform: none !important;
   }
-  .naigc-panel-body {
-    padding: 0.5rem 0.75rem;
+  .naigc-poly-surface {
+    padding: 0.5rem 0.75rem !important;
     gap: 0.65rem;
   }
-  .naigc-holo-badge {
-    font-size: 0.60rem;
-    padding: 1px 5px;
+  .naigc-badge-capsule {
+    top: 4px;
   }
-  .naigc-holo-icon {
+  .naigc-badge-num {
+    font-size: 0.58rem;
+  }
+  .naigc-icon-chamber {
     width: 36px;
     height: 36px;
     min-width: 36px;
   }
-  .naigc-holo-icon svg {
+  .naigc-icon-chamber svg {
     width: 18px;
     height: 18px;
   }
-  .naigc-holo-title {
+  .naigc-poly-title {
     font-size: 0.75rem;
   }
-  .naigc-holo-desc {
+  .naigc-poly-desc {
     display: none;
   }
-  .naigc-holo-indicator {
+  .naigc-holo-readout {
     display: none;
   }
 }
@@ -944,7 +1102,7 @@ body {
         gtag('config', window.gaMeasurementId);
     </script>
         
-        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust28" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust28" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust28" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust28" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust28" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust28" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust28" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust28"></script><style>
+        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust29" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust29" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust29" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust29" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust29" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust29" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust29" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust29"></script><style>
 .mq4-main,
 .mq4 .mq4-btn.mq4-book-cta,
 .mq4-snaps,
@@ -1035,7 +1193,7 @@ body {
 
 <script>
 (function() {
-  const pillarsMarkup = "<!-- 8 Pillars NAIGC Ecosystem — Cinematic Holographic Projection Panels -->\n<div id=\"naigc-pillars\" class=\"naigc-pillars-container\">\n  <!-- Left Column: Pillars 01 to 04 -->\n  <div class=\"naigc-pillars-col naigc-pillars-left\">\n    <!-- Pillar 01: Electric Cyan -->\n    <a href=\"#academy\" class=\"naigc-holo-panel naigc-panel-left naigc-holo-cyan\" data-pillar=\"1\">\n      <div class=\"naigc-holo-corner naigc-corner-tl\"></div>\n      <div class=\"naigc-holo-corner naigc-corner-br\"></div>\n      <div class=\"naigc-holo-sheen\"></div>\n      <div class=\"naigc-panel-body\">\n        <div class=\"naigc-holo-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M22 10v6M2 10l10-5 10 5-10 5z\"/>\n            <path d=\"M6 12v5c3 3 9 3 12 0v-5\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-panel-info\">\n          <div class=\"naigc-panel-header\">\n            <span class=\"naigc-holo-badge\">01</span>\n            <h3 class=\"naigc-holo-title\">AI ACADEMY</h3>\n          </div>\n          <p class=\"naigc-holo-desc\">Education, Training & Professional Development</p>\n        </div>\n        <div class=\"naigc-holo-indicator\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M5 12h14M12 5l7 7-7 7\"/>\n          </svg>\n        </div>\n      </div>\n      <div class=\"naigc-holo-link naigc-link-right\">\n        <span class=\"naigc-link-line\"></span>\n        <span class=\"naigc-link-pulse\"></span>\n        <span class=\"naigc-link-node\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 02: Holographic Violet -->\n    <a href=\"#creative-studio\" class=\"naigc-holo-panel naigc-panel-left naigc-holo-violet\" data-pillar=\"2\">\n      <div class=\"naigc-holo-corner naigc-corner-tl\"></div>\n      <div class=\"naigc-holo-corner naigc-corner-br\"></div>\n      <div class=\"naigc-holo-sheen\"></div>\n      <div class=\"naigc-panel-body\">\n        <div class=\"naigc-holo-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/>\n            <path d=\"m10 9 5 3-5 3z\"/>\n            <path d=\"M2 8h20\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-panel-info\">\n          <div class=\"naigc-panel-header\">\n            <span class=\"naigc-holo-badge\">02</span>\n            <h3 class=\"naigc-holo-title\">AI CREATIVE STUDIO</h3>\n          </div>\n          <p class=\"naigc-holo-desc\">AI Video, Media & Digital Content Production</p>\n        </div>\n        <div class=\"naigc-holo-indicator\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M5 12h14M12 5l7 7-7 7\"/>\n          </svg>\n        </div>\n      </div>\n      <div class=\"naigc-holo-link naigc-link-right\">\n        <span class=\"naigc-link-line\"></span>\n        <span class=\"naigc-link-pulse\"></span>\n        <span class=\"naigc-link-node\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 03: Electric Cyan -->\n    <a href=\"#workforce-talent\" class=\"naigc-holo-panel naigc-panel-left naigc-holo-cyan\" data-pillar=\"3\">\n      <div class=\"naigc-holo-corner naigc-corner-tl\"></div>\n      <div class=\"naigc-holo-corner naigc-corner-br\"></div>\n      <div class=\"naigc-holo-sheen\"></div>\n      <div class=\"naigc-panel-body\">\n        <div class=\"naigc-holo-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/>\n            <circle cx=\"9\" cy=\"7\" r=\"4\"/>\n            <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/>\n            <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-panel-info\">\n          <div class=\"naigc-panel-header\">\n            <span class=\"naigc-holo-badge\">03</span>\n            <h3 class=\"naigc-holo-title\">AI WORKFORCE & TALENT</h3>\n          </div>\n          <p class=\"naigc-holo-desc\">Talent Development, Certification & Placement</p>\n        </div>\n        <div class=\"naigc-holo-indicator\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M5 12h14M12 5l7 7-7 7\"/>\n          </svg>\n        </div>\n      </div>\n      <div class=\"naigc-holo-link naigc-link-right\">\n        <span class=\"naigc-link-line\"></span>\n        <span class=\"naigc-link-pulse\"></span>\n        <span class=\"naigc-link-node\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 04: Holographic Violet -->\n    <a href=\"#business-solutions\" class=\"naigc-holo-panel naigc-panel-left naigc-holo-violet\" data-pillar=\"4\">\n      <div class=\"naigc-holo-corner naigc-corner-tl\"></div>\n      <div class=\"naigc-holo-corner naigc-corner-br\"></div>\n      <div class=\"naigc-holo-sheen\"></div>\n      <div class=\"naigc-panel-body\">\n        <div class=\"naigc-holo-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M3 3v18h18\"/>\n            <path d=\"m19 9-5 5-4-4-3 3\"/>\n            <path d=\"M15 9h4v4\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-panel-info\">\n          <div class=\"naigc-panel-header\">\n            <span class=\"naigc-holo-badge\">04</span>\n            <h3 class=\"naigc-holo-title\">AI BUSINESS SOLUTIONS</h3>\n          </div>\n          <p class=\"naigc-holo-desc\">Business Automation, AI Implementation & Industry Solutions</p>\n        </div>\n        <div class=\"naigc-holo-indicator\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M5 12h14M12 5l7 7-7 7\"/>\n          </svg>\n        </div>\n      </div>\n      <div class=\"naigc-holo-link naigc-link-right\">\n        <span class=\"naigc-link-line\"></span>\n        <span class=\"naigc-link-pulse\"></span>\n        <span class=\"naigc-link-node\"></span>\n      </div>\n    </a>\n  </div>\n\n  <!-- Center Spacer for 3D Cyborg (Unchanged) -->\n  <div class=\"naigc-pillars-center\"></div>\n\n  <!-- Right Column: Pillars 05 to 08 -->\n  <div class=\"naigc-pillars-col naigc-pillars-right\">\n    <!-- Pillar 05: Electric Cyan -->\n    <a href=\"#enterprise-government\" class=\"naigc-holo-panel naigc-panel-right naigc-holo-cyan\" data-pillar=\"5\">\n      <div class=\"naigc-holo-link naigc-link-left\">\n        <span class=\"naigc-link-node\"></span>\n        <span class=\"naigc-link-pulse\"></span>\n        <span class=\"naigc-link-line\"></span>\n      </div>\n      <div class=\"naigc-holo-corner naigc-corner-tl\"></div>\n      <div class=\"naigc-holo-corner naigc-corner-br\"></div>\n      <div class=\"naigc-holo-sheen\"></div>\n      <div class=\"naigc-panel-body\">\n        <div class=\"naigc-holo-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 3 2 10h20z\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-panel-info\">\n          <div class=\"naigc-panel-header\">\n            <span class=\"naigc-holo-badge\">05</span>\n            <h3 class=\"naigc-holo-title\">AI ENTERPRISE & GOVT SOLUTIONS</h3>\n          </div>\n          <p class=\"naigc-holo-desc\">Enterprise & Public-Sector AI Projects</p>\n        </div>\n        <div class=\"naigc-holo-indicator\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M5 12h14M12 5l7 7-7 7\"/>\n          </svg>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 06: Holographic Violet -->\n    <a href=\"#entrepreneurship-opc\" class=\"naigc-holo-panel naigc-panel-right naigc-holo-violet\" data-pillar=\"6\">\n      <div class=\"naigc-holo-link naigc-link-left\">\n        <span class=\"naigc-link-node\"></span>\n        <span class=\"naigc-link-pulse\"></span>\n        <span class=\"naigc-link-line\"></span>\n      </div>\n      <div class=\"naigc-holo-corner naigc-corner-tl\"></div>\n      <div class=\"naigc-holo-corner naigc-corner-br\"></div>\n      <div class=\"naigc-holo-sheen\"></div>\n      <div class=\"naigc-panel-body\">\n        <div class=\"naigc-holo-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z\"/>\n            <path d=\"m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z\"/>\n            <path d=\"M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5\"/>\n            <path d=\"M12 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-panel-info\">\n          <div class=\"naigc-panel-header\">\n            <span class=\"naigc-holo-badge\">06</span>\n            <h3 class=\"naigc-holo-title\">AI ENTREPRENEURSHIP & OPC</h3>\n          </div>\n          <p class=\"naigc-holo-desc\">Startup Development, Commercialisation & One-Person Company (OPC)</p>\n        </div>\n        <div class=\"naigc-holo-indicator\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M5 12h14M12 5l7 7-7 7\"/>\n          </svg>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 07: Electric Cyan -->\n    <a href=\"#research-innovation\" class=\"naigc-holo-panel naigc-panel-right naigc-holo-cyan\" data-pillar=\"7\">\n      <div class=\"naigc-holo-link naigc-link-left\">\n        <span class=\"naigc-link-node\"></span>\n        <span class=\"naigc-link-pulse\"></span>\n        <span class=\"naigc-link-line\"></span>\n      </div>\n      <div class=\"naigc-holo-corner naigc-corner-tl\"></div>\n      <div class=\"naigc-holo-corner naigc-corner-br\"></div>\n      <div class=\"naigc-holo-sheen\"></div>\n      <div class=\"naigc-panel-body\">\n        <div class=\"naigc-holo-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M6 18h8M3 22h18M14 22a7 7 0 1 0-7-7h14\"/>\n            <circle cx=\"9\" cy=\"9\" r=\"2\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-panel-info\">\n          <div class=\"naigc-panel-header\">\n            <span class=\"naigc-holo-badge\">07</span>\n            <h3 class=\"naigc-holo-title\">AI RESEARCH & INNOVATION</h3>\n          </div>\n          <p class=\"naigc-holo-desc\">R&D, Applied Research, Intellectual Property & Commercialisation</p>\n        </div>\n        <div class=\"naigc-holo-indicator\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M5 12h14M12 5l7 7-7 7\"/>\n          </svg>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 08: Holographic Violet -->\n    <a href=\"#future-technology\" class=\"naigc-holo-panel naigc-panel-right naigc-holo-violet\" data-pillar=\"8\">\n      <div class=\"naigc-holo-link naigc-link-left\">\n        <span class=\"naigc-link-node\"></span>\n        <span class=\"naigc-link-pulse\"></span>\n        <span class=\"naigc-link-line\"></span>\n      </div>\n      <div class=\"naigc-holo-corner naigc-corner-tl\"></div>\n      <div class=\"naigc-holo-corner naigc-corner-br\"></div>\n      <div class=\"naigc-holo-sheen\"></div>\n      <div class=\"naigc-panel-body\">\n        <div class=\"naigc-holo-icon\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83\"/>\n            <circle cx=\"12\" cy=\"12\" r=\"3\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-panel-info\">\n          <div class=\"naigc-panel-header\">\n            <span class=\"naigc-holo-badge\">08</span>\n            <h3 class=\"naigc-holo-title\">AI FUTURE TECHNOLOGY</h3>\n          </div>\n          <p class=\"naigc-holo-desc\">Robotics, Automation, IoT & Emerging Technologies</p>\n        </div>\n        <div class=\"naigc-holo-indicator\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M5 12h14M12 5l7 7-7 7\"/>\n          </svg>\n        </div>\n      </div>\n    </a>\n  </div>\n</div>\n";
+  const pillarsMarkup = "<!-- 8 Pillars NAIGC Ecosystem — Dimensional Holographic Projection Panels -->\n<div id=\"naigc-pillars\" class=\"naigc-pillars-container\">\n  <!-- Left Column: Pillars 01 to 04 -->\n  <div class=\"naigc-pillars-col naigc-pillars-left\">\n    <!-- Pillar 01: Electric Cyan -->\n    <a href=\"#academy\" class=\"naigc-holo-projection naigc-proj-left naigc-theme-cyan\" data-pillar=\"1\">\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tl\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-bl\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.01</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">01</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M22 10v6M2 10l10-5 10 5-10 5z\"/>\n              <path d=\"M6 12v5c3 3 9 3 12 0v-5\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI ACADEMY</h3>\n            <p class=\"naigc-poly-desc\">Education, Training & Professional Development</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-holo-neural-link naigc-link-right\">\n        <span class=\"naigc-link-track\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-terminal\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 02: Holographic Violet -->\n    <a href=\"#creative-studio\" class=\"naigc-holo-projection naigc-proj-left naigc-theme-violet\" data-pillar=\"2\">\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tl\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-bl\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.02</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">02</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/>\n              <path d=\"m10 9 5 3-5 3z\"/>\n              <path d=\"M2 8h20\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI CREATIVE STUDIO</h3>\n            <p class=\"naigc-poly-desc\">AI Video, Media & Digital Content Production</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-holo-neural-link naigc-link-right\">\n        <span class=\"naigc-link-track\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-terminal\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 03: Electric Cyan -->\n    <a href=\"#workforce-talent\" class=\"naigc-holo-projection naigc-proj-left naigc-theme-cyan\" data-pillar=\"3\">\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tl\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-bl\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.03</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">03</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/>\n              <circle cx=\"9\" cy=\"7\" r=\"4\"/>\n              <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/>\n              <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI WORKFORCE & TALENT</h3>\n            <p class=\"naigc-poly-desc\">Talent Development, Certification & Placement</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-holo-neural-link naigc-link-right\">\n        <span class=\"naigc-link-track\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-terminal\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 04: Holographic Violet -->\n    <a href=\"#business-solutions\" class=\"naigc-holo-projection naigc-proj-left naigc-theme-violet\" data-pillar=\"4\">\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tl\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-bl\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.04</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">04</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M3 3v18h18\"/>\n              <path d=\"m19 9-5 5-4-4-3 3\"/>\n              <path d=\"M15 9h4v4\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI BUSINESS SOLUTIONS</h3>\n            <p class=\"naigc-poly-desc\">Business Automation, AI Implementation & Industry Solutions</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-holo-neural-link naigc-link-right\">\n        <span class=\"naigc-link-track\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-terminal\"></span>\n      </div>\n    </a>\n  </div>\n\n  <!-- Center Spacer for 3D Cyborg (STRICTLY LOCKED) -->\n  <div class=\"naigc-pillars-center\"></div>\n\n  <!-- Right Column: Pillars 05 to 08 -->\n  <div class=\"naigc-pillars-col naigc-pillars-right\">\n    <!-- Pillar 05: Electric Cyan -->\n    <a href=\"#enterprise-government\" class=\"naigc-holo-projection naigc-proj-right naigc-theme-cyan\" data-pillar=\"5\">\n      <div class=\"naigc-holo-neural-link naigc-link-left\">\n        <span class=\"naigc-link-terminal\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-track\"></span>\n      </div>\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tr\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-br\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.05</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">05</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 3 2 10h20z\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI ENTERPRISE & GOVT SOLUTIONS</h3>\n            <p class=\"naigc-poly-desc\">Enterprise & Public-Sector AI Projects</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 06: Holographic Violet -->\n    <a href=\"#entrepreneurship-opc\" class=\"naigc-holo-projection naigc-proj-right naigc-theme-violet\" data-pillar=\"6\">\n      <div class=\"naigc-holo-neural-link naigc-link-left\">\n        <span class=\"naigc-link-terminal\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-track\"></span>\n      </div>\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tr\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-br\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.06</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">06</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z\"/>\n              <path d=\"m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z\"/>\n              <path d=\"M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5\"/>\n              <path d=\"M12 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI ENTREPRENEURSHIP & OPC</h3>\n            <p class=\"naigc-poly-desc\">Startup Development, Commercialisation & One-Person Company (OPC)</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 07: Electric Cyan -->\n    <a href=\"#research-innovation\" class=\"naigc-holo-projection naigc-proj-right naigc-theme-cyan\" data-pillar=\"7\">\n      <div class=\"naigc-holo-neural-link naigc-link-left\">\n        <span class=\"naigc-link-terminal\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-track\"></span>\n      </div>\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tr\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-br\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.07</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">07</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M6 18h8M3 22h18M14 22a7 7 0 1 0-7-7h14\"/>\n              <circle cx=\"9\" cy=\"9\" r=\"2\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI RESEARCH & INNOVATION</h3>\n            <p class=\"naigc-poly-desc\">R&D, Applied Research, Intellectual Property & Commercialisation</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 08: Holographic Violet -->\n    <a href=\"#future-technology\" class=\"naigc-holo-projection naigc-proj-right naigc-theme-violet\" data-pillar=\"8\">\n      <div class=\"naigc-holo-neural-link naigc-link-left\">\n        <span class=\"naigc-link-terminal\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-track\"></span>\n      </div>\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tr\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-br\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.08</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">08</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83\"/>\n              <circle cx=\"12\" cy=\"12\" r=\"3\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI FUTURE TECHNOLOGY</h3>\n            <p class=\"naigc-poly-desc\">Robotics, Automation, IoT & Emerging Technologies</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n    </a>\n  </div>\n</div>\n";
   
   function mountEcosystem() {
     const introBody = document.querySelector('.mq4-intro__body');
