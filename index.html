@@ -249,16 +249,23 @@ body {
   }
 }
 
-/* 8 Pillars NAIGC Ecosystem Styles */
+/* NAIGC — 8 PILLARS REDESIGN: FUTURISTIC HOLOGRAPHIC PANELS ONLY */
+
 :root {
-  --naigc-cyan: #00e5ff;
-  --naigc-cyan-glow: rgba(0, 229, 255, 0.45);
-  --naigc-purple: #c084fc;
-  --naigc-purple-glow: rgba(192, 132, 252, 0.45);
-  --naigc-card-bg: linear-gradient(135deg, rgba(8, 20, 48, 0.88) 0%, rgba(3, 10, 28, 0.94) 100%);
+  --naigc-cyan-primary: #00D9FF;
+  --naigc-cyan-secondary: #008DFF;
+  --naigc-cyan-glow: rgba(0, 217, 255, 0.35);
+  --naigc-cyan-glow-strong: rgba(0, 217, 255, 0.65);
+
+  --naigc-purple-primary: #B66AFF;
+  --naigc-purple-secondary: #793DFF;
+  --naigc-purple-glow: rgba(182, 106, 255, 0.35);
+  --naigc-purple-glow-strong: rgba(182, 106, 255, 0.65);
+
+  --naigc-panel-bg: linear-gradient(135deg, rgba(6, 21, 43, 0.90) 0%, rgba(3, 12, 27, 0.95) 100%);
 }
 
-/* Malaysian Skyline Background on Stage */
+/* Malaysian Skyline Background on Stage (LOCKED) */
 .mq4-stage {
   background: 
     linear-gradient(180deg, rgba(2, 6, 23, 0.55) 0%, rgba(2, 6, 23, 0.15) 30%, rgba(2, 6, 23, 0.45) 75%, rgba(2, 6, 23, 0.95) 100%),
@@ -275,7 +282,7 @@ body {
   display: none !important;
 }
 
-/* Position Intro Container to allow 8 Pillars full stage coverage */
+/* Intro Layout */
 .mq4-intro {
   display: flex !important;
   flex-direction: column !important;
@@ -288,7 +295,7 @@ body {
   width: 100% !important;
 }
 
-/* Title at top center */
+/* Title at top center (LOCKED) */
 .mq4-intro .mq4-title {
   margin: 0 auto !important;
   text-align: center !important;
@@ -296,7 +303,7 @@ body {
   width: 100% !important;
   max-width: 32em !important;
   color: #ffffff !important;
-  text-shadow: 0 0 20px rgba(0, 229, 255, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+  text-shadow: 0 0 20px rgba(0, 217, 255, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8) !important;
   letter-spacing: -0.01em !important;
   z-index: 10 !important;
   padding-top: 0.5rem !important;
@@ -314,14 +321,14 @@ body {
   position: relative !important;
 }
 
-/* 8 Pillars Container */
+/* 8 Pillars Overall Grid Container */
 .naigc-pillars-container {
   display: grid;
-  grid-template-columns: minmax(280px, 350px) 1fr minmax(280px, 350px);
+  grid-template-columns: minmax(350px, 410px) 1fr minmax(350px, 410px);
   width: 100%;
-  max-width: 1440px;
+  max-width: 1480px;
   height: calc(100vh - 120px);
-  max-height: 760px;
+  max-height: 780px;
   margin: 0 auto;
   align-items: center;
   pointer-events: none;
@@ -340,152 +347,308 @@ body {
 }
 
 .naigc-pillars-center {
-  min-width: 200px;
+  min-width: 220px;
   pointer-events: none;
 }
 
-/* Individual Pillar Card */
-.naigc-pillar-card {
+/* ==========================================================================
+   HOLOGRAPHIC SCI-FI PANEL CARDS (REDESIGNED)
+   ========================================================================== */
+
+.naigc-holo-card {
   position: relative;
   display: flex;
   align-items: center;
   text-decoration: none;
-  background: var(--naigc-card-bg);
-  border-radius: 12px;
-  padding: 0.75rem 1rem;
   box-sizing: border-box;
+  width: 100%;
+  max-width: 410px;
+  height: 92px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
+}
+
+/* Number Badge: Positioned overlapping the upper edge */
+.naigc-pillar-badge {
+  position: absolute;
+  top: -9px;
+  left: 28px;
+  z-index: 25;
+  padding: 2px 10px;
+  font-family: var(--mq4-font-pixel, monospace);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border-radius: 4px;
+  line-height: 1.25;
+  transition: all 0.3s ease;
+}
+
+/* Outer Border Frame with Angular Chamfered Geometry */
+.naigc-holo-border {
+  width: 100%;
+  height: 100%;
+  padding: 1.5px; /* Precision 1.5px luminous border outline */
+  box-sizing: border-box;
+  clip-path: polygon(
+    14px 0, 
+    calc(100% - 14px) 0, 
+    100% 14px, 
+    100% calc(100% - 14px), 
+    calc(100% - 14px) 100%, 
+    14px 100%, 
+    0 calc(100% - 14px), 
+    0 14px
+  );
+  transition: all 0.3s ease;
+}
+
+/* Inner Translucent Dark Glass Surface */
+.naigc-holo-surface {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: var(--naigc-panel-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
-  cursor: pointer;
-}
-
-/* Cyan Variant */
-.naigc-pillar-card.naigc-cyan {
-  border: 1.5px solid rgba(0, 229, 255, 0.45);
-  box-shadow: 0 0 16px rgba(0, 229, 255, 0.15), inset 0 0 10px rgba(0, 229, 255, 0.08);
-}
-
-.naigc-pillar-card.naigc-cyan:hover {
-  transform: translateY(-2px) scale(1.02);
-  border-color: #00f0ff;
-  box-shadow: 0 0 26px rgba(0, 240, 255, 0.55), inset 0 0 16px rgba(0, 240, 255, 0.2);
-}
-
-/* Purple Variant */
-.naigc-pillar-card.naigc-purple {
-  border: 1.5px solid rgba(192, 132, 252, 0.45);
-  box-shadow: 0 0 16px rgba(192, 132, 252, 0.15), inset 0 0 10px rgba(192, 132, 252, 0.08);
-}
-
-.naigc-pillar-card.naigc-purple:hover {
-  transform: translateY(-2px) scale(1.02);
-  border-color: #d8b4fe;
-  box-shadow: 0 0 26px rgba(192, 132, 252, 0.55), inset 0 0 16px rgba(192, 132, 252, 0.2);
-}
-
-.naigc-card-inner {
+  clip-path: polygon(
+    13px 0, 
+    calc(100% - 13px) 0, 
+    100% 13px, 
+    100% calc(100% - 13px), 
+    calc(100% - 13px) 100%, 
+    13px 100%, 
+    0 calc(100% - 13px), 
+    0 13px
+  );
+  padding: 0.75rem 1.15rem;
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  width: 100%;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Icon Box */
-.naigc-icon-wrap {
+/* Top highlight glass line */
+.naigc-holo-surface::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  pointer-events: none;
+}
+
+/* Moving light sheen on hover */
+.naigc-holo-surface::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
+}
+
+.naigc-holo-card:hover .naigc-holo-surface::after {
+  left: 170%;
+  transition: left 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ==========================================================================
+   COLOR SCHEMES: CYAN & VIOLET ALTERNATING
+   ========================================================================== */
+
+/* CYAN PANELS: 01, 03, 05, 07 */
+.naigc-cyan {
+  filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.28)) drop-shadow(0 0 20px rgba(0, 141, 255, 0.15));
+}
+
+.naigc-cyan .naigc-pillar-badge {
+  background: linear-gradient(135deg, var(--naigc-cyan-primary) 0%, var(--naigc-cyan-secondary) 100%);
+  color: #030e21;
+  box-shadow: 0 0 12px var(--naigc-cyan-glow-strong);
+}
+
+.naigc-cyan .naigc-holo-border {
+  background: linear-gradient(135deg, var(--naigc-cyan-primary) 0%, rgba(0, 141, 255, 0.45) 50%, var(--naigc-cyan-primary) 100%);
+}
+
+.naigc-cyan .naigc-icon-frame {
+  border: 1px solid rgba(0, 217, 255, 0.6);
+  color: var(--naigc-cyan-primary);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.28);
+}
+
+.naigc-cyan .naigc-card-title {
+  text-shadow: 0 0 12px rgba(0, 217, 255, 0.45);
+}
+
+.naigc-cyan .naigc-trace-beam {
+  background: linear-gradient(90deg, var(--naigc-cyan-primary), rgba(0, 217, 255, 0.2));
+  box-shadow: 0 0 8px var(--naigc-cyan-primary);
+}
+
+.naigc-trace-left .naigc-trace-beam {
+  background: linear-gradient(90deg, rgba(0, 217, 255, 0.2), var(--naigc-cyan-primary)) !important;
+}
+
+.naigc-cyan .naigc-trace-node {
+  background: #ffffff;
+  box-shadow: 0 0 10px var(--naigc-cyan-primary), 0 0 16px var(--naigc-cyan-primary);
+}
+
+/* VIOLET PANELS: 02, 04, 06, 08 */
+.naigc-purple {
+  filter: drop-shadow(0 0 10px rgba(182, 106, 255, 0.28)) drop-shadow(0 0 20px rgba(121, 61, 255, 0.15));
+}
+
+.naigc-purple .naigc-pillar-badge {
+  background: linear-gradient(135deg, var(--naigc-purple-primary) 0%, var(--naigc-purple-secondary) 100%);
+  color: #0d021f;
+  box-shadow: 0 0 12px var(--naigc-purple-glow-strong);
+}
+
+.naigc-purple .naigc-holo-border {
+  background: linear-gradient(135deg, var(--naigc-purple-primary) 0%, rgba(121, 61, 255, 0.45) 50%, var(--naigc-purple-primary) 100%);
+}
+
+.naigc-purple .naigc-icon-frame {
+  border: 1px solid rgba(182, 106, 255, 0.6);
+  color: var(--naigc-purple-primary);
+  box-shadow: 0 0 12px rgba(182, 106, 255, 0.28);
+}
+
+.naigc-purple .naigc-card-title {
+  text-shadow: 0 0 12px rgba(182, 106, 255, 0.45);
+}
+
+.naigc-purple .naigc-trace-beam {
+  background: linear-gradient(90deg, var(--naigc-purple-primary), rgba(182, 106, 255, 0.2));
+  box-shadow: 0 0 8px var(--naigc-purple-primary);
+}
+
+.naigc-purple .naigc-trace-left .naigc-trace-beam {
+  background: linear-gradient(90deg, rgba(182, 106, 255, 0.2), var(--naigc-purple-primary)) !important;
+}
+
+.naigc-purple .naigc-trace-node {
+  background: #ffffff;
+  box-shadow: 0 0 10px var(--naigc-purple-primary), 0 0 16px var(--naigc-purple-primary);
+}
+
+/* ==========================================================================
+   HOVER & INTERACTION EFFECTS
+   ========================================================================== */
+
+.naigc-holo-card:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.naigc-cyan:hover {
+  filter: drop-shadow(0 0 16px rgba(0, 217, 255, 0.58)) drop-shadow(0 0 32px rgba(0, 141, 255, 0.32));
+}
+
+.naigc-purple:hover {
+  filter: drop-shadow(0 0 16px rgba(182, 106, 255, 0.58)) drop-shadow(0 0 32px rgba(121, 61, 255, 0.32));
+}
+
+.naigc-holo-card:hover .naigc-holo-surface {
+  background: linear-gradient(135deg, rgba(8, 28, 58, 0.94) 0%, rgba(4, 16, 36, 0.98) 100%);
+}
+
+.naigc-holo-card:hover .naigc-icon-frame {
+  transform: scale(1.06);
+}
+
+.naigc-cyan:hover .naigc-icon-frame {
+  box-shadow: 0 0 18px rgba(0, 217, 255, 0.6);
+  border-color: #00D9FF;
+}
+
+.naigc-purple:hover .naigc-icon-frame {
+  box-shadow: 0 0 18px rgba(182, 106, 255, 0.6);
+  border-color: #B66AFF;
+}
+
+/* ==========================================================================
+   INTERNAL CARD COMPONENTS: ICON & TEXT
+   ========================================================================== */
+
+/* Icon Container: Angular Sci-Fi Frame */
+.naigc-icon-frame {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
-  border-radius: 10px;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: all 0.25s ease;
+  background: rgba(4, 15, 34, 0.85);
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.naigc-cyan .naigc-icon-wrap {
-  border-color: rgba(0, 229, 255, 0.4);
-  color: #00f0ff;
-  box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+.naigc-icon-frame svg {
+  width: 24px;
+  height: 24px;
 }
 
-.naigc-purple .naigc-icon-wrap {
-  border-color: rgba(192, 132, 252, 0.4);
-  color: #c084fc;
-  box-shadow: 0 0 10px rgba(192, 132, 252, 0.25);
-}
-
-.naigc-icon-wrap svg {
-  width: 22px;
-  height: 22px;
-}
-
-/* Text Info */
-.naigc-info-wrap {
+/* Typography Container */
+.naigc-text-block {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  overflow: hidden;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
 }
 
-.naigc-pillar-tag {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.naigc-badge {
-  font-family: var(--mq4-font-pixel, monospace);
-  font-size: 0.68rem;
+.naigc-card-title {
+  margin: 0;
+  font-family: var(--mq4-font, system-ui, sans-serif);
+  color: #FFFFFF;
+  font-size: 0.92rem;
   font-weight: 800;
-  padding: 1px 5px;
-  border-radius: 4px;
-  line-height: 1.2;
-}
-
-.naigc-cyan .naigc-badge {
-  background: rgba(0, 229, 255, 0.15);
-  color: #00f0ff;
-  border: 1px solid rgba(0, 229, 255, 0.6);
-}
-
-.naigc-purple .naigc-badge {
-  background: rgba(192, 132, 252, 0.15);
-  color: #c084fc;
-  border: 1px solid rgba(192, 132, 252, 0.6);
-}
-
-.naigc-title {
-  color: #ffffff;
-  font-size: 0.86rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  transition: color 0.25s ease;
 }
 
-.naigc-desc {
+.naigc-card-desc {
   margin: 0;
-  color: #94a3b8;
-  font-size: 0.72rem;
+  color: #94A3B8;
+  font-size: 0.74rem;
   line-height: 1.35;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: color 0.25s ease;
 }
 
-/* Connector Trace Lines */
-.naigc-trace {
+.naigc-holo-card:hover .naigc-card-desc {
+  color: #CBD5E1;
+}
+
+/* ==========================================================================
+   CONNECTING TRACE LINES & PULSE NODES
+   ========================================================================== */
+
+.naigc-trace-line {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
   pointer-events: none;
+  z-index: 10;
 }
 
 .naigc-trace-right {
@@ -496,40 +659,47 @@ body {
   left: -32px;
 }
 
-.naigc-trace-line {
+.naigc-trace-beam {
   display: block;
   width: 24px;
   height: 2px;
-  background: linear-gradient(90deg, #00e5ff, rgba(0, 229, 255, 0.2));
-  box-shadow: 0 0 6px #00e5ff;
 }
 
-.naigc-trace-left .naigc-trace-line {
-  background: linear-gradient(90deg, rgba(0, 229, 255, 0.2), #00e5ff);
-}
-
-.naigc-trace-dot {
+.naigc-trace-node {
   display: block;
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 8px #00e5ff, 0 0 14px #00e5ff;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1200px) {
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 1280px) {
   .naigc-pillars-container {
-    grid-template-columns: minmax(240px, 300px) 1fr minmax(240px, 300px);
+    grid-template-columns: minmax(310px, 360px) 1fr minmax(310px, 360px);
     padding: 0 1rem;
   }
-  .naigc-title {
-    font-size: 0.78rem;
+  .naigc-holo-card {
+    height: 86px;
   }
-  .naigc-desc {
-    font-size: 0.68rem;
+  .naigc-card-title {
+    font-size: 0.84rem;
   }
-  .naigc-trace {
+  .naigc-card-desc {
+    font-size: 0.70rem;
+  }
+  .naigc-icon-frame {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+  .naigc-icon-frame svg {
+    width: 20px;
+    height: 20px;
+  }
+  .naigc-trace-line {
     display: none;
   }
 }
@@ -553,19 +723,32 @@ body {
   .naigc-pillars-center {
     display: none;
   }
-  .naigc-pillar-card {
-    padding: 0.5rem 0.65rem;
+  .naigc-holo-card {
+    height: 76px;
   }
-  .naigc-icon-wrap {
-    width: 34px;
-    height: 34px;
-    min-width: 34px;
+  .naigc-holo-surface {
+    padding: 0.5rem 0.75rem;
+    gap: 0.6rem;
   }
-  .naigc-icon-wrap svg {
+  .naigc-pillar-badge {
+    top: -7px;
+    left: 18px;
+    font-size: 0.62rem;
+    padding: 1px 6px;
+  }
+  .naigc-icon-frame {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+  .naigc-icon-frame svg {
     width: 18px;
     height: 18px;
   }
-  .naigc-desc {
+  .naigc-card-title {
+    font-size: 0.75rem;
+  }
+  .naigc-card-desc {
     display: none;
   }
 }
@@ -588,7 +771,7 @@ body {
         gtag('config', window.gaMeasurementId);
     </script>
         
-        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust24" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust24" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust24" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust24" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust24" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust24" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust24" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust24"></script><style>
+        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust25" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust25" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust25" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust25" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust25" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust25" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust25" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust25"></script><style>
 .mq4-main,
 .mq4 .mq4-btn.mq4-book-cta,
 .mq4-snaps,
@@ -679,7 +862,7 @@ body {
 
 <script>
 (function() {
-  const pillarsMarkup = "<!-- 8 Pillars NAIGC Ecosystem Overlay -->\n<div id=\"naigc-pillars\" class=\"naigc-pillars-container\">\n  <!-- Left Column: Pillars 01 to 04 -->\n  <div class=\"naigc-pillars-col naigc-pillars-left\">\n    <!-- Pillar 01 -->\n    <a href=\"#academy\" class=\"naigc-pillar-card naigc-cyan\" data-pillar=\"1\">\n      <div class=\"naigc-card-inner\">\n        <div class=\"naigc-icon-wrap\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M22 10v6M2 10l10-5 10 5-10 5z\"/>\n            <path d=\"M6 12v5c3 3 9 3 12 0v-5\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-info-wrap\">\n          <div class=\"naigc-pillar-tag\">\n            <span class=\"naigc-badge\">01</span>\n            <span class=\"naigc-title\">AI ACADEMY</span>\n          </div>\n          <p class=\"naigc-desc\">Education, Training & Professional Development</p>\n        </div>\n      </div>\n      <div class=\"naigc-trace naigc-trace-right\">\n        <span class=\"naigc-trace-line\"></span>\n        <span class=\"naigc-trace-dot\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 02 -->\n    <a href=\"#creative-studio\" class=\"naigc-pillar-card naigc-purple\" data-pillar=\"2\">\n      <div class=\"naigc-card-inner\">\n        <div class=\"naigc-icon-wrap\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/>\n            <path d=\"m10 9 5 3-5 3z\"/>\n            <path d=\"M2 8h20\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-info-wrap\">\n          <div class=\"naigc-pillar-tag\">\n            <span class=\"naigc-badge\">02</span>\n            <span class=\"naigc-title\">AI CREATIVE STUDIO</span>\n          </div>\n          <p class=\"naigc-desc\">AI Video, Media & Digital Content Production</p>\n        </div>\n      </div>\n      <div class=\"naigc-trace naigc-trace-right\">\n        <span class=\"naigc-trace-line\"></span>\n        <span class=\"naigc-trace-dot\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 03 -->\n    <a href=\"#workforce-talent\" class=\"naigc-pillar-card naigc-cyan\" data-pillar=\"3\">\n      <div class=\"naigc-card-inner\">\n        <div class=\"naigc-icon-wrap\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/>\n            <circle cx=\"9\" cy=\"7\" r=\"4\"/>\n            <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/>\n            <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-info-wrap\">\n          <div class=\"naigc-pillar-tag\">\n            <span class=\"naigc-badge\">03</span>\n            <span class=\"naigc-title\">AI WORKFORCE & TALENT</span>\n          </div>\n          <p class=\"naigc-desc\">Talent Development, Certification & Placement</p>\n        </div>\n      </div>\n      <div class=\"naigc-trace naigc-trace-right\">\n        <span class=\"naigc-trace-line\"></span>\n        <span class=\"naigc-trace-dot\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 04 -->\n    <a href=\"#business-solutions\" class=\"naigc-pillar-card naigc-purple\" data-pillar=\"4\">\n      <div class=\"naigc-card-inner\">\n        <div class=\"naigc-icon-wrap\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M3 3v18h18\"/>\n            <path d=\"m19 9-5 5-4-4-3 3\"/>\n            <path d=\"M15 9h4v4\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-info-wrap\">\n          <div class=\"naigc-pillar-tag\">\n            <span class=\"naigc-badge\">04</span>\n            <span class=\"naigc-title\">AI BUSINESS SOLUTIONS</span>\n          </div>\n          <p class=\"naigc-desc\">Business Automation, AI Implementation & Industry Solutions</p>\n        </div>\n      </div>\n      <div class=\"naigc-trace naigc-trace-right\">\n        <span class=\"naigc-trace-line\"></span>\n        <span class=\"naigc-trace-dot\"></span>\n      </div>\n    </a>\n  </div>\n\n  <!-- Center Spacer for 3D Mascot Robot -->\n  <div class=\"naigc-pillars-center\"></div>\n\n  <!-- Right Column: Pillars 05 to 08 -->\n  <div class=\"naigc-pillars-col naigc-pillars-right\">\n    <!-- Pillar 05 -->\n    <a href=\"#enterprise-government\" class=\"naigc-pillar-card naigc-cyan\" data-pillar=\"5\">\n      <div class=\"naigc-trace naigc-trace-left\">\n        <span class=\"naigc-trace-dot\"></span>\n        <span class=\"naigc-trace-line\"></span>\n      </div>\n      <div class=\"naigc-card-inner\">\n        <div class=\"naigc-icon-wrap\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 3 2 10h20z\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-info-wrap\">\n          <div class=\"naigc-pillar-tag\">\n            <span class=\"naigc-badge\">05</span>\n            <span class=\"naigc-title\">AI ENTERPRISE & GOVT</span>\n          </div>\n          <p class=\"naigc-desc\">Enterprise & Public-Sector AI Projects</p>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 06 -->\n    <a href=\"#entrepreneurship-opc\" class=\"naigc-pillar-card naigc-purple\" data-pillar=\"6\">\n      <div class=\"naigc-trace naigc-trace-left\">\n        <span class=\"naigc-trace-dot\"></span>\n        <span class=\"naigc-trace-line\"></span>\n      </div>\n      <div class=\"naigc-card-inner\">\n        <div class=\"naigc-icon-wrap\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z\"/>\n            <path d=\"m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z\"/>\n            <path d=\"M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5\"/>\n            <path d=\"M12 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-info-wrap\">\n          <div class=\"naigc-pillar-tag\">\n            <span class=\"naigc-badge\">06</span>\n            <span class=\"naigc-title\">AI ENTREPRENEURSHIP & OPC</span>\n          </div>\n          <p class=\"naigc-desc\">Startup Development & One-Person Company (OPC)</p>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 07 -->\n    <a href=\"#research-innovation\" class=\"naigc-pillar-card naigc-cyan\" data-pillar=\"7\">\n      <div class=\"naigc-trace naigc-trace-left\">\n        <span class=\"naigc-trace-dot\"></span>\n        <span class=\"naigc-trace-line\"></span>\n      </div>\n      <div class=\"naigc-card-inner\">\n        <div class=\"naigc-icon-wrap\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M6 18h8M3 22h18M14 22a7 7 0 1 0-7-7h14\"/>\n            <circle cx=\"9\" cy=\"9\" r=\"2\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-info-wrap\">\n          <div class=\"naigc-pillar-tag\">\n            <span class=\"naigc-badge\">07</span>\n            <span class=\"naigc-title\">AI RESEARCH & INNOVATION</span>\n          </div>\n          <p class=\"naigc-desc\">R&D, Applied Research & Commercialisation</p>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 08 -->\n    <a href=\"#future-technology\" class=\"naigc-pillar-card naigc-purple\" data-pillar=\"8\">\n      <div class=\"naigc-trace naigc-trace-left\">\n        <span class=\"naigc-trace-dot\"></span>\n        <span class=\"naigc-trace-line\"></span>\n      </div>\n      <div class=\"naigc-card-inner\">\n        <div class=\"naigc-icon-wrap\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83\"/>\n            <circle cx=\"12\" cy=\"12\" r=\"3\"/>\n          </svg>\n        </div>\n        <div class=\"naigc-info-wrap\">\n          <div class=\"naigc-pillar-tag\">\n            <span class=\"naigc-badge\">08</span>\n            <span class=\"naigc-title\">AI FUTURE TECHNOLOGY</span>\n          </div>\n          <p class=\"naigc-desc\">Robotics, Automation, IoT & Emerging Tech</p>\n        </div>\n      </div>\n    </a>\n  </div>\n</div>\n";
+  const pillarsMarkup = "<!-- 8 Pillars NAIGC Ecosystem — Futuristic Holographic Interface Panels -->\n<div id=\"naigc-pillars\" class=\"naigc-pillars-container\">\n  <!-- Left Column: Pillars 01 to 04 -->\n  <div class=\"naigc-pillars-col naigc-pillars-left\">\n    <!-- Pillar 01: Cyan -->\n    <a href=\"#academy\" class=\"naigc-holo-card naigc-cyan\" data-pillar=\"1\">\n      <span class=\"naigc-pillar-badge\">01</span>\n      <div class=\"naigc-holo-border\">\n        <div class=\"naigc-holo-surface\">\n          <div class=\"naigc-icon-frame\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M22 10v6M2 10l10-5 10 5-10 5z\"/>\n              <path d=\"M6 12v5c3 3 9 3 12 0v-5\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-text-block\">\n            <h3 class=\"naigc-card-title\">AI ACADEMY</h3>\n            <p class=\"naigc-card-desc\">Education, Training & Professional Development</p>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-trace-line naigc-trace-right\">\n        <span class=\"naigc-trace-beam\"></span>\n        <span class=\"naigc-trace-node\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 02: Violet -->\n    <a href=\"#creative-studio\" class=\"naigc-holo-card naigc-purple\" data-pillar=\"2\">\n      <span class=\"naigc-pillar-badge\">02</span>\n      <div class=\"naigc-holo-border\">\n        <div class=\"naigc-holo-surface\">\n          <div class=\"naigc-icon-frame\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/>\n              <path d=\"m10 9 5 3-5 3z\"/>\n              <path d=\"M2 8h20\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-text-block\">\n            <h3 class=\"naigc-card-title\">AI CREATIVE STUDIO</h3>\n            <p class=\"naigc-card-desc\">AI Video, Media & Digital Content Production</p>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-trace-line naigc-trace-right\">\n        <span class=\"naigc-trace-beam\"></span>\n        <span class=\"naigc-trace-node\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 03: Cyan -->\n    <a href=\"#workforce-talent\" class=\"naigc-holo-card naigc-cyan\" data-pillar=\"3\">\n      <span class=\"naigc-pillar-badge\">03</span>\n      <div class=\"naigc-holo-border\">\n        <div class=\"naigc-holo-surface\">\n          <div class=\"naigc-icon-frame\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/>\n              <circle cx=\"9\" cy=\"7\" r=\"4\"/>\n              <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/>\n              <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-text-block\">\n            <h3 class=\"naigc-card-title\">AI WORKFORCE & TALENT</h3>\n            <p class=\"naigc-card-desc\">Talent Development, Certification & Placement</p>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-trace-line naigc-trace-right\">\n        <span class=\"naigc-trace-beam\"></span>\n        <span class=\"naigc-trace-node\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 04: Violet -->\n    <a href=\"#business-solutions\" class=\"naigc-holo-card naigc-purple\" data-pillar=\"4\">\n      <span class=\"naigc-pillar-badge\">04</span>\n      <div class=\"naigc-holo-border\">\n        <div class=\"naigc-holo-surface\">\n          <div class=\"naigc-icon-frame\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M3 3v18h18\"/>\n              <path d=\"m19 9-5 5-4-4-3 3\"/>\n              <path d=\"M15 9h4v4\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-text-block\">\n            <h3 class=\"naigc-card-title\">AI BUSINESS SOLUTIONS</h3>\n            <p class=\"naigc-card-desc\">Business Automation, AI Implementation & Industry Solutions</p>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-trace-line naigc-trace-right\">\n        <span class=\"naigc-trace-beam\"></span>\n        <span class=\"naigc-trace-node\"></span>\n      </div>\n    </a>\n  </div>\n\n  <!-- Center Spacer for 3D Mascot Robot -->\n  <div class=\"naigc-pillars-center\"></div>\n\n  <!-- Right Column: Pillars 05 to 08 -->\n  <div class=\"naigc-pillars-col naigc-pillars-right\">\n    <!-- Pillar 05: Cyan -->\n    <a href=\"#enterprise-government\" class=\"naigc-holo-card naigc-cyan\" data-pillar=\"5\">\n      <div class=\"naigc-trace-line naigc-trace-left\">\n        <span class=\"naigc-trace-node\"></span>\n        <span class=\"naigc-trace-beam\"></span>\n      </div>\n      <span class=\"naigc-pillar-badge\">05</span>\n      <div class=\"naigc-holo-border\">\n        <div class=\"naigc-holo-surface\">\n          <div class=\"naigc-icon-frame\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 3 2 10h20z\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-text-block\">\n            <h3 class=\"naigc-card-title\">AI ENTERPRISE & GOVT SOLUTIONS</h3>\n            <p class=\"naigc-card-desc\">Enterprise & Public-Sector AI Projects</p>\n          </div>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 06: Violet -->\n    <a href=\"#entrepreneurship-opc\" class=\"naigc-holo-card naigc-purple\" data-pillar=\"6\">\n      <div class=\"naigc-trace-line naigc-trace-left\">\n        <span class=\"naigc-trace-node\"></span>\n        <span class=\"naigc-trace-beam\"></span>\n      </div>\n      <span class=\"naigc-pillar-badge\">06</span>\n      <div class=\"naigc-holo-border\">\n        <div class=\"naigc-holo-surface\">\n          <div class=\"naigc-icon-frame\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z\"/>\n              <path d=\"m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z\"/>\n              <path d=\"M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5\"/>\n              <path d=\"M12 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-text-block\">\n            <h3 class=\"naigc-card-title\">AI ENTREPRENEURSHIP & OPC</h3>\n            <p class=\"naigc-card-desc\">Startup Development, Commercialisation & One-Person Company (OPC)</p>\n          </div>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 07: Cyan -->\n    <a href=\"#research-innovation\" class=\"naigc-holo-card naigc-cyan\" data-pillar=\"7\">\n      <div class=\"naigc-trace-line naigc-trace-left\">\n        <span class=\"naigc-trace-node\"></span>\n        <span class=\"naigc-trace-beam\"></span>\n      </div>\n      <span class=\"naigc-pillar-badge\">07</span>\n      <div class=\"naigc-holo-border\">\n        <div class=\"naigc-holo-surface\">\n          <div class=\"naigc-icon-frame\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M6 18h8M3 22h18M14 22a7 7 0 1 0-7-7h14\"/>\n              <circle cx=\"9\" cy=\"9\" r=\"2\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-text-block\">\n            <h3 class=\"naigc-card-title\">AI RESEARCH & INNOVATION</h3>\n            <p class=\"naigc-card-desc\">R&D, Applied Research, Intellectual Property & Commercialisation</p>\n          </div>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 08: Violet -->\n    <a href=\"#future-technology\" class=\"naigc-holo-card naigc-purple\" data-pillar=\"8\">\n      <div class=\"naigc-trace-line naigc-trace-left\">\n        <span class=\"naigc-trace-node\"></span>\n        <span class=\"naigc-trace-beam\"></span>\n      </div>\n      <span class=\"naigc-pillar-badge\">08</span>\n      <div class=\"naigc-holo-border\">\n        <div class=\"naigc-holo-surface\">\n          <div class=\"naigc-icon-frame\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83\"/>\n              <circle cx=\"12\" cy=\"12\" r=\"3\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-text-block\">\n            <h3 class=\"naigc-card-title\">AI FUTURE TECHNOLOGY</h3>\n            <p class=\"naigc-card-desc\">Robotics, Automation, IoT & Emerging Technologies</p>\n          </div>\n        </div>\n      </div>\n    </a>\n  </div>\n</div>\n";
   
   function mountEcosystem() {
     const introBody = document.querySelector('.mq4-intro__body');
