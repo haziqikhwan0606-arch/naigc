@@ -291,7 +291,7 @@ body.mq4-body,
 .mq4-intro {
   display: flex !important;
   flex-direction: column !important;
-  justify-content: space-between !important;
+  justify-content: center !important;
   inset: 0 !important;
   padding: 1.5rem 2rem !important;
   box-sizing: border-box !important;
@@ -301,17 +301,15 @@ body.mq4-body,
 }
 
 /* Title at top center (STRICTLY LOCKED) */
-.mq4-intro .mq4-title {
-  margin: 0 auto !important;
-  text-align: center !important;
-  font-size: clamp(1.4rem, 1.2rem + 1.8vw, 2.4rem) !important;
-  width: 100% !important;
-  max-width: 32em !important;
-  color: #ffffff !important;
-  text-shadow: 0 0 20px rgba(0, 229, 255, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8) !important;
-  letter-spacing: -0.01em !important;
-  z-index: 10 !important;
-  padding-top: 0.5rem !important;
+.mq4-intro .mq4-title,
+.mq4-intro__title {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
 }
 
 .mq4-intro__body {
@@ -375,7 +373,7 @@ body.mq4-body,
 .mq4-intro {
   display: flex !important;
   flex-direction: column !important;
-  justify-content: space-between !important;
+  justify-content: center !important;
   inset: 0 !important;
   padding: 1.5rem 2rem !important;
   box-sizing: border-box !important;
@@ -385,17 +383,15 @@ body.mq4-body,
 }
 
 /* Title at top center (STRICTLY LOCKED) */
-.mq4-intro .mq4-title {
-  margin: 0 auto !important;
-  text-align: center !important;
-  font-size: clamp(1.4rem, 1.2rem + 1.8vw, 2.4rem) !important;
-  width: 100% !important;
-  max-width: 32em !important;
-  color: #ffffff !important;
-  text-shadow: 0 0 20px rgba(0, 229, 255, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8) !important;
-  letter-spacing: -0.01em !important;
-  z-index: 10 !important;
-  padding-top: 0.5rem !important;
+.mq4-intro .mq4-title,
+.mq4-intro__title {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
 }
 
 .mq4-intro__body {
@@ -418,7 +414,7 @@ body.mq4-body,
   max-width: 1640px;
   height: calc(100vh - 100px);
   max-height: 870px;
-  margin: 1rem auto 0 auto;
+  margin: 0 auto;
   align-items: center;
   pointer-events: none;
   box-sizing: border-box;
@@ -1187,7 +1183,7 @@ body.mq4-body,
         gtag('config', window.gaMeasurementId);
     </script>
         
-        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust45" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust45" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust45" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust45" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust45" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust45" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust45" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust45"></script><style>
+        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust50" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust50" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust50" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust50" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust50" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust50" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust50" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust50"></script><style>
 #games,
 #opties,
 #pakketten,
