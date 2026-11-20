@@ -268,6 +268,8 @@ body {
 /* Malaysian Skyline Background on Stage (STRICTLY LOCKED) */
 /* Malaysian Skyline Daytime Background */
 body.mq4-body,
+#mq-landing-v4,
+.mq4,
 .mq4-stage,
 .mq4-story {
   background: 
@@ -378,12 +380,14 @@ body.mq4-body,
   --naigc-desc: #A5BDCF;
 
   /* Layered Surface */
-  --naigc-surface-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(230, 244, 255, 0.14) 45%, rgba(210, 235, 255, 0.08) 100%);
+  --naigc-surface-bg: linear-gradient(135deg, rgba(8, 22, 54, 0.86) 0%, rgba(4, 12, 34, 0.92) 100%);
 }
 
 /* Malaysian Skyline Background on Stage (STRICTLY LOCKED) */
 /* Malaysian Skyline Daytime Background */
 body.mq4-body,
+#mq-landing-v4,
+.mq4,
 .mq4-stage,
 .mq4-story {
   background: 
@@ -443,9 +447,9 @@ body.mq4-body,
 /* 8 Pillars Overall Grid Container */
 .naigc-pillars-container {
   display: grid;
-  grid-template-columns: minmax(370px, 435px) 1fr minmax(370px, 435px);
+  grid-template-columns: minmax(380px, 485px) 1fr minmax(380px, 485px);
   width: 100%;
-  max-width: 1540px;
+  max-width: 1600px;
   height: calc(100vh - 120px);
   max-height: 800px;
   margin: 0 auto;
@@ -481,7 +485,7 @@ body.mq4-body,
   text-decoration: none;
   box-sizing: border-box;
   width: 100%;
-  max-width: 435px;
+  max-width: 485px;
   height: 96px;
   cursor: pointer;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
@@ -619,20 +623,60 @@ body.mq4-body,
 }
 
 .naigc-proj-left .naigc-poly-surface {
+  clip-path: polygon(
+    21px 0%, 
+    calc(100% - 27px) 0%, 
+    99.2% 50%, 
+    calc(100% - 27px) 100%, 
+    21px 100%, 
+    0% calc(100% - 21px), 
+    0% 21px
+  );
+  padding: 0.75rem 2.4rem 0.75rem 1.15rem;
+}
+
+/* Right Panels Polygon: Cut corners on right, Tapered apex facing Cyborg on left */
+.naigc-proj-right .naigc-poly-border {
+  clip-path: polygon(
+    28px 0%, 
+    calc(100% - 22px) 0%, 
+    100% 22px, 
+    100% calc(100% - 22px), 
+    calc(100% - 22px) 100%, 
+    28px 100%, 
+    0% 50%
+  );
+}
+
+.naigc-proj-right .naigc-poly-surface {
+  clip-path: polygon(
+    27px 0%, 
+    calc(100% - 21px) 0%, 
+    100% 21px, 
+    100% calc(100% - 21px), 
+    calc(100% - 21px) 100%, 
+    27px 100%, 
+    0.8% 50%
+  );
+  padding: 0.75rem 1.15rem 0.75rem 2.4rem;
+}
+
+/* Base Poly Surface (Shared Smoked Sapphire Glass) */
+.naigc-poly-surface {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   background: var(--naigc-surface-bg);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   display: flex;
   align-items: center;
-  gap: 0.95rem;
+  gap: 0.85rem;
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.65), 
-              inset 0 -1px 2px rgba(0, 40, 100, 0.12),
-              0 14px 38px rgba(2, 16, 48, 0.24);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.22), 
+              inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+              0 14px 40px rgba(0, 10, 32, 0.45);
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -696,16 +740,16 @@ body.mq4-body,
 }
 
 .naigc-theme-cyan .naigc-badge-capsule {
-  background: rgba(255, 255, 255, 0.30);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
+  background: rgba(0, 217, 255, 0.20);
+  border: 1px solid rgba(0, 217, 255, 0.55);
+  box-shadow: 0 0 8px rgba(0, 217, 255, 0.3);
   color: #00D9FF;
 }
 
 .naigc-theme-violet .naigc-badge-capsule {
-  background: rgba(255, 255, 255, 0.30);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.20);
+  border: 1px solid rgba(168, 85, 247, 0.55);
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.3);
   color: #C084FC;
 }
 
@@ -740,16 +784,16 @@ body.mq4-body,
 }
 
 .naigc-theme-cyan .naigc-icon-chamber {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.40) 0%, rgba(0, 217, 255, 0.18) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 4px 16px rgba(0, 217, 255, 0.25);
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.22) 0%, rgba(6, 24, 58, 0.92) 100%);
+  border: 1px solid rgba(0, 217, 255, 0.55);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 4px 14px rgba(0, 217, 255, 0.28);
   color: #00D9FF;
 }
 
 .naigc-theme-violet .naigc-icon-chamber {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.40) 0%, rgba(168, 85, 247, 0.18) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 4px 16px rgba(168, 85, 247, 0.25);
+  background: linear-gradient(135deg, rgba(192, 132, 252, 0.22) 0%, rgba(26, 8, 52, 0.92) 100%);
+  border: 1px solid rgba(192, 132, 252, 0.55);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 4px 14px rgba(168, 85, 247, 0.28);
   color: #C084FC;
 }
 
@@ -763,41 +807,53 @@ body.mq4-body,
 .naigc-poly-content {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  justify-content: center;
+  gap: 0.2rem;
   flex: 1;
   min-width: 0;
   z-index: 5;
+  padding-top: 4px;
 }
 
 .naigc-poly-title {
   margin: 0;
   font-family: var(--mq4-font, system-ui, sans-serif);
-  color: #FFFFFF;
-  font-size: 0.90rem;
+  color: #FFFFFF !important;
+  font-size: 0.88rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.035em;
   line-height: 1.25;
   text-transform: uppercase;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-shadow: 0 2px 4px rgba(2, 12, 32, 0.75), 0 0 12px rgba(0, 217, 255, 0.4);
+  overflow: visible;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 217, 255, 0.35);
   transition: color 0.25s ease;
 }
 
 .naigc-theme-violet .naigc-poly-title {
   margin: 0;
   font-family: var(--mq4-font, system-ui, sans-serif);
-  color: #FFFFFF;
-  font-size: 0.90rem;
+  color: #FFFFFF !important;
+  font-size: 0.88rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.035em;
   line-height: 1.25;
   text-transform: uppercase;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-shadow: 0 2px 4px rgba(2, 12, 32, 0.75), 0 0 12px rgba(0, 217, 255, 0.4);
+  overflow: visible;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(168, 85, 247, 0.35);
+  transition: color 0.25s ease;
+}
+
+.naigc-poly-desc {
+  margin: 0;
+  color: #CBD5E1 !important;
+  font-size: 0.70rem;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: visible;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
   transition: color 0.25s ease;
 }
 
@@ -1091,7 +1147,16 @@ body.mq4-body,
         gtag('config', window.gaMeasurementId);
     </script>
         
-        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust35" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust35" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust35" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust35" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust35" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust35" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust35" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust35"></script><style>
+        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust40" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust40" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust40" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust40" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust40" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust40" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust40" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust40"></script><style>
+#games,
+#opties,
+#pakketten,
+#faq,
+.mq4-section,
+.mq4-fb-acts,
+.mq4-fb-brand,
+.mq4-fb-play,
+.mq4-fb-screen,
 .mq4-main,
 .mq4 .mq4-btn.mq4-book-cta,
 .mq4-snaps,
@@ -1108,6 +1173,27 @@ body.mq4-body,
 .mq4-panel,
 .mq4-play {
   display: none !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+
+
+
+
+.mq4-fallback {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+.mq4-fb-hero {
+  min-height: 100vh !important;
+  height: auto !important;
+  overflow: hidden !important;
 }
 </style></head>
 <body class="mq4-body">
@@ -1383,5 +1469,6 @@ body.mq4-body,
   requestAnimationFrame(render);
 })();
 </script>
+
 </body>
 </html>
