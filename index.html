@@ -138,7 +138,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Loader: a small arcade "LOADING" readout with a chunky block bar. */
+/* Loader: NAIGC Cyber-Prestige Brand Loader (Electric Cyan & Champagne Gold) */
 .mq4-loader {
   --p: 0;
   --q: 0;
@@ -151,8 +151,8 @@ body {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(40vw 30vh at 50% 50%, rgba(255, 57, 159, 0.16), transparent 70%),
-    var(--mq4-bg);
+    radial-gradient(50vw 35vh at 50% 50%, rgba(0, 217, 255, 0.15) 0%, rgba(229, 184, 105, 0.05) 50%, transparent 75%),
+    linear-gradient(180deg, #020917 0%, #031430 50%, #010612 100%);
   font-family: var(--mq4-font-pixel);
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
@@ -164,8 +164,8 @@ body {
 
 .mq4-loader__box {
   display: grid;
-  gap: 0.9rem;
-  width: min(19rem, 72vw);
+  gap: 0.95rem;
+  width: min(20rem, 74vw);
 }
 
 .mq4-loader__label,
@@ -173,11 +173,16 @@ body {
   display: flex;
   justify-content: flex-start;
   margin: 0;
-  color: var(--mq4-heading);
-  font-size: 0.72rem;
+  color: #E2E8F0;
+  font-size: 0.76rem;
   line-height: 1;
-  letter-spacing: 0.08em;
-  text-shadow: 0 0 10px rgba(255, 57, 159, 0.65);
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 217, 255, 0.7);
+}
+
+.mq4-loader__label span {
+  color: #00D9FF;
 }
 
 .mq4-loader__label::after {
@@ -185,47 +190,47 @@ body {
   width: 0.62em;
   height: 1em;
   margin-left: 0.4em;
-  background: var(--mq4-pink);
-  box-shadow: 0 0 8px var(--mq4-pink);
+  background: #00D9FF;
+  box-shadow: 0 0 10px #00D9FF, 0 0 18px #00D9FF;
   animation: mq4-loader-blink 1s steps(1, end) infinite;
 }
 
 .mq4-loader__pct {
   justify-content: flex-end;
-  color: var(--mq4-caption);
+  color: #E5B869;
+  text-shadow: 0 0 10px rgba(229, 184, 105, 0.65);
   font-variant-numeric: tabular-nums;
+  font-weight: 800;
 }
 
-/* A thin neon line around the blocks, like the tubes on the rest of the site. */
+/* NAIGC Cyber-Prestige Neon Bar */
 .mq4-loader__bar {
   position: relative;
-  height: 1.25rem;
+  height: 1.35rem;
   padding: 3px;
-  border: 1px solid rgba(255, 57, 159, 0.75);
-  border-radius: var(--mq4-r-sm);
-  background: rgba(3, 2, 7, 0.9);
+  border: 1px solid rgba(0, 217, 255, 0.75);
+  border-radius: 4px;
+  background: rgba(2, 11, 28, 0.94);
   box-shadow:
-    0 0 14px rgba(255, 57, 159, 0.35),
-    inset 0 0 8px rgba(255, 57, 159, 0.15);
+    0 0 18px rgba(0, 217, 255, 0.35),
+    0 0 32px rgba(0, 217, 255, 0.15),
+    inset 0 0 10px rgba(0, 10, 30, 0.85);
 }
 
-/*
- * 20 blocks running from pink to purple, the neon colours of the site. --q is
- * the progress rounded down to whole blocks, so the bar fills in steps.
- */
+/* 20 blocks running from Electric Cyan to Champagne Gold */
 .mq4-loader__fill {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--mq4-pink), #e84bdc 55%, #b86bff);
+  background: linear-gradient(90deg, #00D9FF 0%, #0090F0 40%, #E5B869 80%, #F6D365 100%);
   -webkit-mask: repeating-linear-gradient(90deg, #000 0 calc(5% - 3px), transparent calc(5% - 3px) 5%);
   mask: repeating-linear-gradient(90deg, #000 0 calc(5% - 3px), transparent calc(5% - 3px) 5%);
-  filter: drop-shadow(0 0 6px rgba(255, 57, 159, 0.8));
+  filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.85)) drop-shadow(0 0 14px rgba(229, 184, 105, 0.5));
   clip-path: inset(0 calc(100% - var(--q) * 100%) 0 0);
 }
 
 .mq4-loader__error {
   margin: 0;
-  color: var(--mq4-muted);
+  color: #F87171;
   font-family: var(--mq4-font);
   font-size: var(--mq4-fs-body);
   line-height: 1.45;
@@ -1198,7 +1203,7 @@ body.mq4-body,
         gtag('config', window.gaMeasurementId);
     </script>
         
-        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust65" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust65" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust65" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust65" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust65" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust65" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust65" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust65"></script><style>
+        <link rel="preload" as="style" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust70" /><link rel="preload" as="style" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust70" /><link rel="preload" as="style" href="./build/assets/base-1TS_FbK1.css?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/landing-v4-CgTD28v7.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/rolldown-runtime-aKtaBQYM.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/runtime-core.esm-bundler-CE0GsRnh.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/runtime-dom.esm-bundler-PTqzRU-W.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/preload-helper-B6JZccWF.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/locale-BHLa_1Ho.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/copy-BLElftI0.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/BookingSheet-5otsHkC-.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/publicApi-CduXlFWy.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/packages-CMmxrLYM.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/brandLook-31QvgI2K.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/quality-BEk81Qwz.js?v=bust70" /><link rel="modulepreload" as="script" href="./build/assets/model-DrggQNlr.js?v=bust70" /><link rel="stylesheet" href="./build/assets/BookingSheet-DBj0dt9Q.css?v=bust70" /><link rel="stylesheet" href="./build/assets/landing-v4-CHFFzEKb.css?v=bust70" /><link rel="stylesheet" href="./build/assets/base-1TS_FbK1.css?v=bust70" /><script type="module" src="./build/assets/landing-v4-CgTD28v7.js?v=bust70"></script><style>
 #games,
 #opties,
 #pakketten,
