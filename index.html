@@ -351,69 +351,25 @@ body.mq4-body,
   --naigc-surface-bg: linear-gradient(135deg, rgba(8, 22, 54, 0.86) 0%, rgba(4, 12, 34, 0.92) 100%);
 }
 
-/* Malaysian Skyline Background on Stage (STRICTLY LOCKED) */
-/* Malaysian Skyline Daytime Background */
-body.mq4-body,
-#mq-landing-v4,
-.mq4,
-.mq4-stage,
-.mq4-story {
-  background: 
-    linear-gradient(180deg, rgba(14, 45, 90, 0.12) 0%, rgba(12, 38, 80, 0.04) 35%, rgba(8, 24, 56, 0.20) 75%, rgba(4, 14, 38, 0.60) 100%),
-    url('./build/assets/kl_skyline_day.jpg') no-repeat center center / cover !important;
-}
-
-/* Hide BEYOND HUMAN text and default buttons */
-.mq4-words {
-  display: none !important;
-}
-
-.mq4-intro .mq4-lead,
-.mq4-intro .mq4-intro__actions {
-  display: none !important;
-}
-
-/* Intro Layout */
-.mq4-intro {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  inset: 0 !important;
-  padding: 1.5rem 2rem !important;
-  box-sizing: border-box !important;
-  pointer-events: none !important;
-  max-width: 100% !important;
-  width: 100% !important;
-}
-
-/* Title at top center (STRICTLY LOCKED) */
-.mq4-intro .mq4-title,
-.mq4-intro__title {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  pointer-events: none !important;
-}
-
-.mq4-intro__body {
-  width: 100% !important;
-  height: 100% !important;
-  background: transparent !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  position: relative !important;
+/* Atmospheric Depth Glow Behind Central Mascot */
+.mq4-intro::before {
+  content: "";
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 640px;
+  height: 640px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.16) 0%, rgba(6, 28, 68, 0.24) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* 8 Pillars Overall Grid Container */
 .naigc-pillars-container {
   display: grid;
-  grid-template-columns: minmax(380px, 490px) minmax(260px, 1fr) minmax(380px, 490px);
+  grid-template-columns: minmax(380px, 490px) minmax(240px, 1fr) minmax(380px, 490px);
   width: 100%;
   max-width: 1640px;
   height: calc(100vh - 100px);
@@ -425,6 +381,13 @@ body.mq4-body,
   padding: 0 1.5rem;
   z-index: 12;
   position: relative;
+  transition: opacity 0.4s ease;
+}
+
+/* Hide pillars cleanly when arcade intro is active, fade in on stage */
+.mq4-intro:not(.is-live) .naigc-pillars-container {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Left & Right Columns */
@@ -436,9 +399,200 @@ body.mq4-body,
   z-index: 15;
 }
 
+/* Central Mascot Column with Quantum Holographic Emitter Pad Base */
 .naigc-pillars-center {
-  min-width: 180px;
+  min-width: 220px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   pointer-events: none;
+  height: 100%;
+}
+
+.naigc-quantum-pad {
+  position: absolute;
+  bottom: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3D Perspective Disc Stage Grounded Directly Under Soles */
+.naigc-pad-disc-stage {
+  position: absolute;
+  bottom: 0px;
+  width: 340px;
+  height: 340px;
+  transform: perspective(650px) rotateX(76deg);
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Outer dashed spinning ring */
+.naigc-ring-outer-dashed {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed rgba(0, 217, 255, 0.7);
+  box-shadow: 0 0 25px rgba(0, 217, 255, 0.45), inset 0 0 20px rgba(0, 217, 255, 0.25);
+  animation: naigc-pad-spin-cw 22s linear infinite;
+}
+
+/* Segmented ticks ring */
+.naigc-ring-cyber-ticks {
+  position: absolute;
+  inset: 22px;
+  border-radius: 50%;
+  border: 1.5px dotted rgba(255, 255, 255, 0.6);
+  animation: naigc-pad-spin-ccw 16s linear infinite;
+}
+
+/* Gold middle ring */
+.naigc-ring-hex-gold {
+  position: absolute;
+  inset: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(229, 184, 105, 0.75);
+  box-shadow: 0 0 20px rgba(229, 184, 105, 0.45);
+  animation: naigc-pad-spin-cw 12s linear infinite;
+}
+
+/* Inner cyan ring */
+.naigc-ring-inner-cyan {
+  position: absolute;
+  inset: 76px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 217, 255, 0.85);
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.35) 0%, rgba(0, 217, 255, 0.1) 60%, transparent 80%);
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.65), inset 0 0 15px rgba(0, 217, 255, 0.5);
+  animation: naigc-pad-pulse 2.8s ease-in-out infinite alternate;
+}
+
+/* Center core emitter */
+.naigc-pad-core-glow {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, rgba(0, 217, 255, 0.95) 45%, rgba(0, 217, 255, 0) 75%);
+  box-shadow: 0 0 35px #00D9FF, 0 0 60px rgba(0, 217, 255, 0.85);
+}
+
+/* Orbital node lights on pad */
+.naigc-pad-nodes {
+  position: absolute;
+  inset: 0;
+  animation: naigc-pad-spin-cw 8s linear infinite;
+}
+.naigc-pad-node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px #00D9FF, 0 0 18px #00D9FF;
+}
+.naigc-pad-node.n1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
+.naigc-pad-node.n2 { bottom: 0; left: 50%; transform: translate(-50%, 50%); }
+.naigc-pad-node.n3 { left: 0; top: 50%; transform: translate(-50%, -50%); background: #F6D365; box-shadow: 0 0 10px #F6D365; }
+.naigc-pad-node.n4 { right: 0; top: 50%; transform: translate(50%, -50%); background: #F6D365; box-shadow: 0 0 10px #F6D365; }
+
+/* Soft Volumetric Light Beam rising upwards from beneath feet */
+.naigc-pad-volumetric-beam {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  height: 280px;
+  background: linear-gradient(to top, rgba(0, 217, 255, 0.35) 0%, rgba(0, 217, 255, 0.16) 40%, rgba(0, 217, 255, 0.02) 80%, transparent 100%);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+  filter: blur(12px);
+  pointer-events: none;
+  animation: naigc-beam-shimmer 3s ease-in-out infinite alternate;
+}
+
+.naigc-pad-light-shaft {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 240px;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.8) 0%, rgba(0, 217, 255, 0.45) 50%, transparent 100%);
+  filter: blur(1px);
+  opacity: 0.8;
+}
+
+/* Rising Motes / Sparks */
+.naigc-pad-motes {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 220px;
+  pointer-events: none;
+}
+.naigc-mote {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #00D9FF;
+  box-shadow: 0 0 6px #00D9FF;
+  animation: naigc-mote-rise 2.5s infinite ease-out;
+}
+.naigc-mote.m1 { left: 28%; animation-delay: 0.2s; animation-duration: 2.1s; }
+.naigc-mote.m2 { left: 68%; animation-delay: 0.7s; animation-duration: 2.7s; background: #F6D365; box-shadow: 0 0 6px #F6D365; }
+.naigc-mote.m3 { left: 48%; animation-delay: 1.2s; animation-duration: 2.3s; }
+.naigc-mote.m4 { left: 18%; animation-delay: 1.8s; animation-duration: 2.5s; }
+.naigc-mote.m5 { left: 82%; animation-delay: 0.9s; animation-duration: 2.2s; }
+
+.naigc-pad-readout {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mq4-font-pixel, monospace);
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  color: rgba(0, 217, 255, 0.85);
+  white-space: nowrap;
+  text-shadow: 0 0 8px rgba(0, 217, 255, 0.7);
+  pointer-events: none;
+}
+
+@keyframes naigc-pad-spin-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes naigc-pad-spin-ccw {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+@keyframes naigc-pad-pulse {
+  from { transform: scale(0.97); opacity: 0.75; }
+  to { transform: scale(1.03); opacity: 1; }
+}
+@keyframes naigc-beam-shimmer {
+  from { opacity: 0.6; transform: translateX(-50%) scaleX(0.95); }
+  to { opacity: 0.95; transform: translateX(-50%) scaleX(1.05); }
+}
+@keyframes naigc-mote-rise {
+  0% { bottom: 0; opacity: 0; transform: translateY(0) scale(0.5); }
+  25% { opacity: 1; transform: translateY(-30px) scale(1); }
+  85% { opacity: 0.8; }
+  100% { bottom: 100%; opacity: 0; transform: translateY(-140px) scale(0.2); }
 }
 
 /* ==========================================================================
@@ -483,7 +637,7 @@ body.mq4-body,
 /* Floating Offset Secondary Frame */
 .naigc-offset-frame {
   position: absolute;
-  inset: -6px -8px;
+  inset: -4px -6px;
   pointer-events: none;
   z-index: 2;
   transition: all 0.3s ease;
@@ -491,8 +645,8 @@ body.mq4-body,
 
 .naigc-tech-bracket {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   opacity: 0.75;
   transition: all 0.3s ease;
 }
@@ -537,10 +691,10 @@ body.mq4-body,
 /* Micro-Interface Header Tag */
 .naigc-tech-grid-tag {
   position: absolute;
-  top: -12px;
+  top: -10px;
   font-family: var(--mq4-font-pixel, monospace);
-  font-size: 0.58rem;
-  letter-spacing: 0.16em;
+  font-size: 0.50rem;
+  letter-spacing: 0.12em;
   font-weight: 800;
   opacity: 0.85;
 }
@@ -647,6 +801,32 @@ body.mq4-body,
               inset 0 -1px 2px rgba(0, 0, 0, 0.5),
               0 14px 40px rgba(0, 10, 32, 0.45);
   transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Specular Glare & Glass Sweep Refraction */
+.naigc-poly-surface::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.03) 46%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(0, 217, 255, 0.12) 54%,
+    transparent 58%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+  z-index: 4;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.naigc-holo-projection:hover .naigc-poly-surface::after {
+  transform: translateX(100%);
 }
 
 /* Internal Micro-Grid & Holographic Texture */
@@ -830,6 +1010,54 @@ body.mq4-body,
   transition: color 0.25s ease;
 }
 
+/* Micro-Telemetry Status Line */
+.naigc-poly-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--mq4-font-pixel, monospace);
+  font-size: 0.50rem;
+  letter-spacing: 0.08em;
+  margin-top: 3px;
+  opacity: 0.85;
+}
+
+.naigc-meta-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--naigc-cyan);
+}
+
+.naigc-theme-gold .naigc-meta-status {
+  color: #F6D365;
+}
+
+.naigc-meta-pip {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+  animation: naigc-meta-pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes naigc-meta-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.naigc-meta-speed {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.naigc-meta-link {
+  color: rgba(0, 217, 255, 0.45);
+}
+.naigc-theme-gold .naigc-meta-link {
+  color: rgba(229, 184, 105, 0.5);
+}
+
 /* Subtle Directional Arrow Readout */
 .naigc-holo-readout {
   display: flex;
@@ -912,72 +1140,100 @@ body.mq4-body,
   align-items: center;
   pointer-events: none;
   z-index: 10;
+  transition: all 0.35s ease;
 }
 
 .naigc-link-right {
-  right: -32px;
+  right: -62px;
 }
 
 .naigc-link-left {
-  left: -32px;
+  left: -62px;
 }
 
 .naigc-link-track {
   display: block;
-  width: 24px;
+  width: 54px;
   height: 2px;
-  background: linear-gradient(90deg, var(--naigc-cyan), rgba(0, 217, 255, 0.15));
-  box-shadow: 0 0 8px rgba(0, 217, 255, 0.5);
+  background: linear-gradient(90deg, var(--naigc-cyan) 0%, rgba(0, 217, 255, 0.4) 70%, rgba(255, 255, 255, 0.95) 100%);
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
   position: relative;
 }
 
 .naigc-link-left .naigc-link-track {
-  background: linear-gradient(90deg, rgba(0, 217, 255, 0.15), var(--naigc-cyan)) !important;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(0, 217, 255, 0.4) 30%, var(--naigc-cyan) 100%) !important;
 }
 
-.naigc-theme-gold .naigc-link-track,
 .naigc-theme-gold .naigc-link-track {
-  background: linear-gradient(90deg, #E5B869, rgba(229, 184, 105, 0.15)) !important;
-  box-shadow: 0 0 8px rgba(229, 184, 105, 0.5);
+  background: linear-gradient(90deg, #E5B869 0%, rgba(229, 184, 105, 0.4) 70%, rgba(255, 255, 255, 0.95) 100%) !important;
+  box-shadow: 0 0 10px rgba(229, 184, 105, 0.6);
 }
 
-.naigc-theme-gold .naigc-link-left .naigc-link-track,
 .naigc-theme-gold .naigc-link-left .naigc-link-track {
-  background: linear-gradient(90deg, rgba(229, 184, 105, 0.15), #E5B869) !important;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(229, 184, 105, 0.4) 30%, #E5B869 100%) !important;
 }
 
-/* Animated Data Flow Packet */
+/* Multi-packet Data Flow Streams */
 .naigc-link-stream {
   position: absolute;
-  top: -1px;
-  width: 6px;
-  height: 4px;
-  border-radius: 2px;
+  top: -2px;
+  width: 7px;
+  height: 5px;
+  border-radius: 2.5px;
   background: #ffffff;
   box-shadow: 0 0 8px #00D9FF, 0 0 14px #00D9FF;
-  animation: naigc-pulse-r 2.2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.naigc-link-right .naigc-link-stream {
+  animation: naigc-pulse-r 1.9s infinite cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .naigc-link-left .naigc-link-stream {
-  animation: naigc-pulse-l 2.2s infinite ease-in-out;
+  animation: naigc-pulse-l 1.9s infinite cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.naigc-theme-gold .naigc-link-stream,
+.naigc-link-stream.s1 { animation-delay: 0s; }
+.naigc-link-stream.s2 { animation-delay: 0.65s; }
+.naigc-link-stream.s3 { animation-delay: 1.3s; }
+
 .naigc-theme-gold .naigc-link-stream {
-  box-shadow: 0 0 8px #F6D365;
+  box-shadow: 0 0 8px #F6D365, 0 0 14px #F6D365;
+}
+
+.naigc-link-tag {
+  font-family: var(--mq4-font-pixel, monospace);
+  font-size: 0.46rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.65);
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.naigc-holo-projection:hover .naigc-holo-neural-link {
+  filter: brightness(1.35) drop-shadow(0 0 8px currentColor);
+}
+
+.naigc-holo-projection:hover .naigc-link-terminal {
+  transform: scale(1.4);
+  box-shadow: 0 0 16px #ffffff, 0 0 24px currentColor;
 }
 
 @keyframes naigc-pulse-r {
   0% { left: 0%; opacity: 0; }
-  25% { opacity: 1; }
-  75% { opacity: 1; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
   100% { left: 100%; opacity: 0; }
 }
 
 @keyframes naigc-pulse-l {
   0% { right: 0%; opacity: 0; }
-  25% { opacity: 1; }
-  75% { opacity: 1; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
   100% { right: 100%; opacity: 0; }
 }
 
@@ -989,6 +1245,7 @@ body.mq4-body,
   border-radius: 50%;
   background: #ffffff;
   box-shadow: 0 0 10px var(--naigc-cyan), 0 0 18px var(--naigc-cyan);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .naigc-theme-gold .naigc-link-terminal,
@@ -1323,7 +1580,430 @@ body.mq4-body,
 
 <script>
 (function() {
-  const pillarsMarkup = "<!-- 8 Pillars NAIGC Ecosystem — Dimensional Holographic Projection Panels -->\n<div id=\"naigc-pillars\" class=\"naigc-pillars-container\">\n  <!-- Left Column: Pillars 01 to 04 -->\n  <div class=\"naigc-pillars-col naigc-pillars-left\">\n    <!-- Pillar 01: Electric Cyan -->\n    <a href=\"#academy\" class=\"naigc-holo-projection naigc-proj-left naigc-theme-cyan\" data-pillar=\"1\">\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tl\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-bl\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.01</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">01</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M22 10v6M2 10l10-5 10 5-10 5z\"/>\n              <path d=\"M6 12v5c3 3 9 3 12 0v-5\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI ACADEMY</h3>\n            <p class=\"naigc-poly-desc\">Education, Training & Professional Development</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-holo-neural-link naigc-link-right\">\n        <span class=\"naigc-link-track\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-terminal\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 02: Holographic Violet -->\n    <a href=\"#creative-studio\" class=\"naigc-holo-projection naigc-proj-left naigc-theme-gold\" data-pillar=\"2\">\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tl\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-bl\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.02</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">02</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/>\n              <path d=\"m10 9 5 3-5 3z\"/>\n              <path d=\"M2 8h20\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI CREATIVE STUDIO</h3>\n            <p class=\"naigc-poly-desc\">AI Video, Media & Digital Content Production</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-holo-neural-link naigc-link-right\">\n        <span class=\"naigc-link-track\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-terminal\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 03: Electric Cyan -->\n    <a href=\"#workforce-talent\" class=\"naigc-holo-projection naigc-proj-left naigc-theme-cyan\" data-pillar=\"3\">\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tl\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-bl\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.03</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">03</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\"/>\n              <circle cx=\"9\" cy=\"7\" r=\"4\"/>\n              <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\"/>\n              <path d=\"M16 3.13a4 4 0 0 1 0 7.75\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI WORKFORCE & TALENT</h3>\n            <p class=\"naigc-poly-desc\">Talent Development, Certification & Placement</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-holo-neural-link naigc-link-right\">\n        <span class=\"naigc-link-track\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-terminal\"></span>\n      </div>\n    </a>\n\n    <!-- Pillar 04: Holographic Violet -->\n    <a href=\"#business-solutions\" class=\"naigc-holo-projection naigc-proj-left naigc-theme-gold\" data-pillar=\"4\">\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tl\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-bl\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.04</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">04</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M3 3v18h18\"/>\n              <path d=\"m19 9-5 5-4-4-3 3\"/>\n              <path d=\"M15 9h4v4\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI BUSINESS SOLUTIONS</h3>\n            <p class=\"naigc-poly-desc\">Business Automation, AI Implementation & Industry Solutions</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"naigc-holo-neural-link naigc-link-right\">\n        <span class=\"naigc-link-track\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-terminal\"></span>\n      </div>\n    </a>\n  </div>\n\n  <!-- Center Spacer for 3D Cyborg (STRICTLY LOCKED) -->\n  <div class=\"naigc-pillars-center\"></div>\n\n  <!-- Right Column: Pillars 05 to 08 -->\n  <div class=\"naigc-pillars-col naigc-pillars-right\">\n    <!-- Pillar 05: Electric Cyan -->\n    <a href=\"#enterprise-government\" class=\"naigc-holo-projection naigc-proj-right naigc-theme-cyan\" data-pillar=\"5\">\n      <div class=\"naigc-holo-neural-link naigc-link-left\">\n        <span class=\"naigc-link-terminal\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-track\"></span>\n      </div>\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tr\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-br\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.05</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">05</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 3 2 10h20z\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI ENTERPRISE & GOVT SOLUTIONS</h3>\n            <p class=\"naigc-poly-desc\">Enterprise & Public-Sector AI Projects</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 06: Holographic Violet -->\n    <a href=\"#entrepreneurship-opc\" class=\"naigc-holo-projection naigc-proj-right naigc-theme-gold\" data-pillar=\"6\">\n      <div class=\"naigc-holo-neural-link naigc-link-left\">\n        <span class=\"naigc-link-terminal\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-track\"></span>\n      </div>\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tr\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-br\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.06</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">06</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z\"/>\n              <path d=\"m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z\"/>\n              <path d=\"M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5\"/>\n              <path d=\"M12 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI ENTREPRENEURSHIP & OPC</h3>\n            <p class=\"naigc-poly-desc\">Startup Development, Commercialisation & One-Person Company (OPC)</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 07: Electric Cyan -->\n    <a href=\"#research-innovation\" class=\"naigc-holo-projection naigc-proj-right naigc-theme-cyan\" data-pillar=\"7\">\n      <div class=\"naigc-holo-neural-link naigc-link-left\">\n        <span class=\"naigc-link-terminal\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-track\"></span>\n      </div>\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tr\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-br\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.07</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">07</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M6 18h8M3 22h18M14 22a7 7 0 1 0-7-7h14\"/>\n              <circle cx=\"9\" cy=\"9\" r=\"2\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI RESEARCH & INNOVATION</h3>\n            <p class=\"naigc-poly-desc\">R&D, Applied Research, Intellectual Property & Commercialisation</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n    </a>\n\n    <!-- Pillar 08: Holographic Violet -->\n    <a href=\"#future-technology\" class=\"naigc-holo-projection naigc-proj-right naigc-theme-gold\" data-pillar=\"8\">\n      <div class=\"naigc-holo-neural-link naigc-link-left\">\n        <span class=\"naigc-link-terminal\"></span>\n        <span class=\"naigc-link-stream\"></span>\n        <span class=\"naigc-link-track\"></span>\n      </div>\n      <div class=\"naigc-offset-frame\">\n        <span class=\"naigc-tech-bracket naigc-bracket-tr\"></span>\n        <span class=\"naigc-tech-bracket naigc-bracket-br\"></span>\n        <span class=\"naigc-tech-grid-tag\">SYS//NODE.08</span>\n      </div>\n      <div class=\"naigc-poly-border\">\n        <div class=\"naigc-poly-travelling-light\"></div>\n        <div class=\"naigc-poly-surface\">\n          <div class=\"naigc-poly-grid\"></div>\n          <div class=\"naigc-scan-beam\"></div>\n          <div class=\"naigc-badge-capsule\">\n            <span class=\"naigc-badge-num\">08</span>\n            <span class=\"naigc-badge-dot\"></span>\n          </div>\n          <div class=\"naigc-icon-chamber\">\n            <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83\"/>\n              <circle cx=\"12\" cy=\"12\" r=\"3\"/>\n            </svg>\n          </div>\n          <div class=\"naigc-poly-content\">\n            <h3 class=\"naigc-poly-title\">AI FUTURE TECHNOLOGY</h3>\n            <p class=\"naigc-poly-desc\">Robotics, Automation, IoT & Emerging Technologies</p>\n          </div>\n          <div class=\"naigc-holo-readout\">\n            <span class=\"naigc-readout-arrow\">❯</span>\n          </div>\n        </div>\n      </div>\n    </a>\n  </div>\n  <!-- Bottom Command Deck Telemetry HUD -->\n  <div class=\"naigc-hud-telemetry\">\n    <div class=\"naigc-hud-line-left\"></div>\n    <div class=\"naigc-hud-data\">\n      <span class=\"naigc-hud-tag\"><span class=\"naigc-hud-indicator\"></span>SYS//CORE ONLINE</span>\n      <span class=\"naigc-hud-sep\">|</span>\n      <span class=\"naigc-hud-txt\">8 ECOSYSTEM NODES ACTIVE</span>\n      <span class=\"naigc-hud-sep\">|</span>\n      <span class=\"naigc-hud-txt\">LATENCY: 1.2MS</span>\n      <span class=\"naigc-hud-sep\">|</span>\n      <span class=\"naigc-hud-txt naigc-hud-accent\">MALAYSIA AI GENERATION CENTRE</span>\n    </div>\n    <div class=\"naigc-hud-line-right\"></div>\n  </div>\n</div>\n";
+  const pillarsMarkup = `<!-- 8 Pillars NAIGC Ecosystem — Dimensional Holographic Projection Panels -->
+<div id="naigc-pillars" class="naigc-pillars-container">
+  <!-- Left Column: Pillars 01 to 04 -->
+  <div class="naigc-pillars-col naigc-pillars-left">
+    <!-- Pillar 01: Electric Cyan -->
+    <a href="#academy" class="naigc-holo-projection naigc-proj-left naigc-theme-cyan" data-pillar="1">
+      <div class="naigc-offset-frame">
+        <span class="naigc-tech-bracket naigc-bracket-tl"></span>
+        <span class="naigc-tech-bracket naigc-bracket-bl"></span>
+        <span class="naigc-tech-grid-tag">SYS//NODE.01</span>
+      </div>
+      <div class="naigc-poly-border">
+        <div class="naigc-poly-travelling-light"></div>
+        <div class="naigc-poly-surface">
+          <div class="naigc-poly-grid"></div>
+          <div class="naigc-scan-beam"></div>
+          <div class="naigc-badge-capsule">
+            <span class="naigc-badge-num">01</span>
+            <span class="naigc-badge-dot"></span>
+          </div>
+          <div class="naigc-icon-chamber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <div class="naigc-poly-content">
+            <h3 class="naigc-poly-title">AI ACADEMY</h3>
+            <p class="naigc-poly-desc">Education, Training & Professional Development</p>
+            <div class="naigc-poly-meta">
+              <span class="naigc-meta-status"><span class="naigc-meta-pip"></span>ONLINE</span>
+              <span class="naigc-meta-speed">0.8MS</span>
+              <span class="naigc-meta-link">NEURAL LINK ACTIVE</span>
+            </div>
+          </div>
+          <div class="naigc-holo-readout">
+            <span class="naigc-readout-arrow">❯</span>
+          </div>
+        </div>
+      </div>
+      <div class="naigc-holo-neural-link naigc-link-right">
+        <span class="naigc-link-track"></span>
+        <span class="naigc-link-stream s1"></span>
+        <span class="naigc-link-stream s2"></span>
+        <span class="naigc-link-stream s3"></span>
+        <span class="naigc-link-tag">SYNC</span>
+        <span class="naigc-link-terminal"></span>
+      </div>
+    </a>
+
+    <!-- Pillar 02: Holographic Gold -->
+    <a href="#creative-studio" class="naigc-holo-projection naigc-proj-left naigc-theme-gold" data-pillar="2">
+      <div class="naigc-offset-frame">
+        <span class="naigc-tech-bracket naigc-bracket-tl"></span>
+        <span class="naigc-tech-bracket naigc-bracket-bl"></span>
+        <span class="naigc-tech-grid-tag">SYS//NODE.02</span>
+      </div>
+      <div class="naigc-poly-border">
+        <div class="naigc-poly-travelling-light"></div>
+        <div class="naigc-poly-surface">
+          <div class="naigc-poly-grid"></div>
+          <div class="naigc-scan-beam"></div>
+          <div class="naigc-badge-capsule">
+            <span class="naigc-badge-num">02</span>
+            <span class="naigc-badge-dot"></span>
+          </div>
+          <div class="naigc-icon-chamber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m10 9 5 3-5 3z"/>
+              <path d="M2 8h20"/>
+            </svg>
+          </div>
+          <div class="naigc-poly-content">
+            <h3 class="naigc-poly-title">AI CREATIVE STUDIO</h3>
+            <p class="naigc-poly-desc">AI Video, Media & Digital Content Production</p>
+            <div class="naigc-poly-meta">
+              <span class="naigc-meta-status"><span class="naigc-meta-pip"></span>ONLINE</span>
+              <span class="naigc-meta-speed">0.9MS</span>
+              <span class="naigc-meta-link">NEURAL LINK ACTIVE</span>
+            </div>
+          </div>
+          <div class="naigc-holo-readout">
+            <span class="naigc-readout-arrow">❯</span>
+          </div>
+        </div>
+      </div>
+      <div class="naigc-holo-neural-link naigc-link-right">
+        <span class="naigc-link-track"></span>
+        <span class="naigc-link-stream s1"></span>
+        <span class="naigc-link-stream s2"></span>
+        <span class="naigc-link-stream s3"></span>
+        <span class="naigc-link-tag">SYNC</span>
+        <span class="naigc-link-terminal"></span>
+      </div>
+    </a>
+
+    <!-- Pillar 03: Electric Cyan -->
+    <a href="#workforce-talent" class="naigc-holo-projection naigc-proj-left naigc-theme-cyan" data-pillar="3">
+      <div class="naigc-offset-frame">
+        <span class="naigc-tech-bracket naigc-bracket-tl"></span>
+        <span class="naigc-tech-bracket naigc-bracket-bl"></span>
+        <span class="naigc-tech-grid-tag">SYS//NODE.03</span>
+      </div>
+      <div class="naigc-poly-border">
+        <div class="naigc-poly-travelling-light"></div>
+        <div class="naigc-poly-surface">
+          <div class="naigc-poly-grid"></div>
+          <div class="naigc-scan-beam"></div>
+          <div class="naigc-badge-capsule">
+            <span class="naigc-badge-num">03</span>
+            <span class="naigc-badge-dot"></span>
+          </div>
+          <div class="naigc-icon-chamber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="naigc-poly-content">
+            <h3 class="naigc-poly-title">AI WORKFORCE & TALENT</h3>
+            <p class="naigc-poly-desc">Talent Development, Certification & Placement</p>
+            <div class="naigc-poly-meta">
+              <span class="naigc-meta-status"><span class="naigc-meta-pip"></span>ONLINE</span>
+              <span class="naigc-meta-speed">0.7MS</span>
+              <span class="naigc-meta-link">NEURAL LINK ACTIVE</span>
+            </div>
+          </div>
+          <div class="naigc-holo-readout">
+            <span class="naigc-readout-arrow">❯</span>
+          </div>
+        </div>
+      </div>
+      <div class="naigc-holo-neural-link naigc-link-right">
+        <span class="naigc-link-track"></span>
+        <span class="naigc-link-stream s1"></span>
+        <span class="naigc-link-stream s2"></span>
+        <span class="naigc-link-stream s3"></span>
+        <span class="naigc-link-tag">SYNC</span>
+        <span class="naigc-link-terminal"></span>
+      </div>
+    </a>
+
+    <!-- Pillar 04: Holographic Gold -->
+    <a href="#business-solutions" class="naigc-holo-projection naigc-proj-left naigc-theme-gold" data-pillar="4">
+      <div class="naigc-offset-frame">
+        <span class="naigc-tech-bracket naigc-bracket-tl"></span>
+        <span class="naigc-tech-bracket naigc-bracket-bl"></span>
+        <span class="naigc-tech-grid-tag">SYS//NODE.04</span>
+      </div>
+      <div class="naigc-poly-border">
+        <div class="naigc-poly-travelling-light"></div>
+        <div class="naigc-poly-surface">
+          <div class="naigc-poly-grid"></div>
+          <div class="naigc-scan-beam"></div>
+          <div class="naigc-badge-capsule">
+            <span class="naigc-badge-num">04</span>
+            <span class="naigc-badge-dot"></span>
+          </div>
+          <div class="naigc-icon-chamber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"/>
+              <path d="m19 9-5 5-4-4-3 3"/>
+              <path d="M15 9h4v4"/>
+            </svg>
+          </div>
+          <div class="naigc-poly-content">
+            <h3 class="naigc-poly-title">AI BUSINESS SOLUTIONS</h3>
+            <p class="naigc-poly-desc">Business Automation, AI Implementation & Industry Solutions</p>
+            <div class="naigc-poly-meta">
+              <span class="naigc-meta-status"><span class="naigc-meta-pip"></span>ONLINE</span>
+              <span class="naigc-meta-speed">1.1MS</span>
+              <span class="naigc-meta-link">NEURAL LINK ACTIVE</span>
+            </div>
+          </div>
+          <div class="naigc-holo-readout">
+            <span class="naigc-readout-arrow">❯</span>
+          </div>
+        </div>
+      </div>
+      <div class="naigc-holo-neural-link naigc-link-right">
+        <span class="naigc-link-track"></span>
+        <span class="naigc-link-stream s1"></span>
+        <span class="naigc-link-stream s2"></span>
+        <span class="naigc-link-stream s3"></span>
+        <span class="naigc-link-tag">SYNC</span>
+        <span class="naigc-link-terminal"></span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Center Mascot Holographic Platform & Grounding Base -->
+  <div class="naigc-pillars-center">
+    <div class="naigc-quantum-pad" aria-hidden="true">
+      <div class="naigc-pad-volumetric-beam"></div>
+      <div class="naigc-pad-light-shaft"></div>
+      <div class="naigc-pad-disc-stage">
+        <div class="naigc-pad-ring naigc-ring-outer-dashed"></div>
+        <div class="naigc-pad-ring naigc-ring-cyber-ticks"></div>
+        <div class="naigc-pad-ring naigc-ring-hex-gold"></div>
+        <div class="naigc-pad-ring naigc-ring-inner-cyan"></div>
+        <div class="naigc-pad-core-glow"></div>
+        <div class="naigc-pad-nodes">
+          <span class="naigc-pad-node n1"></span>
+          <span class="naigc-pad-node n2"></span>
+          <span class="naigc-pad-node n3"></span>
+          <span class="naigc-pad-node n4"></span>
+        </div>
+      </div>
+      <div class="naigc-pad-motes">
+        <span class="naigc-mote m1"></span>
+        <span class="naigc-mote m2"></span>
+        <span class="naigc-mote m3"></span>
+        <span class="naigc-mote m4"></span>
+        <span class="naigc-mote m5"></span>
+      </div>
+      <div class="naigc-pad-readout">QUANTUM EMITTER // ANCHOR 01</div>
+    </div>
+  </div>
+
+  <!-- Right Column: Pillars 05 to 08 -->
+  <div class="naigc-pillars-col naigc-pillars-right">
+    <!-- Pillar 05: Electric Cyan -->
+    <a href="#enterprise-government" class="naigc-holo-projection naigc-proj-right naigc-theme-cyan" data-pillar="5">
+      <div class="naigc-holo-neural-link naigc-link-left">
+        <span class="naigc-link-terminal"></span>
+        <span class="naigc-link-tag">SYNC</span>
+        <span class="naigc-link-stream s1"></span>
+        <span class="naigc-link-stream s2"></span>
+        <span class="naigc-link-stream s3"></span>
+        <span class="naigc-link-track"></span>
+      </div>
+      <div class="naigc-offset-frame">
+        <span class="naigc-tech-bracket naigc-bracket-tr"></span>
+        <span class="naigc-tech-bracket naigc-bracket-br"></span>
+        <span class="naigc-tech-grid-tag">SYS//NODE.05</span>
+      </div>
+      <div class="naigc-poly-border">
+        <div class="naigc-poly-travelling-light"></div>
+        <div class="naigc-poly-surface">
+          <div class="naigc-poly-grid"></div>
+          <div class="naigc-scan-beam"></div>
+          <div class="naigc-badge-capsule">
+            <span class="naigc-badge-num">05</span>
+            <span class="naigc-badge-dot"></span>
+          </div>
+          <div class="naigc-icon-chamber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 3 2 10h20z"/>
+            </svg>
+          </div>
+          <div class="naigc-poly-content">
+            <h3 class="naigc-poly-title">AI ENTERPRISE & GOVT SOLUTIONS</h3>
+            <p class="naigc-poly-desc">Enterprise & Public-Sector AI Projects</p>
+            <div class="naigc-poly-meta">
+              <span class="naigc-meta-status"><span class="naigc-meta-pip"></span>ONLINE</span>
+              <span class="naigc-meta-speed">0.8MS</span>
+              <span class="naigc-meta-link">NEURAL LINK ACTIVE</span>
+            </div>
+          </div>
+          <div class="naigc-holo-readout">
+            <span class="naigc-readout-arrow">❯</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Pillar 06: Holographic Gold -->
+    <a href="#entrepreneurship-opc" class="naigc-holo-projection naigc-proj-right naigc-theme-gold" data-pillar="6">
+      <div class="naigc-holo-neural-link naigc-link-left">
+        <span class="naigc-link-terminal"></span>
+        <span class="naigc-link-tag">SYNC</span>
+        <span class="naigc-link-stream s1"></span>
+        <span class="naigc-link-stream s2"></span>
+        <span class="naigc-link-stream s3"></span>
+        <span class="naigc-link-track"></span>
+      </div>
+      <div class="naigc-offset-frame">
+        <span class="naigc-tech-bracket naigc-bracket-tr"></span>
+        <span class="naigc-tech-bracket naigc-bracket-br"></span>
+        <span class="naigc-tech-grid-tag">SYS//NODE.06</span>
+      </div>
+      <div class="naigc-poly-border">
+        <div class="naigc-poly-travelling-light"></div>
+        <div class="naigc-poly-surface">
+          <div class="naigc-poly-grid"></div>
+          <div class="naigc-scan-beam"></div>
+          <div class="naigc-badge-capsule">
+            <span class="naigc-badge-num">06</span>
+            <span class="naigc-badge-dot"></span>
+          </div>
+          <div class="naigc-icon-chamber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+              <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+              <path d="M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5"/>
+              <path d="M12 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5"/>
+            </svg>
+          </div>
+          <div class="naigc-poly-content">
+            <h3 class="naigc-poly-title">AI ENTREPRENEURSHIP & OPC</h3>
+            <p class="naigc-poly-desc">Startup Development, Commercialisation & One-Person Company (OPC)</p>
+            <div class="naigc-poly-meta">
+              <span class="naigc-meta-status"><span class="naigc-meta-pip"></span>ONLINE</span>
+              <span class="naigc-meta-speed">1.0MS</span>
+              <span class="naigc-meta-link">NEURAL LINK ACTIVE</span>
+            </div>
+          </div>
+          <div class="naigc-holo-readout">
+            <span class="naigc-readout-arrow">❯</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Pillar 07: Electric Cyan -->
+    <a href="#research-innovation" class="naigc-holo-projection naigc-proj-right naigc-theme-cyan" data-pillar="7">
+      <div class="naigc-holo-neural-link naigc-link-left">
+        <span class="naigc-link-terminal"></span>
+        <span class="naigc-link-tag">SYNC</span>
+        <span class="naigc-link-stream s1"></span>
+        <span class="naigc-link-stream s2"></span>
+        <span class="naigc-link-stream s3"></span>
+        <span class="naigc-link-track"></span>
+      </div>
+      <div class="naigc-offset-frame">
+        <span class="naigc-tech-bracket naigc-bracket-tr"></span>
+        <span class="naigc-tech-bracket naigc-bracket-br"></span>
+        <span class="naigc-tech-grid-tag">SYS//NODE.07</span>
+      </div>
+      <div class="naigc-poly-border">
+        <div class="naigc-poly-travelling-light"></div>
+        <div class="naigc-poly-surface">
+          <div class="naigc-poly-grid"></div>
+          <div class="naigc-scan-beam"></div>
+          <div class="naigc-badge-capsule">
+            <span class="naigc-badge-num">07</span>
+            <span class="naigc-badge-dot"></span>
+          </div>
+          <div class="naigc-icon-chamber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 18h8M3 22h18M14 22a7 7 0 1 0-7-7h14"/>
+              <circle cx="9" cy="9" r="2"/>
+            </svg>
+          </div>
+          <div class="naigc-poly-content">
+            <h3 class="naigc-poly-title">AI RESEARCH & INNOVATION</h3>
+            <p class="naigc-poly-desc">R&D, Applied Research, Intellectual Property & Commercialisation</p>
+            <div class="naigc-poly-meta">
+              <span class="naigc-meta-status"><span class="naigc-meta-pip"></span>ONLINE</span>
+              <span class="naigc-meta-speed">0.6MS</span>
+              <span class="naigc-meta-link">NEURAL LINK ACTIVE</span>
+            </div>
+          </div>
+          <div class="naigc-holo-readout">
+            <span class="naigc-readout-arrow">❯</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Pillar 08: Holographic Gold -->
+    <a href="#future-technology" class="naigc-holo-projection naigc-proj-right naigc-theme-gold" data-pillar="8">
+      <div class="naigc-holo-neural-link naigc-link-left">
+        <span class="naigc-link-terminal"></span>
+        <span class="naigc-link-tag">SYNC</span>
+        <span class="naigc-link-stream s1"></span>
+        <span class="naigc-link-stream s2"></span>
+        <span class="naigc-link-stream s3"></span>
+        <span class="naigc-link-track"></span>
+      </div>
+      <div class="naigc-offset-frame">
+        <span class="naigc-tech-bracket naigc-bracket-tr"></span>
+        <span class="naigc-tech-bracket naigc-bracket-br"></span>
+        <span class="naigc-tech-grid-tag">SYS//NODE.08</span>
+      </div>
+      <div class="naigc-poly-border">
+        <div class="naigc-poly-travelling-light"></div>
+        <div class="naigc-poly-surface">
+          <div class="naigc-poly-grid"></div>
+          <div class="naigc-scan-beam"></div>
+          <div class="naigc-badge-capsule">
+            <span class="naigc-badge-num">08</span>
+            <span class="naigc-badge-dot"></span>
+          </div>
+          <div class="naigc-icon-chamber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <div class="naigc-poly-content">
+            <h3 class="naigc-poly-title">AI FUTURE TECHNOLOGY</h3>
+            <p class="naigc-poly-desc">Robotics, Automation, IoT & Emerging Technologies</p>
+            <div class="naigc-poly-meta">
+              <span class="naigc-meta-status"><span class="naigc-meta-pip"></span>ONLINE</span>
+              <span class="naigc-meta-speed">0.9MS</span>
+              <span class="naigc-meta-link">NEURAL LINK ACTIVE</span>
+            </div>
+          </div>
+          <div class="naigc-holo-readout">
+            <span class="naigc-readout-arrow">❯</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <!-- Bottom Command Deck Telemetry HUD -->
+  <div class="naigc-hud-telemetry">
+    <div class="naigc-hud-line-left"></div>
+    <div class="naigc-hud-data">
+      <span class="naigc-hud-tag"><span class="naigc-hud-indicator"></span>SYS//CORE ONLINE</span>
+      <span class="naigc-hud-sep">|</span>
+      <span class="naigc-hud-txt">8 ECOSYSTEM NODES ACTIVE</span>
+      <span class="naigc-hud-sep">|</span>
+      <span class="naigc-hud-txt">LATENCY: 1.2MS</span>
+      <span class="naigc-hud-sep">|</span>
+      <span class="naigc-hud-txt naigc-hud-accent">MALAYSIA AI GENERATION CENTRE</span>
+    </div>
+    <div class="naigc-hud-line-right"></div>
+  </div>
+</div>`;
   
   function mountEcosystem() {
     const introBody = document.querySelector('.mq4-intro__body');
