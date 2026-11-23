@@ -1346,26 +1346,25 @@ body.mq4-body,
 
 <script>
 /**
- * LUSION.CO SCREENPAINT ENGINE — LIQUID IRIDESCENT RIBBON & CHROMATIC ABERRATION
- * Recreates the exact signature effect from lusion.co/projects:
- * - Fluid ribbon spline trailing the cursor
- * - Multi-pass spectral chromatic aberration (NAIGC Cyan, Champagne Gold, Liquid White)
- * - Organic dissipation & curl noise physics
- * - Native pointer responsiveness (zero lag)
+ * NAIGC LIQUID SILK CURSOR ENGINE
+ * Ultra-smooth, organic fluid ribbon trailing the cursor
+ * - Catmull-Rom / Midpoint Quadratic Spline Curve (Zero geometric corners)
+ * - Continuous C1 tangent continuity
+ * - Multi-pass NAIGC Brand Spectral Glow (Electric Cyan, Champagne Gold, Specular White)
+ * - Fluid inertia & smooth spring damping
  */
-(function initLusionScreenPaint() {
+(function initNaigcLiquidCursor() {
   if (typeof window === "undefined") return;
 
-  // Create High-Performance GPU Canvas
   const canvas = document.createElement("canvas");
   canvas.id = "lusion-screenpaint-canvas";
   canvas.setAttribute("aria-hidden", "true");
   document.body.appendChild(canvas);
 
   const ctx = canvas.getContext("2d", { alpha: true });
-  let width = (canvas.width = window.innerWidth * window.devicePixelRatio || 1);
-  let height = (canvas.height = window.innerHeight * window.devicePixelRatio || 1);
-  const dpr = window.devicePixelRatio || 1;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let width = (canvas.width = window.innerWidth * dpr);
+  let height = (canvas.height = window.innerHeight * dpr);
 
   function resize() {
     width = canvas.width = window.innerWidth * dpr;
@@ -1373,51 +1372,34 @@ body.mq4-body,
   }
   window.addEventListener("resize", resize, { passive: true });
 
-  // Mouse State & Trail Buffer
+  // Physics Follower & Trail State
   const points = [];
-  const TRAIL_LIFETIME = 850;
-  const BASE_WIDTH = 12 * dpr;
+  const TRAIL_LIFETIME = 650; // ms
+  const MAX_WIDTH = 12 * dpr;
+
   let mouseX = -1000, mouseY = -1000;
-  let prevMouseX = -1000, prevMouseY = -1000;
+  let leaderX = -1000, leaderY = -1000;
+  let prevLeaderX = -1000, prevLeaderY = -1000;
   let isMoving = false;
   let moveTimeout = null;
 
   window.addEventListener("pointermove", (e) => {
-    const curX = e.clientX * dpr;
-    const curY = e.clientY * dpr;
+    mouseX = e.clientX * dpr;
+    mouseY = e.clientY * dpr;
 
-    if (prevMouseX < 0) {
-      prevMouseX = curX;
-      prevMouseY = curY;
+    if (leaderX < 0) {
+      leaderX = mouseX;
+      leaderY = mouseY;
+      prevLeaderX = mouseX;
+      prevLeaderY = mouseY;
     }
 
-    const vx = curX - prevMouseX;
-    const vy = curY - prevMouseY;
-    const speed = Math.hypot(vx, vy);
-
-    if (speed > 1.5) {
-      points.push({
-        x: curX,
-        y: curY,
-        vx: vx,
-        vy: vy,
-        speed: speed,
-        age: 0,
-        birth: performance.now(),
-        noiseOffset: (Math.random() - 0.5) * 6 * dpr
-      });
-      prevMouseX = curX;
-      prevMouseY = curY;
-    }
-
-    mouseX = curX;
-    mouseY = curY;
     isMoving = true;
     clearTimeout(moveTimeout);
     moveTimeout = setTimeout(() => { isMoving = false; }, 100);
   }, { passive: true });
 
-  // 3D Tilt on Pillar Cards
+  // 3D Card Tilt Interaction
   function bindPillarCards() {
     const cards = document.querySelectorAll(".naigc-holo-projection");
     cards.forEach((card) => {
@@ -1449,11 +1431,30 @@ body.mq4-body,
   const obs = new MutationObserver(bindPillarCards);
   obs.observe(document.body, { childList: true, subtree: true });
 
-  // 60-120FPS Render Loop: Liquid Chromatic Spline Trail
+  // 60-120FPS Render Loop
   function render(now) {
     requestAnimationFrame(render);
 
-    // Prune expired points
+    // Damped follower for natural, organic inertia
+    if (mouseX > 0) {
+      const ease = isMoving ? 0.42 : 0.2;
+      leaderX += (mouseX - leaderX) * ease;
+      leaderY += (mouseY - leaderY) * ease;
+
+      const dist = Math.hypot(leaderX - prevLeaderX, leaderY - prevLeaderY);
+      if (dist > 1.5 * dpr) {
+        points.push({
+          x: leaderX,
+          y: leaderY,
+          birth: now,
+          speed: dist
+        });
+        prevLeaderX = leaderX;
+        prevLeaderY = leaderY;
+      }
+    }
+
+    // Prune old points
     while (points.length > 0 && (now - points[0].birth) > TRAIL_LIFETIME) {
       points.shift();
     }
@@ -1462,63 +1463,150 @@ body.mq4-body,
 
     if (points.length < 3) return;
 
-    // Multi-pass Chromatic Aberration Drawing (NAIGC Brand Signature)
-    // Pass 1: Imperial / Champagne Gold Fringe (+offset)
-    // Pass 2: Electric Cyber Cyan Fringe (-offset)
-    // Pass 3: Radiant Liquid Light Core (Pure Specular White)
+    const N = points.length;
+
+    // Precompute midpoints for quadratic bezier spline
+    const midpoints = new Array(N - 1);
+    for (let i = 0; i < N - 1; i++) {
+      midpoints[i] = {
+        x: (points[i].x + points[i + 1].x) * 0.5,
+        y: (points[i].y + points[i + 1].y) * 0.5
+      };
+    }
+
+    // Precompute smooth normal vectors (centered differences)
+    const normals = new Array(N);
+    for (let i = 0; i < N; i++) {
+      const prev = points[Math.max(0, i - 1)];
+      const next = points[Math.min(N - 1, i + 1)];
+      const dx = next.x - prev.x;
+      const dy = next.y - prev.y;
+      const len = Math.hypot(dx, dy) || 1;
+      normals[i] = { nx: -dy / len, ny: dx / len };
+    }
+
+    // Passes:
+    // Pass 1: Wide Electric Cyan Glow
+    // Pass 2: Champagne Gold Spectral Accent
+    // Pass 3: Electric Cyan Core Beam
+    // Pass 4: Pure White Specular Spine
     const passes = [
-      { color: "rgba(229, 184, 105, ", shift: 1.8 * dpr, blur: 8 * dpr },
-      { color: "rgba(0, 217, 255, ", shift: -1.8 * dpr, blur: 7 * dpr },
-      { color: "rgba(255, 255, 255, ", shift: 0, blur: 3.5 * dpr }
+      {
+        shift: 0,
+        blur: 16 * dpr,
+        glow: "rgba(0, 217, 255, 0.7)",
+        widthMult: 1.35,
+        alphaMult: 0.35,
+        color: (a) => `rgba(0, 217, 255, ${a})`
+      },
+      {
+        shift: 2.0 * dpr,
+        blur: 8 * dpr,
+        glow: "rgba(229, 184, 105, 0.65)",
+        widthMult: 0.9,
+        alphaMult: 0.55,
+        color: (a) => `rgba(229, 184, 105, ${a})`
+      },
+      {
+        shift: -1.0 * dpr,
+        blur: 5 * dpr,
+        glow: "rgba(0, 217, 255, 0.8)",
+        widthMult: 0.65,
+        alphaMult: 0.85,
+        color: (a) => `rgba(0, 217, 255, ${a})`
+      },
+      {
+        shift: 0,
+        blur: 2.5 * dpr,
+        glow: "rgba(255, 255, 255, 0.95)",
+        widthMult: 0.25,
+        alphaMult: 0.95,
+        color: (a) => `rgba(255, 255, 255, ${a})`
+      }
     ];
 
     passes.forEach((p) => {
       ctx.save();
       ctx.shadowBlur = p.blur;
-      ctx.shadowColor = p.color + "0.6)";
-      ctx.lineCap = "round";
+      ctx.shadowColor = p.glow;
+      ctx.lineCap = "butt"; // Seamless segment connection without bulbous beading
       ctx.lineJoin = "round";
 
-      for (let i = 1; i < points.length; i++) {
-        const p0 = points[i - 1];
-        const p1 = points[i];
+      // Compute shifted control points with soft harmonic ripple
+      const shifted = new Array(N);
+      for (let i = 0; i < N; i++) {
+        const pt = points[i];
+        const progress = Math.max(0, 1 - (now - pt.birth) / TRAIL_LIFETIME);
+        const wave = Math.sin(now * 0.0035 + i * 0.18) * (1 - progress) * 2 * dpr;
+        const totalShift = p.shift + wave;
+        shifted[i] = {
+          x: pt.x + normals[i].nx * totalShift,
+          y: pt.y + normals[i].ny * totalShift
+        };
+      }
 
-        const progress0 = Math.max(0, 1 - (now - p0.birth) / TRAIL_LIFETIME);
-        const progress1 = Math.max(0, 1 - (now - p1.birth) / TRAIL_LIFETIME);
-        const alpha = Math.min(progress0, progress1) * 0.85;
+      // Draw seamlessly connected quadratic bezier spline segments
+      for (let i = 1; i < N - 1; i++) {
+        const p1 = shifted[i];
+        const mPrev = {
+          x: (shifted[i - 1].x + shifted[i].x) * 0.5,
+          y: (shifted[i - 1].y + shifted[i].y) * 0.5
+        };
+        const mNext = {
+          x: (shifted[i].x + shifted[i + 1].x) * 0.5,
+          y: (shifted[i].y + shifted[i + 1].y) * 0.5
+        };
 
-        if (alpha <= 0.01) continue;
+        const progress = Math.max(0, 1 - (now - points[i].birth) / TRAIL_LIFETIME);
+        if (progress <= 0.01) continue;
 
-        // Compute normal vector for chromatic shift & curl
-        const dx = p1.x - p0.x;
-        const dy = p1.y - p0.y;
-        const len = Math.hypot(dx, dy) || 1;
-        const nx = -dy / len;
-        const ny = dx / len;
-
-        // Dynamic width: fluid taper based on age and speed
-        const w0 = Math.max(1.5 * dpr, BASE_WIDTH * Math.pow(progress0, 0.85) * Math.min(1.8, 0.8 + p0.speed * 0.016));
-        const w1 = Math.max(1.5 * dpr, BASE_WIDTH * Math.pow(progress1, 0.85) * Math.min(1.8, 0.8 + p1.speed * 0.016));
-        const avgWidth = (w0 + w1) * 0.5;
-
-        // Slight curl displacement over lifetime
-        const curlPhase = (now - p0.birth) * 0.005;
-        const curl = Math.sin(curlPhase) * p0.noiseOffset * (1 - progress0);
-
-        const x0 = p0.x + nx * (p.shift + curl);
-        const y0 = p0.y + ny * (p.shift + curl);
-        const x1 = p1.x + nx * (p.shift + curl);
-        const y1 = p1.y + ny * (p.shift + curl);
+        // Smooth ease-out taper
+        const taper = Math.sin(progress * Math.PI * 0.5);
+        const speedBoost = Math.min(1.7, 0.8 + points[i].speed * 0.02);
+        const w = Math.max(0.6 * dpr, MAX_WIDTH * p.widthMult * taper * speedBoost);
+        const alpha = Math.pow(progress, 0.85) * p.alphaMult;
 
         ctx.beginPath();
-        ctx.moveTo(x0, y0);
-        ctx.lineTo(x1, y1);
-        ctx.lineWidth = p.shift === 0 ? avgWidth * 0.65 : avgWidth;
-        ctx.strokeStyle = p.color + (alpha * (p.shift === 0 ? 0.95 : 0.75)) + ")";
+        ctx.moveTo(mPrev.x, mPrev.y);
+        ctx.quadraticCurveTo(p1.x, p1.y, mNext.x, mNext.y);
+        ctx.lineWidth = w;
+        ctx.strokeStyle = p.color(alpha.toFixed(3));
         ctx.stroke();
       }
+
+      // Rounded end caps at head and tail
+      if (N > 2) {
+        const headPt = shifted[N - 1];
+        const headProg = Math.max(0, 1 - (now - points[N - 1].birth) / TRAIL_LIFETIME);
+        const headWidth = Math.max(0.6 * dpr, MAX_WIDTH * p.widthMult * Math.sin(headProg * Math.PI * 0.5));
+        ctx.fillStyle = p.color((headProg * p.alphaMult).toFixed(3));
+        ctx.beginPath();
+        ctx.arc(headPt.x, headPt.y, headWidth * 0.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       ctx.restore();
     });
+
+    // Radiant Cursor Tip Particle (Soft Luminous Orb)
+    if (isMoving && leaderX > 0) {
+      const head = points[N - 1];
+      const speed = head ? head.speed : 0;
+      const orbRadius = (5 + Math.min(speed * 0.12, 5.5)) * dpr;
+
+      const orbGrad = ctx.createRadialGradient(leaderX, leaderY, 0, leaderX, leaderY, orbRadius);
+      orbGrad.addColorStop(0, "rgba(255, 255, 255, 0.98)");
+      orbGrad.addColorStop(0.35, "rgba(0, 217, 255, 0.85)");
+      orbGrad.addColorStop(0.7, "rgba(229, 184, 105, 0.4)");
+      orbGrad.addColorStop(1, "rgba(0, 217, 255, 0)");
+
+      ctx.save();
+      ctx.fillStyle = orbGrad;
+      ctx.beginPath();
+      ctx.arc(leaderX, leaderY, orbRadius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
   }
 
   requestAnimationFrame(render);
