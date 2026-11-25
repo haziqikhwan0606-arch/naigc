@@ -351,7 +351,7 @@ body.mq4-body,
   --naigc-desc: #A5BDCF;
 
   /* Layered Surface */
-  --naigc-surface-bg: linear-gradient(135deg, rgba(8, 22, 54, 0.86) 0%, rgba(4, 12, 34, 0.92) 100%);
+  --naigc-surface-bg: linear-gradient(135deg, rgba(8, 24, 62, 0.95) 0%, rgba(4, 12, 34, 0.98) 100%);
 }
 
 /* Atmospheric Depth Glow Behind Central Mascot */
@@ -377,7 +377,7 @@ body.mq4-body,
   z-index: 5;
   opacity: 0;
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  background: radial-gradient(ellipse at 50% 50%, transparent 0%, transparent 26%, rgba(2, 6, 23, 0.45) 55%, rgba(1, 4, 16, 0.82) 100%);
+  background: radial-gradient(ellipse at 50% 50%, transparent 0%, transparent 24%, rgba(2, 6, 23, 0.55) 52%, rgba(1, 4, 16, 0.88) 100%);
 }
 .naigc-stage-atmosphere.is-active {
   opacity: 1;
@@ -894,12 +894,12 @@ body.mq4-body,
 /* Micro-Interface Header Tag */
 .naigc-tech-grid-tag {
   position: absolute;
-  top: -10px;
+  top: -11px;
   font-family: var(--mq4-font-pixel, monospace);
-  font-size: 0.50rem;
-  letter-spacing: 0.12em;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
   font-weight: 800;
-  opacity: 0.85;
+  opacity: 1;
 }
 
 .naigc-proj-left .naigc-tech-grid-tag {
@@ -911,14 +911,13 @@ body.mq4-body,
 }
 
 .naigc-theme-cyan .naigc-tech-grid-tag {
-  color: var(--naigc-cyan);
-  text-shadow: 0 0 6px rgba(0, 217, 255, 0.6);
+  color: #00F0FF;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.85);
 }
 
-.naigc-theme-gold .naigc-tech-grid-tag,
 .naigc-theme-gold .naigc-tech-grid-tag {
-  color: #E5B869;
-  text-shadow: 0 0 6px rgba(229, 184, 105, 0.65);
+  color: #FFB800;
+  text-shadow: 0 0 8px rgba(255, 184, 0, 0.85);
 }
 
 /* ==========================================================================
@@ -1103,41 +1102,40 @@ body.mq4-body,
 }
 
 .naigc-theme-cyan .naigc-badge-capsule {
-  background: rgba(0, 217, 255, 0.20);
-  border: 1px solid rgba(0, 217, 255, 0.55);
-  box-shadow: 0 0 8px rgba(0, 217, 255, 0.3);
-  color: #00D9FF;
+  background: rgba(0, 240, 255, 0.28);
+  border: 1.5px solid #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.45);
+  color: #00F0FF;
 }
 
-.naigc-theme-gold .naigc-badge-capsule,
 .naigc-theme-gold .naigc-badge-capsule {
-  background: rgba(229, 184, 105, 0.20);
-  border: 1px solid rgba(229, 184, 105, 0.65);
-  box-shadow: 0 0 8px rgba(229, 184, 105, 0.35);
-  color: #F6D365;
+  background: rgba(255, 184, 0, 0.28);
+  border: 1.5px solid #FFB800;
+  box-shadow: 0 0 10px rgba(255, 184, 0, 0.45);
+  color: #FFB800;
 }
 
 .naigc-badge-num {
   font-family: var(--mq4-font-pixel, monospace);
-  font-size: 0.65rem;
+  font-size: 0.70rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   line-height: 1.2;
 }
 
 .naigc-badge-dot {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: currentColor;
-  box-shadow: 0 0 4px currentColor;
+  box-shadow: 0 0 6px currentColor;
 }
 
 /* Faceted Hexagonal Icon Chamber */
 .naigc-icon-chamber {
-  width: 50px;
-  height: 50px;
-  min-width: 50px;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1148,24 +1146,23 @@ body.mq4-body,
 }
 
 .naigc-theme-cyan .naigc-icon-chamber {
-  background: linear-gradient(135deg, rgba(0, 217, 255, 0.22) 0%, rgba(6, 24, 58, 0.92) 100%);
-  border: 1px solid rgba(0, 217, 255, 0.55);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 4px 14px rgba(0, 217, 255, 0.28);
-  color: #00D9FF;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.32) 0%, rgba(4, 16, 44, 0.96) 100%);
+  border: 1.5px solid #00F0FF;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5), 0 0 16px rgba(0, 240, 255, 0.4);
+  color: #00F0FF;
 }
 
-.naigc-theme-gold .naigc-icon-chamber,
 .naigc-theme-gold .naigc-icon-chamber {
-  background: linear-gradient(135deg, rgba(229, 184, 105, 0.25) 0%, rgba(28, 18, 4, 0.94) 100%);
-  border: 1px solid rgba(229, 184, 105, 0.65);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 4px 14px rgba(229, 184, 105, 0.32);
-  color: #F3C66F;
+  background: linear-gradient(135deg, rgba(255, 184, 0, 0.32) 0%, rgba(24, 14, 2, 0.96) 100%);
+  border: 1.5px solid #FFB800;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5), 0 0 16px rgba(255, 184, 0, 0.4);
+  color: #FFB800;
 }
 
 .naigc-icon-chamber svg {
-  width: 23px;
-  height: 23px;
-  filter: drop-shadow(0 0 6px currentColor);
+  width: 25px;
+  height: 25px;
+  filter: drop-shadow(0 0 8px currentColor);
 }
 
 /* Typography Body */
@@ -1173,53 +1170,52 @@ body.mq4-body,
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 0.25rem;
   flex: 1;
   min-width: 0;
   z-index: 5;
-  padding-top: 4px;
+  padding-top: 3px;
 }
 
 .naigc-poly-title {
   margin: 0;
   font-family: var(--mq4-font, system-ui, sans-serif);
   color: #FFFFFF !important;
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 800;
-  letter-spacing: 0.035em;
+  letter-spacing: 0.04em;
   line-height: 1.25;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: visible;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 217, 255, 0.35);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.95), 0 0 12px rgba(0, 240, 255, 0.45);
   transition: color 0.25s ease;
 }
 
-.naigc-theme-gold .naigc-poly-title,
 .naigc-theme-gold .naigc-poly-title {
   margin: 0;
   font-family: var(--mq4-font, system-ui, sans-serif);
   color: #FFFFFF !important;
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 800;
-  letter-spacing: 0.035em;
+  letter-spacing: 0.04em;
   line-height: 1.25;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: visible;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(229, 184, 105, 0.38);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.95), 0 0 12px rgba(255, 184, 0, 0.45);
   transition: color 0.25s ease;
 }
 
 .naigc-poly-desc {
   margin: 0;
-  color: #CBD5E1 !important;
-  font-size: 0.70rem;
-  font-weight: 500;
+  color: #E2E8F0 !important;
+  font-size: 0.74rem;
+  font-weight: 600;
   line-height: 1.35;
   white-space: nowrap;
   overflow: visible;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
   transition: color 0.25s ease;
 }
 
@@ -1229,21 +1225,26 @@ body.mq4-body,
   align-items: center;
   gap: 0.65rem;
   font-family: var(--mq4-font-pixel, monospace);
-  font-size: 0.50rem;
-  letter-spacing: 0.08em;
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
   margin-top: 3px;
-  opacity: 0.85;
+  opacity: 1;
 }
 
 .naigc-meta-status {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: var(--naigc-cyan);
+  color: #00F0FF;
+  font-weight: 800;
+  text-shadow: 0 0 6px #00F0FF;
 }
 
 .naigc-theme-gold .naigc-meta-status {
-  color: #F6D365;
+  color: #FFB800;
+  font-weight: 800;
+  text-shadow: 0 0 6px #FFB800;
 }
 
 .naigc-meta-pip {
