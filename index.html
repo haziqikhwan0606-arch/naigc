@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="csrf-token" content="V8H0FpMoBmAIc3EhsBGr4tRWpWCyzey7nUZIwV0t">
     <title>NAIGC | National Artificial Intelligence Generation Centre</title>
@@ -366,6 +369,20 @@ body.mq4-body,
   z-index: 1;
 }
 
+/* Atmospheric Dark Backdrop Vignette (keeps center mascot clear & transparent) */
+.naigc-stage-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  background: radial-gradient(ellipse at 50% 50%, transparent 0%, transparent 26%, rgba(2, 6, 23, 0.45) 55%, rgba(1, 4, 16, 0.82) 100%);
+}
+.naigc-stage-atmosphere.is-active {
+  opacity: 1;
+}
+
 /* 8 Pillars Overall Grid Container */
 .naigc-pillars-container {
   display: grid;
@@ -376,18 +393,96 @@ body.mq4-body,
   max-height: 870px;
   margin: 0 auto;
   align-items: center;
-  pointer-events: none;
   box-sizing: border-box;
   padding: 0 1.5rem;
   z-index: 12;
   position: relative;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Hidden strictly until scroll enters 8-pillars ecosystem stage */
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
-/* Hide pillars cleanly when arcade intro is active, fade in on stage */
-.mq4-intro:not(.is-live) .naigc-pillars-container {
-  opacity: 0 !important;
-  pointer-events: none !important;
+/* Activated strictly when scroll reaches stage (>= 4250px) */
+.naigc-pillars-container.is-stage-active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Visor Outward Holographic Shockwave / Matrix Burst */
+.naigc-visor-shockwave {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 4px solid #00F0FF;
+  box-shadow: 0 0 60px #00F0FF, 0 0 120px rgba(0, 240, 255, 0.85), inset 0 0 35px #00F0FF;
+  pointer-events: none;
+  z-index: 18;
+  opacity: 0;
+}
+
+.is-stage-active .naigc-visor-shockwave {
+  animation: naigc-shockwave-pulse 1.35s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes naigc-shockwave-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 1;
+    border-width: 6px;
+    filter: brightness(3);
+  }
+  45% {
+    opacity: 1;
+    border-width: 3.5px;
+    box-shadow: 0 0 90px #00F0FF, 0 0 160px rgba(0, 240, 255, 0.9), inset 0 0 50px #00F0FF;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(7.5);
+    opacity: 0;
+    border-width: 1px;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0);
+  }
+}
+
+/* Concentric Radar Grid Expansion */
+.naigc-visor-hex-grid {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.15);
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  border: 2px dashed #FFB800;
+  box-shadow: 0 0 40px rgba(255, 184, 0, 0.7);
+  pointer-events: none;
+  z-index: 17;
+  opacity: 0;
+}
+
+.is-stage-active .naigc-visor-hex-grid {
+  animation: naigc-radar-expand 1.45s cubic-bezier(0.16, 1, 0.3, 1) 0.08s forwards;
+}
+
+@keyframes naigc-radar-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.15) rotate(0deg);
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(5.8) rotate(110deg);
+    opacity: 0;
+  }
 }
 
 /* Left & Right Columns */
@@ -412,12 +507,42 @@ body.mq4-body,
 
 .naigc-quantum-pad {
   position: absolute;
-  bottom: -150px;
+  bottom: -135px;
   left: 50%;
   transform: translateX(-50%);
   width: 380px;
   height: 200px;
   pointer-events: none;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.is-stage-active .naigc-quantum-pad {
+  opacity: 1;
+  animation: naigc-dais-boot 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+@keyframes naigc-dais-boot {
+  0% {
+    transform: translateX(-50%) scale(0.2);
+    opacity: 0;
+    filter: brightness(2.8);
+  }
+  60% {
+    transform: translateX(-50%) scale(1.08);
+    opacity: 1;
+    filter: brightness(1.6);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
   z-index: 8;
   display: flex;
   align-items: center;
@@ -596,7 +721,7 @@ body.mq4-body,
 }
 
 /* ==========================================================================
-   LAYER 1 & 2: ANGULAR HOLOGRAPHIC PROJECTION SHELL
+   LAYER 1 & 2: ANGULAR HOLOGRAPHIC PROJECTION SHELL (STAGGERED 3D FLY-IN)
    ========================================================================== */
 
 .naigc-holo-projection {
@@ -609,7 +734,9 @@ body.mq4-body,
   max-width: 485px;
   height: 104px;
   cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  transition: filter 0.35s ease, box-shadow 0.35s ease;
 }
 
 /* Spatial 3D Command-Centre Perspective Suspended in Space */
@@ -623,16 +750,92 @@ body.mq4-body,
   transform-origin: left center;
 }
 
-/* Staggered Spatial Depths */
-.naigc-pillars-col a:nth-child(1) { transform: perspective(1000px) rotateY(6deg) translateZ(-6px); }
-.naigc-pillars-col a:nth-child(2) { transform: perspective(1000px) rotateY(6deg) translateZ(10px); }
-.naigc-pillars-col a:nth-child(3) { transform: perspective(1000px) rotateY(6deg) translateZ(14px); }
-.naigc-pillars-col a:nth-child(4) { transform: perspective(1000px) rotateY(6deg) translateZ(-2px); }
+/* Staggered Spatial Depths (Final Resting Coordinates) */
+.naigc-pillars-col a:nth-child(1) { --naigc-tz: -6px; }
+.naigc-pillars-col a:nth-child(2) { --naigc-tz: 10px; }
+.naigc-pillars-col a:nth-child(3) { --naigc-tz: 14px; }
+.naigc-pillars-col a:nth-child(4) { --naigc-tz: -2px; }
 
-.naigc-pillars-right a:nth-child(1) { transform: perspective(1000px) rotateY(-6deg) translateZ(-6px); }
-.naigc-pillars-right a:nth-child(2) { transform: perspective(1000px) rotateY(-6deg) translateZ(10px); }
-.naigc-pillars-right a:nth-child(3) { transform: perspective(1000px) rotateY(-6deg) translateZ(14px); }
-.naigc-pillars-right a:nth-child(4) { transform: perspective(1000px) rotateY(-6deg) translateZ(-2px); }
+.naigc-pillars-right a:nth-child(1) { --naigc-tz: -6px; }
+.naigc-pillars-right a:nth-child(2) { --naigc-tz: 10px; }
+.naigc-pillars-right a:nth-child(3) { --naigc-tz: 14px; }
+.naigc-pillars-right a:nth-child(4) { --naigc-tz: -2px; }
+
+/* 3D Staggered Holographic Fly-In Animation Keyframes */
+@keyframes naigc-fly-in-left {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-28deg) rotateX(3deg) translateX(-120px) scale(0.85);
+    filter: blur(10px) brightness(2.5);
+  }
+  65% {
+    opacity: 0.95;
+    transform: perspective(1000px) rotateY(10deg) rotateX(1deg) translateX(12px) translateZ(var(--naigc-tz, 0px)) scale(1.02);
+    filter: blur(0px) brightness(1.3);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(6deg) rotateX(1deg) translateX(0) translateZ(var(--naigc-tz, 0px)) scale(1);
+    filter: blur(0px) brightness(1);
+  }
+}
+
+@keyframes naigc-fly-in-right {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(28deg) rotateX(3deg) translateX(120px) scale(0.85);
+    filter: blur(10px) brightness(2.5);
+  }
+  65% {
+    opacity: 0.95;
+    transform: perspective(1000px) rotateY(-10deg) rotateX(1deg) translateX(-12px) translateZ(var(--naigc-tz, 0px)) scale(1.02);
+    filter: blur(0px) brightness(1.3);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(-6deg) rotateX(1deg) translateX(0) translateZ(var(--naigc-tz, 0px)) scale(1);
+    filter: blur(0px) brightness(1);
+  }
+}
+
+/* Staggered Deployments Triggered on Stage Activation */
+.is-stage-active .naigc-pillars-left a[data-pillar="1"] {
+  animation: naigc-fly-in-left 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+}
+.is-stage-active .naigc-pillars-left a[data-pillar="2"] {
+  animation: naigc-fly-in-left 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+}
+.is-stage-active .naigc-pillars-left a[data-pillar="3"] {
+  animation: naigc-fly-in-left 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.31s forwards;
+}
+.is-stage-active .naigc-pillars-left a[data-pillar="4"] {
+  animation: naigc-fly-in-left 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.44s forwards;
+}
+
+.is-stage-active .naigc-pillars-right a[data-pillar="5"] {
+  animation: naigc-fly-in-right 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.09s forwards;
+}
+.is-stage-active .naigc-pillars-right a[data-pillar="6"] {
+  animation: naigc-fly-in-right 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards;
+}
+.is-stage-active .naigc-pillars-right a[data-pillar="7"] {
+  animation: naigc-fly-in-right 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+}
+.is-stage-active .naigc-pillars-right a[data-pillar="8"] {
+  animation: naigc-fly-in-right 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.48s forwards;
+}
+
+/* Interactive Hover Response */
+.naigc-holo-projection:hover {
+  filter: brightness(1.28) drop-shadow(0 0 30px rgba(0, 240, 255, 0.55));
+  z-index: 25;
+}
+.naigc-proj-left:hover {
+  transform: perspective(1000px) rotateY(2deg) translateX(12px) translateZ(24px) scale(1.025) !important;
+}
+.naigc-proj-right:hover {
+  transform: perspective(1000px) rotateY(-2deg) translateX(-12px) translateZ(24px) scale(1.025) !important;
+}
 
 /* Floating Offset Secondary Frame */
 .naigc-offset-frame {
@@ -730,6 +933,16 @@ body.mq4-body,
   padding: 1.5px;
   position: relative;
   transition: all 0.3s ease;
+}
+
+.naigc-theme-cyan .naigc-poly-border {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.75) 0%, rgba(0, 140, 255, 0.35) 50%, rgba(0, 240, 255, 0.75) 100%);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.28);
+}
+
+.naigc-theme-gold .naigc-poly-border {
+  background: linear-gradient(135deg, rgba(255, 184, 0, 0.75) 0%, rgba(255, 130, 0, 0.35) 50%, rgba(255, 184, 0, 0.75) 100%);
+  box-shadow: 0 0 18px rgba(255, 184, 0, 0.28);
 }
 
 /* Left Panels Polygon: Cut corners on left, Tapered apex facing Cyborg on right */
@@ -1381,6 +1594,15 @@ body.mq4-body,
   padding: 0.4rem 1.5rem;
   pointer-events: none;
   z-index: 10;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-stage-active .naigc-hud-telemetry {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
 }
 
 .naigc-hud-line-left,
@@ -1582,6 +1804,10 @@ body.mq4-body,
 (function() {
   const pillarsMarkup = `<!-- 8 Pillars NAIGC Ecosystem — Dimensional Holographic Projection Panels -->
 <div id="naigc-pillars" class="naigc-pillars-container">
+  <!-- Visor Outward Holographic Shockwave & Expanding Radar Matrix -->
+  <div class="naigc-visor-shockwave" aria-hidden="true"></div>
+  <div class="naigc-visor-hex-grid" aria-hidden="true"></div>
+
   <!-- Left Column: Pillars 01 to 04 -->
   <div class="naigc-pillars-col naigc-pillars-left">
     <!-- Pillar 01: Electric Cyan -->
@@ -2005,18 +2231,60 @@ body.mq4-body,
   </div>
 </div>`;
   
+  let stageWasActive = false;
+
+  function checkStageScroll() {
+    const pillars = document.getElementById('naigc-pillars');
+    let atmosphere = document.getElementById('naigc-stage-atmosphere');
+    if (!atmosphere) {
+      atmosphere = document.createElement('div');
+      atmosphere.id = 'naigc-stage-atmosphere';
+      atmosphere.className = 'naigc-stage-atmosphere';
+      atmosphere.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(atmosphere);
+    }
+    if (!pillars) return;
+
+    // Transition threshold from visor closeup into full mascot & pillars stage
+    const isStage = window.scrollY >= 4250;
+    if (isStage) {
+      if (!stageWasActive) {
+        stageWasActive = true;
+        pillars.classList.remove('is-stage-active');
+        void pillars.offsetWidth; // Force CSS reflow to re-trigger staggered fly-in animations
+        pillars.classList.add('is-stage-active');
+        atmosphere.classList.add('is-active');
+      }
+    } else {
+      if (stageWasActive) {
+        stageWasActive = false;
+        pillars.classList.remove('is-stage-active');
+        atmosphere.classList.remove('is-active');
+      }
+    }
+  }
+
   function mountEcosystem() {
     const introBody = document.querySelector('.mq4-intro__body');
     if (introBody && !document.getElementById('naigc-pillars')) {
       introBody.innerHTML = pillarsMarkup;
+      checkStageScroll();
     }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', mountEcosystem);
+    document.addEventListener('DOMContentLoaded', () => {
+      mountEcosystem();
+      checkStageScroll();
+    });
   } else {
     mountEcosystem();
+    checkStageScroll();
   }
+
+  window.addEventListener('scroll', checkStageScroll, { passive: true });
+  window.addEventListener('resize', checkStageScroll, { passive: true });
+  setInterval(checkStageScroll, 120);
 
   const observer = new MutationObserver(mountEcosystem);
   observer.observe(document.documentElement, { childList: true, subtree: true });
