@@ -1040,8 +1040,6 @@ body.mq4-body,
   height: 100%;
   box-sizing: border-box;
   background: var(--naigc-surface-bg);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
   display: flex;
   align-items: center;
   gap: 0.85rem;
@@ -1661,9 +1659,7 @@ body.mq4-body,
   font-weight: 700;
   color: #94A3B8;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
-  background: rgba(8, 22, 54, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(8, 22, 54, 0.92);
   padding: 0.45rem 1.35rem;
   border-radius: 4px;
   border: 1px solid rgba(0, 217, 255, 0.28);
@@ -2391,6 +2387,11 @@ body.mq4-body,
   let isMoving = false;
   let moveTimeout = null;
 
+  let animId = null;
+  function startLoop() {
+    if (!animId) animId = requestAnimationFrame(render);
+  }
+
   window.addEventListener("pointermove", (e) => {
     mouseX = e.clientX * dpr;
     mouseY = e.clientY * dpr;
@@ -2403,6 +2404,7 @@ body.mq4-body,
     }
 
     isMoving = true;
+    startLoop();
     clearTimeout(moveTimeout);
     moveTimeout = setTimeout(() => { isMoving = false; }, 100);
   }, { passive: true });
@@ -2441,10 +2443,18 @@ body.mq4-body,
   window.bindPillarCards = bindPillarCards;
   bindPillarCards();
 
-  // High-Performance 120FPS Render Loop (Zero CPU Lag)
+  // High-Performance 120FPS Render Loop (Zero CPU Idle Cost)
   let isIdle = true;
   function render(now) {
-    requestAnimationFrame(render);
+    if (points.length === 0 && !isMoving) {
+      if (!isIdle) {
+        ctx.clearRect(0, 0, width, height);
+        isIdle = true;
+      }
+      animId = null;
+      return;
+    }
+    animId = requestAnimationFrame(render);
 
     if (mouseX > 0) {
       const ease = isMoving ? 0.45 : 0.22;
