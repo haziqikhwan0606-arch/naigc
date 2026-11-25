@@ -275,13 +275,25 @@ body {
 /* Malaysian Skyline Background on Stage (STRICTLY LOCKED) */
 /* Malaysian Skyline Daytime Background */
 body.mq4-body,
-#mq-landing-v4,
-.mq4,
-.mq4-stage,
-.mq4-story {
+#mq-landing-v4 {
   background: 
     linear-gradient(180deg, rgba(14, 45, 90, 0.12) 0%, rgba(12, 38, 80, 0.04) 35%, rgba(8, 24, 56, 0.20) 75%, rgba(4, 14, 38, 0.60) 100%),
     url('./build/assets/kl_skyline_day.jpg') no-repeat center center / cover !important;
+  background-attachment: fixed !important;
+}
+
+/* Intermediate containers transparent so body skyline & full-screen dark atmosphere are cleanly layered */
+.mq4,
+.mq4-stage,
+.mq4-story,
+.mq4-stick,
+.mq4-track {
+  background: transparent !important;
+}
+
+/* 3D Mascot Stage layer (positioned strictly IN FRONT OF dark atmosphere) */
+.mq4-stage {
+  z-index: 4 !important;
 }
 
 /* Hide BEYOND HUMAN text and default buttons */
@@ -305,6 +317,7 @@ body.mq4-body,
   pointer-events: none !important;
   max-width: 100% !important;
   width: 100% !important;
+  z-index: 10 !important;
 }
 
 /* Title at top center (STRICTLY LOCKED) */
@@ -369,21 +382,28 @@ body.mq4-body,
   z-index: 1;
 }
 
-/* Full-Screen Cybernetic Atmospheric Dark Backdrop (Placed strictly BEHIND the 8 pillars cards, in front of the skyline) */
+/* Full-Screen Cybernetic Atmospheric Dark Backdrop (Behind 3D mascot & 8 pillars, in front of daytime skyline) */
+#naigc-stage-atmosphere,
 .naigc-stage-atmosphere {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
   opacity: 0;
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  background: radial-gradient(circle at 50% 50%, rgba(4, 15, 34, 0.76) 0%, rgba(2, 6, 23, 0.85) 55%, rgba(1, 4, 16, 0.94) 100%);
+  background: radial-gradient(circle at 50% 50%, rgba(4, 15, 34, 0.78) 0%, rgba(2, 6, 23, 0.86) 55%, rgba(1, 4, 16, 0.94) 100%) !important;
 }
-.is-stage-active .naigc-stage-atmosphere {
-  opacity: 1;
+#naigc-stage-atmosphere.is-active,
+.naigc-stage-atmosphere.is-active {
+  opacity: 1 !important;
 }
 
 /* 8 Pillars Overall Grid Container */
@@ -1809,9 +1829,6 @@ body.mq4-body,
 (function() {
   const pillarsMarkup = `<!-- 8 Pillars NAIGC Ecosystem — Dimensional Holographic Projection Panels -->
 <div id="naigc-pillars" class="naigc-pillars-container">
-  <!-- Atmospheric Dark Backdrop Layer (Positioned behind cards, in front of skyline) -->
-  <div class="naigc-stage-atmosphere" aria-hidden="true"></div>
-
   <!-- Visor Outward Holographic Shockwave & Expanding Radar Matrix -->
   <div class="naigc-visor-shockwave" aria-hidden="true"></div>
   <div class="naigc-visor-hex-grid" aria-hidden="true"></div>
@@ -2241,11 +2258,21 @@ body.mq4-body,
   
   let stageWasActive = false;
 
+  function ensureAtmosphere() {
+    let atmo = document.getElementById('naigc-stage-atmosphere');
+    if (!atmo) {
+      atmo = document.createElement('div');
+      atmo.id = 'naigc-stage-atmosphere';
+      atmo.className = 'naigc-stage-atmosphere';
+      atmo.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(atmo);
+    }
+    return atmo;
+  }
+
   function checkStageScroll() {
     const pillars = document.getElementById('naigc-pillars');
-    // Remove any legacy atmosphere from body if present
-    const legacyAtmo = document.querySelector('body > #naigc-stage-atmosphere');
-    if (legacyAtmo) legacyAtmo.remove();
+    const atmo = ensureAtmosphere();
 
     if (!pillars) return;
 
@@ -2258,11 +2285,13 @@ body.mq4-body,
         void pillars.offsetWidth; // Force CSS reflow to re-trigger staggered fly-in animations
         pillars.classList.add('is-stage-active');
       }
+      if (atmo) atmo.classList.add('is-active');
     } else {
       if (stageWasActive) {
         stageWasActive = false;
         pillars.classList.remove('is-stage-active');
       }
+      if (atmo) atmo.classList.remove('is-active');
     }
   }
 
