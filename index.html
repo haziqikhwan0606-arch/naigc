@@ -322,14 +322,12 @@ body.mq4-body,
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
-  align-items: center !important;
   inset: 0 !important;
-  padding: 0 !important;
+  padding: 1.5rem 2rem !important;
   box-sizing: border-box !important;
   pointer-events: none !important;
   max-width: 100% !important;
   width: 100% !important;
-  height: 100% !important;
   z-index: 10 !important;
 }
 
@@ -2315,20 +2313,11 @@ body.mq4-body,
   let ecoObserver = null;
   function mountEcosystem() {
     ensureLayers();
-    const intro = document.querySelector('.mq4-intro');
-    if (intro && !document.getElementById('naigc-pillars')) {
-      const temp = document.createElement('div');
-      temp.innerHTML = pillarsMarkup.trim();
-      const el = temp.querySelector('#naigc-pillars');
-      if (el) {
-        intro.appendChild(el);
-        updateStage();
-        if (typeof window.bindPillarCards === 'function') window.bindPillarCards();
-        if (ecoObserver) {
-          ecoObserver.disconnect();
-          ecoObserver = null;
-        }
-      }
+    const introBody = document.querySelector('.mq4-intro__body');
+    if (introBody && !document.getElementById('naigc-pillars')) {
+      introBody.innerHTML = pillarsMarkup;
+      updateStage();
+      if (typeof window.bindPillarCards === 'function') window.bindPillarCards();
     }
   }
 
@@ -2352,8 +2341,12 @@ body.mq4-body,
   window.addEventListener('scroll', checkStageScroll, { passive: true });
   window.addEventListener('resize', checkStageScroll, { passive: true });
 
-  ecoObserver = new MutationObserver(mountEcosystem);
   const targetRoot = document.getElementById('mq-landing-v4') || document.body;
+  ecoObserver = new MutationObserver(() => {
+    if (!document.getElementById('naigc-pillars')) {
+      mountEcosystem();
+    }
+  });
   ecoObserver.observe(targetRoot, { childList: true, subtree: true });
 })();
 </script>
