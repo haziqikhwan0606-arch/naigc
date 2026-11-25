@@ -369,17 +369,17 @@ body.mq4-body,
   z-index: 1;
 }
 
-/* Atmospheric Dark Backdrop Vignette (keeps center mascot clear & transparent) */
+/* Atmospheric Dark Backdrop Vignette (Placed strictly BEHIND the 8 pillars cards, in front of the skyline) */
 .naigc-stage-atmosphere {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 5;
+  z-index: 1;
   opacity: 0;
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  background: radial-gradient(ellipse at 50% 50%, transparent 0%, transparent 24%, rgba(2, 6, 23, 0.55) 52%, rgba(1, 4, 16, 0.88) 100%);
+  background: radial-gradient(ellipse at 50% 50%, transparent 0%, transparent 22%, rgba(2, 6, 23, 0.58) 50%, rgba(1, 4, 16, 0.92) 100%);
 }
-.naigc-stage-atmosphere.is-active {
+.is-stage-active .naigc-stage-atmosphere {
   opacity: 1;
 }
 
@@ -491,7 +491,7 @@ body.mq4-body,
   flex-direction: column;
   gap: clamp(1.4rem, 3.2vh, 2.25rem);
   pointer-events: auto;
-  z-index: 15;
+  z-index: 20;
 }
 
 /* Central Mascot Column with Quantum Holographic Emitter Pad Base */
@@ -735,6 +735,7 @@ body.mq4-body,
   height: 104px;
   cursor: pointer;
   opacity: 0;
+  z-index: 22;
   will-change: transform, opacity, filter;
   transition: filter 0.35s ease, box-shadow 0.35s ease;
 }
@@ -1805,6 +1806,9 @@ body.mq4-body,
 (function() {
   const pillarsMarkup = `<!-- 8 Pillars NAIGC Ecosystem — Dimensional Holographic Projection Panels -->
 <div id="naigc-pillars" class="naigc-pillars-container">
+  <!-- Atmospheric Dark Backdrop Layer (Positioned behind cards, in front of skyline) -->
+  <div class="naigc-stage-atmosphere" aria-hidden="true"></div>
+
   <!-- Visor Outward Holographic Shockwave & Expanding Radar Matrix -->
   <div class="naigc-visor-shockwave" aria-hidden="true"></div>
   <div class="naigc-visor-hex-grid" aria-hidden="true"></div>
@@ -2236,14 +2240,10 @@ body.mq4-body,
 
   function checkStageScroll() {
     const pillars = document.getElementById('naigc-pillars');
-    let atmosphere = document.getElementById('naigc-stage-atmosphere');
-    if (!atmosphere) {
-      atmosphere = document.createElement('div');
-      atmosphere.id = 'naigc-stage-atmosphere';
-      atmosphere.className = 'naigc-stage-atmosphere';
-      atmosphere.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(atmosphere);
-    }
+    // Remove any legacy atmosphere from body if present
+    const legacyAtmo = document.querySelector('body > #naigc-stage-atmosphere');
+    if (legacyAtmo) legacyAtmo.remove();
+
     if (!pillars) return;
 
     // Transition threshold from visor closeup into full mascot & pillars stage
@@ -2254,13 +2254,11 @@ body.mq4-body,
         pillars.classList.remove('is-stage-active');
         void pillars.offsetWidth; // Force CSS reflow to re-trigger staggered fly-in animations
         pillars.classList.add('is-stage-active');
-        atmosphere.classList.add('is-active');
       }
     } else {
       if (stageWasActive) {
         stageWasActive = false;
         pillars.classList.remove('is-stage-active');
-        atmosphere.classList.remove('is-active');
       }
     }
   }
