@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Active Theory · NAIGC AI ENTREPRENEURSHIP & OPC</title>
-  <meta name="description" content="NAIGC AI ENTREPRENEURSHIP & OPC — SYS//NODE.06 ENTREPRENEURSHIP & OPC. Inspired by Active Theory.">
+  <meta name="description" content="NAIGC AI ENTREPRENEURSHIP & OPC — SYS//NODE.06 ENTREPRENEURSHIP & OPC. Sovereign AI Infrastructure & Strategic Development.">
   <link rel="icon" href="../favicon.ico">
 
   <!-- Fonts matching Active Theory (Syne / Monument Grotesk style + Monospace) -->
@@ -173,7 +173,7 @@
     }
 
     /* ==========================================================================
-       2. ACTIVE THEORY UI CHROME & NAVIGATION (HUD LAYER)
+       2. ACTIVE THEORY UI CHROME & HUD LAYER
        ========================================================================== */
     .at-hud-layer {
       position: fixed;
@@ -310,7 +310,7 @@
     }
 
     /* ==========================================================================
-       3. LEFT FLOATING TERMINAL / FILTER CONSOLE
+       3. LEFT FLOATING TERMINAL CONSOLE
        ========================================================================== */
     .at-left-console {
       position: absolute;
@@ -412,33 +412,151 @@
     }
 
     /* ==========================================================================
-       4. CENTER BOTTOM HINT & RIGHT CONTROLS
+       4. BOTTOM CENTER CONTROLS: DIAL PAGINATION & PILLAR MINI-DOCK
        ========================================================================== */
-    .at-bottom-hint {
+    .at-bottom-center-group {
       position: absolute;
-      bottom: clamp(1.2rem, 3vh, 2.5rem);
+      bottom: clamp(1rem, 2.5vh, 2rem);
       left: 50%;
       transform: translateX(-50%);
-      font-family: var(--at-font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.28em;
-      color: rgba(255, 255, 255, 0.45);
-      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    /* Dial Progress & Step Dots */
+    .at-carousel-dial-bar {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 1rem;
+      background: rgba(5, 14, 30, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      padding: 0.4rem 1.1rem;
+      border-radius: 30px;
+      pointer-events: auto;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .at-dial-indicator {
+      font-family: var(--at-font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: var(--at-cyan);
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+    }
+
+    .at-dial-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .at-dial-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .at-dial-dot:hover {
+      background: var(--at-cyan);
+      transform: scale(1.3);
+    }
+
+    .at-dial-dot.is-active {
+      width: 22px;
+      border-radius: 10px;
+      background: var(--at-cyan);
+      box-shadow: 0 0 10px #00F0FF;
+    }
+
+    /* Floating Pillar Mini-Dock (01 to 08) */
+    .at-pillar-dock {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(4, 11, 25, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 0.35rem 0.65rem;
+      border-radius: 35px;
+      pointer-events: auto;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 240, 255, 0.15);
+    }
+
+    .at-dock-node {
+      position: relative;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(8, 20, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--at-font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .at-dock-node:hover {
+      color: #010408;
+      background: var(--at-cyan);
+      border-color: var(--at-cyan);
+      box-shadow: 0 0 15px #00F0FF;
+      transform: translateY(-4px) scale(1.15);
+    }
+
+    .at-dock-node.is-current {
+      background: var(--at-cyan);
+      color: #020612;
+      border-color: #00F0FF;
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.8);
+      font-weight: 800;
+    }
+
+    /* Tooltip on Hover */
+    .at-dock-node::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: rgba(3, 10, 24, 0.95);
+      border: 1px solid var(--at-cyan);
+      color: #FFFFFF;
+      padding: 0.3rem 0.65rem;
+      border-radius: 8px;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
     }
 
-    .at-bottom-hint span {
-      animation: at-pulse-opacity 2s infinite ease-in-out;
+    .at-dock-node:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
     }
 
-    @keyframes at-pulse-opacity {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.9; }
-    }
-
+    /* Bottom Right: Audio Equalizer & System Telemetry */
     .at-bottom-right {
       position: absolute;
       right: clamp(1.2rem, 3vh, 2.5rem);
@@ -464,7 +582,7 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.65rem;
       transition: all 0.2s ease;
     }
 
@@ -474,16 +592,39 @@
       box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
     }
 
-    .at-audio-indicator {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #00F0FF;
-      box-shadow: 0 0 8px #00F0FF;
+    /* Animated Audio Equalizer Bars */
+    .at-equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 12px;
+    }
+
+    .at-eq-bar {
+      width: 2.5px;
+      background: var(--at-cyan);
+      border-radius: 1px;
+      animation: at-equalizer-bounce 1s ease-in-out infinite alternate;
+    }
+
+    .at-eq-bar:nth-child(1) { height: 4px; animation-delay: 0.1s; }
+    .at-eq-bar:nth-child(2) { height: 10px; animation-delay: 0.3s; }
+    .at-eq-bar:nth-child(3) { height: 7px; animation-delay: 0.2s; }
+    .at-eq-bar:nth-child(4) { height: 12px; animation-delay: 0.4s; }
+
+    @keyframes at-equalizer-bounce {
+      0% { height: 2px; }
+      100% { height: 12px; }
+    }
+
+    .at-audio-btn.is-muted .at-eq-bar {
+      animation-play-state: paused;
+      height: 2px !important;
+      background: rgba(255, 255, 255, 0.3);
     }
 
     /* ==========================================================================
-       5. 3D FLOATING CARDS CAROUSEL
+       5. 3D FLOATING CARDS CAROUSEL WITH GYRO TILT & SHEEN
        ========================================================================== */
     #at-carousel-stage {
       position: fixed;
@@ -515,7 +656,7 @@
       height: clamp(520px, 68vh, 720px);
       margin-left: calc(clamp(340px, 38vw, 520px) / -2);
       margin-top: calc(clamp(520px, 68vh, 720px) / -2);
-      background: linear-gradient(145deg, rgba(10, 24, 48, 0.85) 0%, rgba(3, 9, 22, 0.92) 100%);
+      background: linear-gradient(145deg, rgba(10, 24, 48, 0.88) 0%, rgba(3, 9, 22, 0.94) 100%);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(0, 240, 255, 0.28);
@@ -527,11 +668,12 @@
       justify-content: space-between;
       pointer-events: auto;
       cursor: pointer;
-      transition: border-color 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, transform 0.15s ease-out;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
       transform-style: preserve-3d;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       overflow: hidden;
+      position: absolute;
     }
 
     .at-card.is-center {
@@ -550,6 +692,24 @@
       box-shadow: 0 35px 85px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 240, 255, 0.4);
     }
 
+    /* Specular Reflective Light Sheen */
+    .at-card-sheen {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.16) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      mix-blend-mode: screen;
+      z-index: 5;
+    }
+
+    .at-card:hover .at-card-sheen {
+      opacity: 1;
+    }
+
+    /* Dynamic Visual Header on Cards with Radar Sweep */
     .at-card-visual-header {
       position: relative;
       width: 100%;
@@ -572,6 +732,23 @@
         linear-gradient(to right, rgba(0, 240, 255, 0.08) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
       opacity: 0.9;
+    }
+
+    .at-card-radar-sweep {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00F0FF, transparent);
+      box-shadow: 0 0 10px #00F0FF;
+      animation: at-radar-scan 3.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes at-radar-scan {
+      0% { top: 0%; opacity: 0.3; }
+      50% { opacity: 0.8; }
+      100% { top: 100%; opacity: 0.3; }
     }
 
     .at-card-visual-gradient {
@@ -756,7 +933,7 @@
     }
 
     /* ==========================================================================
-       6. SLIDE-OVER DETAIL DRAWER MODAL
+       6. SLIDE-OVER DETAIL DRAWER MODAL (ENHANCED CINEMATIC)
        ========================================================================== */
     #at-drawer {
       position: fixed;
@@ -764,7 +941,7 @@
       right: 0;
       width: clamp(380px, 45vw, 680px);
       height: 100vh;
-      background: rgba(4, 10, 24, 0.95);
+      background: rgba(4, 10, 24, 0.96);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
       border-left: 1px solid rgba(0, 240, 255, 0.35);
@@ -809,6 +986,32 @@
       box-shadow: 0 0 15px #00F0FF;
     }
 
+    /* Live Operational Status Pulse */
+    .at-drawer-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: var(--at-cyan);
+      font-family: var(--at-font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .at-status-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00F0FF;
+      box-shadow: 0 0 8px #00F0FF;
+      animation: at-ring-pulse 1.8s infinite;
+    }
+
     .at-drawer-tag {
       font-family: var(--at-font-mono);
       font-size: 0.72rem;
@@ -830,11 +1033,44 @@
       color: #C3D5E8;
       font-size: 1rem;
       line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Key Metrics Strip */
+    .at-drawer-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
       margin-bottom: 2rem;
     }
 
+    .at-metric-tile {
+      background: rgba(8, 20, 42, 0.6);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 10px;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .at-metric-label {
+      font-family: var(--at-font-mono);
+      font-size: 0.58rem;
+      color: var(--at-gray);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .at-metric-value {
+      font-family: var(--at-font-mono);
+      font-size: 0.78rem;
+      color: #FFFFFF;
+      font-weight: 700;
+    }
+
     .at-drawer-syllabus {
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.25rem;
     }
 
     .at-drawer-syllabus h4 {
@@ -870,7 +1106,7 @@
     .at-drawer-cta-group {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.85rem;
       padding-top: 1.5rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
@@ -889,11 +1125,42 @@
       cursor: pointer;
       transition: all 0.25s ease;
       box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+      text-align: center;
+      text-decoration: none;
+      display: block;
     }
 
     .at-btn-cta:hover {
       background: #FFFFFF;
       box-shadow: 0 0 35px #00F0FF;
+      transform: translateY(-2px);
+    }
+
+    .at-btn-whatsapp {
+      background: rgba(37, 211, 102, 0.18);
+      border: 1px solid #25D366;
+      color: #25D366;
+      padding: 0.85rem 1.75rem;
+      border-radius: 40px;
+      font-family: var(--at-font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.25s ease;
+    }
+
+    .at-btn-whatsapp:hover {
+      background: #25D366;
+      color: #010408;
+      box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
       transform: translateY(-2px);
     }
 
@@ -914,7 +1181,7 @@
     }
 
     /* ==========================================================================
-       7. FULL-SCREEN LIGHTBOX MODAL (FOR STRATEGIC ROADMAP)
+       7. FULL-SCREEN LIGHTBOX MODAL
        ========================================================================== */
     #at-lightbox {
       position: fixed;
@@ -1187,37 +1454,108 @@
       </button>
     </div>
 
-    <!-- Center Bottom Hint -->
-    <div class="at-bottom-hint">
-      <span>&larr; DRAG OR SCROLL WHEEL TO EXPLORE 3D SPACE &rarr;</span>
+    <!-- 4. Center Bottom Controls: Dial Pagination & Pillar Mini-Dock -->
+    <div class="at-bottom-center-group">
+      <!-- Dial Pagination -->
+      <div class="at-carousel-dial-bar">
+        <span class="at-dial-indicator" id="at-dial-counter">// 01 / 07 //</span>
+        <div class="at-dial-dots" id="at-dial-dots">
+          
+          <span class="at-dial-dot is-active" data-index="0" title="Jump to Module 1"></span>
+          
+          <span class="at-dial-dot " data-index="1" title="Jump to Module 2"></span>
+          
+          <span class="at-dial-dot " data-index="2" title="Jump to Module 3"></span>
+          
+          <span class="at-dial-dot " data-index="3" title="Jump to Module 4"></span>
+          
+          <span class="at-dial-dot " data-index="4" title="Jump to Module 5"></span>
+          
+          <span class="at-dial-dot " data-index="5" title="Jump to Module 6"></span>
+          
+          <span class="at-dial-dot " data-index="6" title="Jump to Module 7"></span>
+          
+        </div>
+      </div>
+
+      <!-- Floating Pillar Mini-Dock (01 to 08) -->
+      <nav class="at-pillar-dock" aria-label="Ecosystem Pillar Dock">
+        
+        <a href="academy.html" class="at-dock-node " data-tooltip="01. AI Academy">
+          01
+        </a>
+        
+        <a href="creative-studio.html" class="at-dock-node " data-tooltip="02. AI Creative Studio">
+          02
+        </a>
+        
+        <a href="workforce-talent.html" class="at-dock-node " data-tooltip="03. AI Workforce & Talent">
+          03
+        </a>
+        
+        <a href="business-solutions.html" class="at-dock-node " data-tooltip="04. AI Business Solutions">
+          04
+        </a>
+        
+        <a href="enterprise-government.html" class="at-dock-node " data-tooltip="05. AI Enterprise & Govt">
+          05
+        </a>
+        
+        <a href="entrepreneurship-opc.html" class="at-dock-node is-current" data-tooltip="06. AI Entrepreneurship & OPC">
+          06
+        </a>
+        
+        <a href="research-innovation.html" class="at-dock-node " data-tooltip="07. AI Research & Innovation">
+          07
+        </a>
+        
+        <a href="future-technology.html" class="at-dock-node " data-tooltip="08. AI Future Technology">
+          08
+        </a>
+        
+      </nav>
     </div>
 
-    <!-- 4. Bottom Right Status & Audio -->
+    <!-- 5. Bottom Right Status & Audio Equalizer -->
     <div class="at-bottom-right">
       <span>SYS//ONLINE &bull; 60FPS</span>
       <button class="at-audio-btn" id="at-audio-toggle">
-        <span class="at-audio-indicator"></span>
+        <div class="at-equalizer">
+          <span class="at-eq-bar"></span>
+          <span class="at-eq-bar"></span>
+          <span class="at-eq-bar"></span>
+          <span class="at-eq-bar"></span>
+        </div>
         <span id="at-audio-text">SOUND ON</span>
       </button>
     </div>
 
   </div>
 
-  <!-- 5. 3D Floating Cards Carousel Stage -->
+  <!-- 6. 3D Floating Cards Carousel Stage -->
   <div id="at-carousel-stage">
     <div class="at-card-track" id="at-track">
       <!-- Generated by JavaScript with 3D Matrix Coordinates -->
     </div>
   </div>
 
-  <!-- 6. Slide-Over Detail Drawer Modal -->
+  <!-- 7. Slide-Over Detail Drawer Modal (Enhanced Cinematic) -->
   <div id="at-drawer-backdrop"></div>
   <aside id="at-drawer" aria-hidden="true">
     <button class="at-drawer-close" id="at-drawer-close">&times;</button>
     <div>
-      <div class="at-drawer-tag" id="drawer-tag">SYS//NODE.06 ENTREPRENEURSHIP & OPC &bull; MODULE DETAILS</div>
+      <div class="at-drawer-status-pill">
+        <span class="at-status-pulse"></span>
+        <span id="drawer-status-text">STARTUP INCUBATION // COHORT OPEN</span>
+      </div>
+      <div class="at-drawer-tag" id="drawer-tag">SYS//NODE.06 ENTREPRENEURSHIP & OPC &bull; MODULE SPECIFICATION</div>
       <h2 class="at-drawer-title" id="drawer-title">MODULE TITLE</h2>
       <p class="at-drawer-body" id="drawer-desc">Module description text goes here.</p>
+
+      <!-- Key Metrics Stat Strip -->
+      <div class="at-drawer-metrics-grid" id="drawer-metrics-grid">
+        <!-- Populated dynamically -->
+      </div>
 
       <div class="at-drawer-syllabus">
         <h4>CURRICULUM BREAKDOWN & CORE CAPABILITIES</h4>
@@ -1228,13 +1566,16 @@
     </div>
 
     <div class="at-drawer-cta-group">
-      <button class="at-btn-cta" id="drawer-enroll-btn">COMMENCE &bull; HUBUNGI KAMI</button>
-      <button class="at-btn-select" id="drawer-lightbox-btn" style="text-align: center; display: none;">&#128065; LIHAT HIGH-RES ROADMAP DIAGRAM</button>
-      <a href="../index.html" class="at-btn-select" style="text-align: center; text-decoration: none;">&larr; KEMBALI KE CORE STAGE</a>
+      <button class="at-btn-cta" id="drawer-enroll-btn">COMMENCE &bull; REGISTER ENQUIRY</button>
+      <a href="https://wa.me/60123456789?text=Hello%20NAIGC,%20I%20would%20like%20to%20enquire%20about%20Pillar%2006%20(AI%20ENTREPRENEURSHIP%20%26%20OPC)" target="_blank" class="at-btn-whatsapp" id="drawer-whatsapp-btn">
+        <span>&#128172; DIRECT WHATSAPP CONSULTATION</span>
+      </a>
+      <button class="at-btn-select" id="drawer-lightbox-btn" style="text-align: center; display: none;">&#128065; VIEW HIGH-RES STRATEGIC BLUEPRINT</button>
+      <a href="../index.html" class="at-btn-select" style="text-align: center; text-decoration: none;">&larr; RETURN TO CORE STAGE</a>
     </div>
   </aside>
 
-  <!-- 7. Full-Screen Lightbox Modal for Roadmap -->
+  <!-- 8. Full-Screen Lightbox Modal for Roadmap -->
   <div id="at-lightbox" aria-hidden="true">
     <button class="at-lightbox-close" id="at-lightbox-close">&times;</button>
     <div class="at-lightbox-content">
@@ -1252,10 +1593,10 @@
     </div>
   </div>
 
-  <!-- Interactive Search / Question Dialog -->
+  <!-- Interactive Search Dialog -->
   <div id="at-search-dialog">
     <div class="at-search-box">
-      <input type="text" class="at-search-input" id="at-search-field" placeholder="Type a capability or service (e.g. OPC Incorporation)..." autofocus>
+      <input type="text" class="at-search-input" id="at-search-field" placeholder="Search capability, module, or technology (e.g. OPC Incorporation)..." autofocus>
       <div class="at-search-hints">
         Suggested queries: 
         <span data-search="OPC Incorporation">#OPC Incorporation</span>, <span data-search="Startup Incubation">#Startup Incubation</span>, <span data-search="GPU Grants">#GPU Grants</span>, <span data-search="Seed Capital">#Seed Capital</span>, <span data-search="Solo Founder">#Solo Founder</span>
@@ -1341,7 +1682,7 @@
       sound.init();
       sound.enabled = !sound.enabled;
       audioText.innerText = sound.enabled ? 'SOUND ON' : 'MUTED';
-      audioBtn.style.opacity = sound.enabled ? '1' : '0.5';
+      audioBtn.classList.toggle('is-muted', !sound.enabled);
     });
 
     // --- 2. Loader Sequencing ---
@@ -1523,7 +1864,7 @@
   }
 ];
 
-    // --- 4. 3D Carousel Matrix Positioning Engine ---
+    // --- 4. 3D Carousel Matrix Positioning Engine with Gyro Tilt ---
     const track = document.getElementById('at-track');
     let currentAngle = 0;
     let targetAngle = 0;
@@ -1547,6 +1888,7 @@
         visualHeaderHtml = `
           <div class="at-card-visual-header">
             <span class="at-roadmap-badge">&#9733; OFFICIAL ROADMAP</span>
+            <div class="at-card-radar-sweep"></div>
             <img src="${mod.image}" alt="Strategic Roadmap Blueprint" class="at-card-roadmap-thumb">
           </div>
         `;
@@ -1554,6 +1896,7 @@
         visualHeaderHtml = `
           <div class="at-card-visual-header">
             <div class="at-card-visual-mesh"></div>
+            <div class="at-card-radar-sweep"></div>
             <div class="at-card-visual-gradient" style="background: ${mod.gradient};"></div>
             <div class="at-card-visual-icon">
               ${mod.iconSvg}
@@ -1565,6 +1908,7 @@
       const buttonLabel = mod.isRoadmap ? 'VIEW OFFICIAL BLUEPRINT &rarr;' : 'EXPLORE DETAILS &rarr;';
 
       card.innerHTML = `
+        <div class="at-card-sheen"></div>
         <div>
           ${visualHeaderHtml}
           <div class="at-card-tag">${mod.tag}</div>
@@ -1588,6 +1932,25 @@
         </div>
       `;
 
+      // 3D Gyro Tilt & Specular Sheen Listener
+      card.addEventListener('pointermove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${(mouseX / rect.width) * 100}%`);
+        card.style.setProperty('--mouse-y', `${(mouseY / rect.height) * 100}%`);
+
+        const tiltX = -((mouseY - rect.height / 2) / (rect.height / 2)) * 6;
+        const tiltY = ((mouseX - rect.width / 2) / (rect.width / 2)) * 6;
+        card.dataset.tiltX = tiltX.toFixed(2);
+        card.dataset.tiltY = tiltY.toFixed(2);
+      });
+
+      card.addEventListener('pointerleave', () => {
+        card.dataset.tiltX = '0';
+        card.dataset.tiltY = '0';
+      });
+
       card.addEventListener('mouseenter', () => sound.playHover());
       card.addEventListener('click', () => {
         if (mod.isRoadmap) {
@@ -1601,9 +1964,14 @@
     });
 
     const cards = Array.from(document.querySelectorAll('.at-card'));
+    const dialCounter = document.getElementById('at-dial-counter');
+    const dialDots = Array.from(document.querySelectorAll('.at-dial-dot'));
 
     function updateCarousel() {
       currentAngle += (targetAngle - currentAngle) * 0.12;
+
+      let centerIdx = 0;
+      let maxCos = -2;
 
       cards.forEach((card, i) => {
         const phi = currentAngle + i * angleStep;
@@ -1624,13 +1992,21 @@
         const z = cosPhi * RADIUS - RADIUS;
         const rotY = phi * (180 / Math.PI);
 
+        const tiltX = parseFloat(card.dataset.tiltX || '0');
+        const tiltY = parseFloat(card.dataset.tiltY || '0');
+
         const depthNorm = (z + RADIUS * 2) / (RADIUS * 2);
         const opacity = Math.max(0.2, Math.min(1, cosPhi * 0.8 + 0.3));
         const scale = Math.max(0.78, Math.min(1.06, cosPhi * 0.28 + 0.78));
 
-        card.style.transform = `translate3d(${x.toFixed(2)}px, 0px, ${z.toFixed(2)}px) rotateY(${rotY.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        card.style.transform = `translate3d(${x.toFixed(2)}px, 0px, ${z.toFixed(2)}px) rotateY(${(rotY + tiltY).toFixed(2)}deg) rotateX(${tiltX.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
         card.style.opacity = opacity.toFixed(2);
         card.style.zIndex = Math.round(depthNorm * 100);
+
+        if (cosPhi > maxCos) {
+          maxCos = cosPhi;
+          centerIdx = i;
+        }
 
         if (cosPhi > 0.88) {
           card.classList.add('is-center');
@@ -1641,11 +2017,26 @@
           card.classList.remove('is-center');
         }
       });
+
+      // Update Dial Counter and Pagination Dots
+      dialCounter.innerText = `// 0${centerIdx + 1} / 0${N} //`;
+      dialDots.forEach((dot, dIdx) => {
+        dot.classList.toggle('is-active', dIdx === centerIdx);
+      });
     }
+
+    // Dial Dots Navigation Click
+    dialDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.dataset.index, 10);
+        targetAngle = -idx * angleStep;
+        sound.playSlide();
+      });
+    });
 
     // Touch & Drag Physics
     window.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('#at-drawer') || e.target.closest('#at-lightbox') || e.target.closest('.at-top-bar') || e.target.closest('.at-left-console')) return;
+      if (e.target.closest('#at-drawer') || e.target.closest('#at-lightbox') || e.target.closest('.at-top-bar') || e.target.closest('.at-left-console') || e.target.closest('.at-bottom-center-group')) return;
       isDragging = true;
       startX = e.clientX;
       lastDragTime = performance.now();
@@ -1710,8 +2101,10 @@
     const drawerTag = document.getElementById('drawer-tag');
     const drawerTitle = document.getElementById('drawer-title');
     const drawerDesc = document.getElementById('drawer-desc');
+    const drawerMetricsGrid = document.getElementById('drawer-metrics-grid');
     const drawerSyllabus = document.getElementById('drawer-syllabus');
     const drawerLightboxBtn = document.getElementById('drawer-lightbox-btn');
+    const drawerWhatsappBtn = document.getElementById('drawer-whatsapp-btn');
 
     function openDrawer(index) {
       sound.init();
@@ -1721,9 +2114,21 @@
       drawerTitle.innerText = mod.title;
       drawerDesc.innerText = mod.desc;
 
+      // Populate Metrics Grid
+      drawerMetricsGrid.innerHTML = Object.entries(mod.metrics).map(([k, v]) => `
+        <div class="at-metric-tile">
+          <span class="at-metric-label">${k}</span>
+          <span class="at-metric-value">${v}</span>
+        </div>
+      `).join('');
+
       drawerSyllabus.innerHTML = mod.syllabus.map(item => `
         <li class="at-syllabus-item">${item}</li>
       `).join('');
+
+      // WhatsApp Button dynamic text
+      const waMsg = encodeURIComponent(`Hello NAIGC, I would like to enquire about Pillar 06 (AI ENTREPRENEURSHIP & OPC) - Module: ${mod.title}`);
+      drawerWhatsappBtn.href = `https://wa.me/60123456789?text=${waMsg}`;
 
       if (mod.isRoadmap) {
         drawerLightboxBtn.style.display = 'block';
@@ -1748,7 +2153,7 @@
     drawerBackdrop.addEventListener('click', closeDrawer);
 
     document.getElementById('drawer-enroll-btn').addEventListener('click', () => {
-      alert('Pertanyaan atau permohonan untuk unit ini telah direkodkan. Pasukan pengurusan NAIGC akan menghubungi anda dalam 24 jam.');
+      alert('Your enquiry has been successfully registered with NAIGC Operations. An advisor will contact you within 24 hours.');
       closeDrawer();
     });
 
@@ -1815,8 +2220,8 @@
       });
     });
 
-    // --- 7. Three.js Ambient Particle Space ---
-    let scene, camera, renderer, particles;
+    // --- 7. Three.js Ambient Particle Space & Interactive Liquid Mesh Wave ---
+    let scene, camera, renderer, particles, meshPlane;
     const canvas = document.getElementById('at-canvas');
 
     function initThree() {
@@ -1828,6 +2233,7 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
+      // Cosmic Particles
       const particleCount = 700;
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array(particleCount * 3);
@@ -1851,7 +2257,7 @@
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
       geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-      const material = new THREE.PointsMaterial({
+      const particleMaterial = new THREE.PointsMaterial({
         size: 3.5,
         vertexColors: true,
         transparent: true,
@@ -1859,8 +2265,21 @@
         blending: THREE.AdditiveBlending
       });
 
-      particles = new THREE.Points(geometry, material);
+      particles = new THREE.Points(geometry, particleMaterial);
       scene.add(particles);
+
+      // Active Theory Signature Interactive Liquid Mesh Wave Plane
+      const planeGeo = new THREE.PlaneGeometry(1600, 1100, 48, 36);
+      const planeMat = new THREE.MeshBasicMaterial({
+        color: 0x00F0FF,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.045,
+        blending: THREE.AdditiveBlending
+      });
+      meshPlane = new THREE.Mesh(planeGeo, planeMat);
+      meshPlane.position.z = -350;
+      scene.add(meshPlane);
 
       window.addEventListener('resize', onWindowResize, { passive: true });
     }
@@ -1877,12 +2296,26 @@
       mouseY = (e.clientY - window.innerHeight / 2) * 0.05;
     }, { passive: true });
 
+    let clock = 0;
     function animate() {
       requestAnimationFrame(animate);
+      clock += 0.015;
 
       if (particles) {
         particles.rotation.y += 0.0006;
         particles.rotation.x += 0.0003;
+      }
+
+      // Deform Liquid Mesh Wave
+      if (meshPlane && meshPlane.geometry && meshPlane.geometry.attributes && meshPlane.geometry.attributes.position) {
+        const posAttr = meshPlane.geometry.attributes.position;
+        const arr = posAttr.array;
+        for (let i = 0; i < arr.length; i += 3) {
+          const u = arr[i];
+          const v = arr[i + 1];
+          arr[i + 2] = Math.sin(u * 0.006 + clock) * Math.cos(v * 0.006 + clock * 0.8) * 38;
+        }
+        posAttr.needsUpdate = true;
       }
 
       camera.position.x += (mouseX - camera.position.x) * 0.05;
