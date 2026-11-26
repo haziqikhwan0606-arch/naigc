@@ -1373,6 +1373,7 @@
       cursor: pointer;
     }
   </style>
+  <link rel="stylesheet" href="chat-copilot.css">
 </head>
 <body>
 
@@ -2176,49 +2177,22 @@
       if (e.target === lightbox) closeLightbox();
     });
 
-    // Search Dialog
-    const searchBtn = document.getElementById('at-btn-ask');
-    const searchDialog = document.getElementById('at-search-dialog');
-    const searchInput = document.getElementById('at-search-field');
-
-    searchBtn.addEventListener('click', () => {
-      searchDialog.classList.add('is-active');
-      searchInput.value = '';
-      searchInput.focus();
-    });
-
-    searchDialog.addEventListener('click', (e) => {
-      if (e.target === searchDialog) closeSearch();
-    });
-
-    function closeSearch() {
-      searchDialog.classList.remove('is-active');
-    }
-
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const q = searchInput.value.toLowerCase().trim();
-        const found = modulesData.findIndex(m => m.title.toLowerCase().includes(q) || m.desc.toLowerCase().includes(q));
-        if (found !== -1) {
-          targetAngle = -found * angleStep;
-          closeSearch();
-          if (modulesData[found].isRoadmap) {
-            setTimeout(openLightbox, 400);
-          } else {
-            setTimeout(() => openDrawer(found), 400);
-          }
-        } else {
-          closeSearch();
-        }
+    // Expose for Neural Copilot AI Engine
+    window.modulesData = modulesData;
+    window.jumpToModule = function(i) {
+      if (typeof i !== 'number' || !modulesData[i]) return;
+      targetAngle = -i * angleStep;
+      if (modulesData[i].isRoadmap) {
+        setTimeout(openLightbox, 350);
+      } else {
+        setTimeout(() => openDrawer(i), 350);
       }
-    });
-
-    document.querySelectorAll('.at-search-hints span').forEach(tag => {
-      tag.addEventListener('click', () => {
-        searchInput.value = tag.dataset.search;
-        searchInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-      });
-    });
+    };
+    window.openLightbox = openLightbox;
+    window.closeLightbox = closeLightbox;
+    window.openDrawer = openDrawer;
+    window.closeDrawer = closeDrawer;
+    window.sound = sound;
 
     // --- 7. Three.js Ambient Particle Space & Interactive Liquid Mesh Wave ---
     let scene, camera, renderer, particles, meshPlane;
@@ -2332,5 +2306,6 @@
     });
   </script>
 
+  <script src="chat-copilot.js"></script>
 </body>
 </html>
