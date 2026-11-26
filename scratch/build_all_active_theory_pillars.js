@@ -1106,37 +1106,45 @@ function buildActiveTheoryHTML(p) {
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
-      background: rgba(3, 10, 24, 0.88);
-      border: 1.5px solid rgba(0, 240, 255, 0.5);
-      color: #00F0FF;
-      padding: 0.55rem 1.25rem;
-      border-radius: 30px;
-      font-family: var(--at-font-mono);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 240, 255, 0.25);
+      background: #00F0FF !important;
+      border: 2px solid #00F0FF !important;
+      color: #020610 !important;
+      padding: 0.65rem 1.45rem !important;
+      border-radius: 35px !important;
+      font-family: var(--at-font-sans) !important;
+      font-size: 0.82rem !important;
+      font-weight: 900 !important;
+      letter-spacing: 0.12em !important;
+      text-decoration: none !important;
+      cursor: pointer !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.75), 0 4px 15px rgba(0, 0, 0, 0.8) !important;
     }
 
     .at-back-home-pill:hover {
-      background: rgba(0, 240, 255, 0.22);
-      border-color: #00F0FF;
-      color: #FFFFFF;
-      transform: translateX(-4px);
-      box-shadow: 0 4px 25px rgba(0, 240, 255, 0.5);
+      background: #FFFFFF !important;
+      border-color: #FFFFFF !important;
+      color: #000000 !important;
+      transform: translateX(-4px) scale(1.04) !important;
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.95) !important;
     }
 
     .at-back-home-arrow {
-      font-size: 1.05rem;
-      line-height: 1;
-      transition: transform 0.2s ease;
+      font-size: 1.15rem !important;
+      font-weight: 900 !important;
+      line-height: 1 !important;
+      color: #020610 !important;
+      transition: transform 0.2s ease !important;
     }
 
     .at-back-home-pill:hover .at-back-home-arrow {
-      transform: translateX(-3px);
+      transform: translateX(-3px) !important;
+      color: #000000 !important;
+    }
+
+    .at-back-home-text {
+      color: #020610 !important;
+      font-weight: 900 !important;
     }
 
     .at-logo-group {
@@ -1419,6 +1427,44 @@ function buildActiveTheoryHTML(p) {
       border-radius: 10px;
       background: var(--at-cyan);
       box-shadow: 0 0 10px #00F0FF;
+    }
+
+    .at-dock-home-node {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.95rem;
+      border-radius: 20px;
+      background: rgba(0, 240, 255, 0.16);
+      border: 1.5px solid #00F0FF;
+      color: #FFFFFF;
+      font-family: var(--at-font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    }
+
+    .at-dock-home-node:hover {
+      background: #00F0FF;
+      color: #010408;
+      box-shadow: 0 0 25px #00F0FF;
+      transform: translateY(-2px);
+    }
+
+    .at-dock-home-icon {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+    }
+
+    .at-dock-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(0, 240, 255, 0.3);
+      margin: 0 0.25rem;
     }
 
     /* Floating Pillar Mini-Dock (01 to 08) */
@@ -2657,8 +2703,16 @@ function buildActiveTheoryHTML(p) {
         </div>
       </div>
 
-      <!-- Floating Pillar Mini-Dock (01 to 08) -->
+      <!-- Floating Pillar Mini-Dock (01 to 08 with Home Shortcut) -->
       <nav class="at-pillar-dock" aria-label="Ecosystem Pillar Dock">
+        <a href="../index.html" class="at-dock-home-node" data-tooltip="Return to Homepage Hub">
+          <svg class="at-dock-home-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>HOME</span>
+        </a>
+        <span class="at-dock-divider"></span>
         ${allPillarsList.map(item => `
         <a href="${item.slug}" class="at-dock-node ${item.num === p.num ? 'is-current' : ''}" data-tooltip="${item.num}. ${item.name}">
           ${item.num}
