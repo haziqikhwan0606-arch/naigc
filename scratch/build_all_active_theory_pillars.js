@@ -2885,42 +2885,72 @@ function buildActiveTheoryHTML(p) {
       });
     });
 
-    // Touch & Drag Physics with Inertia & Snap
+    // Calibrated Touch & Drag Physics (Smooth 1:1 finger tracking, no over-spin)
+    let dragStartX = 0;
+    let dragStartAngle = 0;
+    let lastDragX = 0;
+
     window.addEventListener('pointerdown', (e) => {
       if (e.target.closest('#at-drawer') || e.target.closest('#at-lightbox') || e.target.closest('.at-top-bar') || e.target.closest('.at-left-console') || e.target.closest('.at-bottom-center-group')) return;
       isDragging = true;
-      startX = e.clientX;
+      dragStartX = e.clientX;
+      lastDragX = e.clientX;
+      dragStartAngle = targetAngle;
       lastDragTime = performance.now();
       dragVelocity = 0;
     });
 
     window.addEventListener('pointermove', (e) => {
       if (!isDragging) return;
-      const dx = e.clientX - startX;
-      startX = e.clientX;
-      const deltaRad = (dx / window.innerWidth) * Math.PI * 1.35;
-      targetAngle += deltaRad;
-      dragVelocity = deltaRad;
+      const totalDx = e.clientX - dragStartX;
+      // Controlled 1:1 drag ratio: dragging 420px moves exactly 1 card
+      targetAngle = dragStartAngle + (totalDx / 420) * angleStep;
+
+      const now = performance.now();
+      const dt = Math.max(1, now - lastDragTime);
+      dragVelocity = (e.clientX - lastDragX) / dt;
+      lastDragX = e.clientX;
+      lastDragTime = now;
     });
 
     window.addEventListener('pointerup', () => {
       if (!isDragging) return;
       isDragging = false;
-      targetAngle += dragVelocity * 4;
-      snapToNearest();
+
+      // Gentle flick momentum: at most 1 card step per flick
+      let flickStep = 0;
+      if (dragVelocity > 0.45) flickStep = 1;
+      else if (dragVelocity < -0.45) flickStep = -1;
+
+      const rawIndex = -targetAngle / angleStep;
+      let targetIndex = Math.round(rawIndex);
+      if (flickStep !== 0) {
+        targetIndex = Math.round(-dragStartAngle / angleStep) - flickStep;
+      }
+
+      targetAngle = -targetIndex * angleStep;
       sound.playSlide();
     });
 
-    // Mouse Wheel Navigation with Snap
-    let wheelTimer = null;
+    // Calibrated Wheel & Trackpad Navigation (Throttled so 1 gesture = 1 card)
+    let isWheeling = false;
     window.addEventListener('wheel', (e) => {
       if (document.getElementById('at-drawer').classList.contains('is-open')) return;
       if (document.getElementById('at-lightbox').classList.contains('is-open')) return;
-      const delta = Math.sign(e.deltaY || e.deltaX);
-      targetAngle -= delta * angleStep;
+      if (isWheeling) return;
+
+      const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      if (Math.abs(delta) < 16) return; // filter tiny trackpad jitter
+
+      isWheeling = true;
+      const dir = Math.sign(delta);
+      const curIndex = Math.round(-targetAngle / angleStep);
+      targetAngle = -(curIndex + dir) * angleStep;
       sound.playSlide();
-      clearTimeout(wheelTimer);
-      wheelTimer = setTimeout(snapToNearest, 130);
+
+      setTimeout(() => {
+        isWheeling = false;
+      }, 350); // cooldown period ensures smooth step-by-step navigation
     }, { passive: true });
 
     window.addEventListener('keydown', (e) => {
