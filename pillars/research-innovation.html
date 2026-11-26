@@ -533,6 +533,134 @@
     }
 
     /* ==========================================================================
+       HARDWARE-ACCELERATED SPATIAL TRANSITION PORTAL WIPER (120 FPS PURE GPU)
+       ========================================================================== */
+    #naigc-portal-wipe {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999999;
+      background: radial-gradient(circle at 50% 50%, #030a17 0%, #010308 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      visibility: hidden;
+      will-change: transform;
+      transform: translate3d(-100vw, 0, 0);
+      contain: strict;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    #naigc-portal-wipe.wipe-in-left {
+      visibility: visible;
+      pointer-events: auto;
+      border-right: 3px solid #00F0FF;
+      box-shadow: 25px 0 90px rgba(0, 240, 255, 0.7);
+      animation: naigcWipeInLeft 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes naigcWipeInLeft {
+      0% { transform: translate3d(-100vw, 0, 0); }
+      100% { transform: translate3d(0, 0, 0); }
+    }
+
+    #naigc-portal-wipe.wipe-in-right {
+      visibility: visible;
+      pointer-events: auto;
+      border-left: 3px solid #FFB800;
+      box-shadow: -25px 0 90px rgba(255, 184, 0, 0.7);
+      animation: naigcWipeInRight 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes naigcWipeInRight {
+      0% { transform: translate3d(100vw, 0, 0); }
+      100% { transform: translate3d(0, 0, 0); }
+    }
+
+    #naigc-portal-wipe.wipe-out-right {
+      visibility: visible;
+      border-left: 3px solid #00F0FF;
+      box-shadow: -25px 0 90px rgba(0, 240, 255, 0.7);
+      animation: naigcWipeOutRight 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes naigcWipeOutRight {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(100vw, 0, 0); }
+    }
+
+    #naigc-portal-wipe.wipe-out-left {
+      visibility: visible;
+      border-right: 3px solid #FFB800;
+      box-shadow: 25px 0 90px rgba(255, 184, 0, 0.7);
+      animation: naigcWipeOutLeft 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes naigcWipeOutLeft {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-100vw, 0, 0); }
+    }
+
+    .naigc-portal-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      text-align: center;
+      font-family: var(--at-font-mono);
+      position: relative;
+      z-index: 2;
+    }
+
+    .naigc-portal-core-ring {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 240, 255, 0.5);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.2);
+      margin-bottom: 0.5rem;
+      animation: naigcRingSpin 4s linear infinite;
+    }
+
+    @keyframes naigcRingSpin {
+      0% { transform: rotate(0deg) scale(0.96); }
+      50% { transform: rotate(180deg) scale(1.04); }
+      100% { transform: rotate(360deg) scale(0.96); }
+    }
+
+    .naigc-portal-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: #00F0FF;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+    }
+
+    .naigc-portal-title {
+      font-family: var(--at-font-display);
+      font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+    }
+
+    .naigc-portal-wing {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      color: #8A99AD;
+    }
+
+    .naigc-portal-sub {
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      color: rgba(0, 240, 255, 0.7);
+      margin-top: 0.4rem;
+    }
+
+    /* ==========================================================================
        CAROUSEL STAGE & DIRECTIONAL 3D FLY-IN (120 FPS PURE GPU)
        Pillars 1-4 fly in from LEFT ("like dia masuk ke home page mcm tu")
        Pillars 5-8 fly in from RIGHT
@@ -1419,7 +1547,15 @@
 </head>
 <body>
 
-  
+  <!-- Directional Hardware-Accelerated Spatial Transition Portal (60-120 FPS Pure GPU) -->
+  <div id="naigc-portal-wipe" class="wipe-out-left" aria-hidden="true">
+    <div class="naigc-portal-content">
+      <div class="naigc-portal-core-ring"></div>
+      <div class="naigc-portal-tag">// SPATIAL TELEMETRY MATRIX //</div>
+      <div class="naigc-portal-title">AI RESEARCH & INNOVATION</div>
+      <div class="naigc-portal-wing">BETA-EAST // WING RIGHT [05-08]</div>
+      <div class="naigc-portal-sub">SYS//WARPING PROTOCOL ACTIVE</div>
+    </div>
   </div>
 
   <!-- WebGL Background Canvas -->
@@ -2229,9 +2365,25 @@
     });
 
     // --- 6. Spatial Directional Transition Orchestration (Left for 1-4, Right for 5-8) ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromDir = urlParams.get('from');
+    const wiperEl = document.getElementById('naigc-portal-wipe');
+    if (wiperEl) {
+      if (fromDir === 'right' || (!fromDir && !isCurrentLeft)) {
+        wiperEl.className = 'wipe-out-left';
+      } else {
+        wiperEl.className = 'wipe-out-right';
+      }
+    }
+
     function navigateWithDirection(targetUrl, direction) {
       sound.init();
       sound.playSlide();
+
+      const wiper = document.getElementById('naigc-portal-wipe');
+      if (wiper) {
+        wiper.className = direction === 'left' ? 'wipe-in-left' : 'wipe-in-right';
+      }
 
       const track = document.getElementById('at-track');
       if (track) {
@@ -2241,15 +2393,16 @@
 
       setTimeout(() => {
         window.location.href = targetUrl;
-      }, 190);
+      }, 350);
     }
 
     // Intercept Return to Homepage (Core Hub)
     document.querySelectorAll('a[href*="index.html"]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const dir = isCurrentLeft ? 'left' : 'right';
-        navigateWithDirection('../index.html', dir);
+        const returnWing = isCurrentLeft ? 'left' : 'right';
+        const sweepDir = isCurrentLeft ? 'left' : 'right';
+        navigateWithDirection('../index.html?return=' + returnWing, sweepDir);
       });
     });
 
@@ -2271,7 +2424,7 @@
         if (targetNum && targetNum !== currentPillarNum) {
           e.preventDefault();
           const dir = targetNum < currentPillarNum ? 'left' : 'right';
-          navigateWithDirection(href, dir);
+          navigateWithDirection(href + "?from=" + dir, dir);
         }
       });
     });

@@ -2283,8 +2283,8 @@ body.mq4-body,
   const introEl = document.querySelector('.mq4-intro') || document.body;
   ecoObserver.observe(introEl, { childList: true, subtree: true });
 
-  // --- ULTRA-SMOOTH HARDWARE-ACCELERATED TRANSITION TO PILLARS (120 FPS) ---
-  // Pillars 1-4 fly in from LEFT, Pillars 5-8 fly in from RIGHT
+  // --- ULTRA-SMOOTH HARDWARE-ACCELERATED DIRECTIONAL TRANSITION (120 FPS) ---
+  // Pillars 1-4 sweep in from LEFT, Pillars 5-8 sweep in from RIGHT
   const prefetchCache = new Set();
   function prefetchUrl(url) {
     if (!url || prefetchCache.has(url)) return;
@@ -2293,6 +2293,36 @@ body.mq4-body,
     link.rel = 'prefetch';
     link.href = url;
     document.head.appendChild(link);
+  }
+
+  // Inject Dedicated Hardware-Accelerated Spatial Transition Wiper
+  const portalWiper = document.createElement('div');
+  portalWiper.id = 'naigc-portal-wipe';
+  portalWiper.setAttribute('aria-hidden', 'true');
+  portalWiper.innerHTML = `
+    <div class="naigc-portal-laser"></div>
+    <div class="naigc-portal-content">
+      <div class="naigc-portal-core-ring"></div>
+      <div class="naigc-portal-tag">// SPATIAL TELEMETRY MATRIX //</div>
+      <div class="naigc-portal-title" id="naigc-portal-title">ACCESSING NODE...</div>
+      <div class="naigc-portal-wing" id="naigc-portal-wing">// ALPHA-WEST SECTOR //</div>
+      <div class="naigc-portal-sub">SYS//WARPING PROTOCOL ACTIVE</div>
+    </div>
+  `;
+  document.body.appendChild(portalWiper);
+
+  const portalTitle = document.getElementById('naigc-portal-title');
+  const portalWing = document.getElementById('naigc-portal-wing');
+
+  // Handle return transition reveal from Pillar pages
+  const urlParams = new URLSearchParams(window.location.search);
+  const returnDir = urlParams.get('return');
+  if (returnDir === 'left') {
+    portalWiper.className = 'wipe-out-right';
+    try { history.replaceState(null, '', window.location.pathname); } catch(e) {}
+  } else if (returnDir === 'right') {
+    portalWiper.className = 'wipe-out-left';
+    try { history.replaceState(null, '', window.location.pathname); } catch(e) {}
   }
 
   // Pre-fetch pillar URLs on hover for instant navigation
@@ -2309,14 +2339,21 @@ body.mq4-body,
 
       const pillarNum = parseInt(link.dataset.pillar, 10);
       const isLeft = pillarNum >= 1 && pillarNum <= 4;
+      const titleEl = link.querySelector('.naigc-poly-title');
+      const nodeTitle = titleEl ? titleEl.innerText : `PILLAR 0${pillarNum}`;
 
-      // Add high-tech departure animation
+      portalTitle.innerText = `NODE.0${pillarNum} // ${nodeTitle}`;
+      portalWing.innerText = isLeft ? '// ALPHA-WEST CORRIDOR [01-04] //' : '// BETA-EAST CORRIDOR [05-08] //';
+
+      // Trigger ultra-smooth GPU wipe from left (1-4) or right (5-8)
+      portalWiper.className = isLeft ? 'wipe-in-left' : 'wipe-in-right';
+
+      // Subtle departure feedback on homepage cards
       document.body.classList.add(isLeft ? 'naigc-departing-left' : 'naigc-departing-right');
-      link.classList.add('is-departing-target');
 
       setTimeout(() => {
-        window.location.href = href;
-      }, 190);
+        window.location.href = `${href}?from=${isLeft ? 'left' : 'right'}`;
+      }, 360);
     });
   });
 })();
@@ -2324,43 +2361,149 @@ body.mq4-body,
 
 <style>
 /* ==========================================================================
-   ULTRA-SMOOTH GPU TRANSITIONS FOR PILLAR DEPARTURE & ARRIVAL (120 FPS)
+   ULTRA-SMOOTH GPU TRANSITION CURTAIN (60-120 FPS PURE HARDWARE ACCELERATION)
    ========================================================================== */
-@view-transition {
-  navigation: auto;
+#naigc-portal-wipe {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  background: radial-gradient(circle at 50% 50%, #030a17 0%, #010308 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  visibility: hidden;
+  will-change: transform;
+  transform: translate3d(-100vw, 0, 0);
+  contain: strict;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Instantaneous Departure Feedback (Zero Lag, Pure GPU Transform) */
+/* WIPE IN FROM LEFT (Pillars 1-4) */
+#naigc-portal-wipe.wipe-in-left {
+  visibility: visible;
+  pointer-events: auto;
+  border-right: 3px solid #00F0FF;
+  box-shadow: 25px 0 90px rgba(0, 240, 255, 0.7);
+  animation: naigcWipeInLeft 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes naigcWipeInLeft {
+  0% { transform: translate3d(-100vw, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* WIPE IN FROM RIGHT (Pillars 5-8) */
+#naigc-portal-wipe.wipe-in-right {
+  visibility: visible;
+  pointer-events: auto;
+  border-left: 3px solid #FFB800;
+  box-shadow: -25px 0 90px rgba(255, 184, 0, 0.7);
+  animation: naigcWipeInRight 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes naigcWipeInRight {
+  0% { transform: translate3d(100vw, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* WIPE OUT TO RIGHT (Returning to Homepage from Left Wing) */
+#naigc-portal-wipe.wipe-out-right {
+  visibility: visible;
+  border-left: 3px solid #00F0FF;
+  box-shadow: -25px 0 90px rgba(0, 240, 255, 0.7);
+  animation: naigcWipeOutRight 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes naigcWipeOutRight {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(100vw, 0, 0); }
+}
+
+/* WIPE OUT TO LEFT (Returning to Homepage from Right Wing) */
+#naigc-portal-wipe.wipe-out-left {
+  visibility: visible;
+  border-right: 3px solid #FFB800;
+  box-shadow: 25px 0 90px rgba(255, 184, 0, 0.7);
+  animation: naigcWipeOutLeft 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes naigcWipeOutLeft {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100vw, 0, 0); }
+}
+
+/* Portal Telemetry Content */
+.naigc-portal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  position: relative;
+  z-index: 2;
+}
+
+.naigc-portal-core-ring {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 240, 255, 0.5);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.2);
+  margin-bottom: 0.5rem;
+  animation: naigcRingSpin 4s linear infinite;
+}
+
+@keyframes naigcRingSpin {
+  0% { transform: rotate(0deg) scale(0.96); }
+  50% { transform: rotate(180deg) scale(1.04); }
+  100% { transform: rotate(360deg) scale(0.96); }
+}
+
+.naigc-portal-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: #00F0FF;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+}
+
+.naigc-portal-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+.naigc-portal-wing {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: #8A99AD;
+}
+
+.naigc-portal-sub {
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: rgba(0, 240, 255, 0.7);
+  margin-top: 0.4rem;
+}
+
+/* Subtle Homepage Departure Feedback */
 .naigc-departing-left .naigc-pillars-left .naigc-holo-projection {
-  transform: perspective(1000px) translate3d(50px, 0, 40px) rotateY(-8deg) scale(1.02);
-  opacity: 0;
-  filter: brightness(1.6);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease, filter 0.18s ease;
-}
-
-.naigc-departing-left .naigc-pillars-right .naigc-holo-projection {
-  opacity: 0.15;
-  transform: perspective(1000px) translate3d(20px, 0, -20px) scale(0.96);
-  transition: all 0.2s ease;
+  transform: perspective(1000px) translate3d(30px, 0, 20px) rotateY(-4deg);
+  opacity: 0.6;
+  transition: all 0.3s ease;
 }
 
 .naigc-departing-right .naigc-pillars-right .naigc-holo-projection {
-  transform: perspective(1000px) translate3d(-50px, 0, 40px) rotateY(8deg) scale(1.02);
-  opacity: 0;
-  filter: brightness(1.6);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease, filter 0.18s ease;
-}
-
-.naigc-departing-right .naigc-pillars-left .naigc-holo-projection {
-  opacity: 0.15;
-  transform: perspective(1000px) translate3d(-20px, 0, -20px) scale(0.96);
-  transition: all 0.2s ease;
-}
-
-.naigc-holo-projection.is-departing-target {
-  box-shadow: 0 0 45px #00F0FF !important;
-  border-color: #00F0FF !important;
-  z-index: 100 !important;
+  transform: perspective(1000px) translate3d(-30px, 0, 20px) rotateY(4deg);
+  opacity: 0.6;
+  transition: all 0.3s ease;
 }
 </style>
 
