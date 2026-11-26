@@ -1874,22 +1874,38 @@
     let progress = 0;
     const counterEl = document.getElementById('at-counter');
     const loaderEl = document.getElementById('at-loader');
+    const isEmbedded = window.self !== window.top || window.location.search.includes('seamless=1');
 
-    const loaderInterval = setInterval(() => {
-      progress += Math.floor(Math.random() * 8) + 4;
-      if (progress > 100) progress = 100;
-      counterEl.innerText = `// ${progress < 10 ? '0' + progress : progress} //`;
-
-      if (progress >= 100) {
-        clearInterval(loaderInterval);
-        setTimeout(dismissLoader, 350);
+    if (isEmbedded) {
+      if (loaderEl) {
+        loaderEl.style.display = 'none';
+        loaderEl.classList.add('is-loaded');
       }
-    }, 45);
+      const initialCurtain = document.getElementById('at-transition-curtain');
+      if (initialCurtain) {
+        initialCurtain.style.display = 'none';
+      }
+      const stage = document.getElementById('at-carousel-stage');
+      if (stage) {
+        stage.classList.add('at-stage-ready');
+      }
+    } else {
+      const loaderInterval = setInterval(() => {
+        progress += Math.floor(Math.random() * 8) + 4;
+        if (progress > 100) progress = 100;
+        counterEl.innerText = `// ${progress < 10 ? '0' + progress : progress} //`;
 
-    loaderEl.addEventListener('click', () => {
-      sound.init();
-      dismissLoader();
-    });
+        if (progress >= 100) {
+          clearInterval(loaderInterval);
+          setTimeout(dismissLoader, 350);
+        }
+      }, 45);
+
+      loaderEl.addEventListener('click', () => {
+        sound.init();
+        dismissLoader();
+      });
+    }
 
     function dismissLoader() {
       sound.init();
@@ -2452,8 +2468,15 @@
     document.querySelectorAll('a[href*="index.html"]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const dir = isCurrentLeft ? 'left' : 'right';
-        navigateWithDirection('../index.html?return=' + dir, dir, 'CENTRAL CORE HUB');
+        if (isEmbedded) {
+          window.parent.postMessage({
+            type: 'NAIGC_CLOSE_PILLAR',
+            direction: isCurrentLeft ? 'left' : 'right'
+          }, '*');
+        } else {
+          const dir = isCurrentLeft ? 'left' : 'right';
+          navigateWithDirection('../index.html?return=' + dir, dir, 'CENTRAL CORE HUB');
+        }
       });
     });
 
@@ -2475,8 +2498,17 @@
         if (targetNum && targetNum !== currentPillarNum) {
           e.preventDefault();
           const dir = targetNum < currentPillarNum ? 'left' : 'right';
-          const label = link.dataset.tooltip || ('PILLAR 0' + targetNum);
-          navigateWithDirection(href, dir, label);
+          if (isEmbedded) {
+            window.parent.postMessage({
+              type: 'NAIGC_SWITCH_PILLAR',
+              num: targetNum,
+              url: href,
+              direction: dir
+            }, '*');
+          } else {
+            const label = link.dataset.tooltip || ('PILLAR 0' + targetNum);
+            navigateWithDirection(href, dir, label);
+          }
         }
       });
     });
