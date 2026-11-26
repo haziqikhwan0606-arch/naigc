@@ -7,12 +7,29 @@
   <meta name="description" content="NAIGC AI ENTREPRENEURSHIP & OPC — SYS//NODE.06 ENTREPRENEURSHIP & OPC. Sovereign AI Infrastructure & Strategic Development.">
   <link rel="icon" href="../favicon.ico">
 
+  <script>
+    if (window.self !== window.top || window.location.search.includes('seamless=1')) {
+      document.documentElement.classList.add('is-embedded');
+    }
+  </script>
+
   <!-- Fonts matching Active Theory (Syne / Monument Grotesk style + Monospace) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
+    /* Embedded Slider Performance Rules - Zero Lag & Zero Conflicting Animation */
+    html.is-embedded #at-loader,
+    html.is-embedded #at-transition-curtain {
+      display: none !important;
+    }
+
+    html.is-embedded #at-carousel-stage {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: translate3d(0, 0, 0) !important;
+    }
     :root {
       --at-bg: #030508;
       --at-cyan: #00F0FF;

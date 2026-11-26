@@ -2417,9 +2417,8 @@ body.mq4-body,
   background: #010306;
   pointer-events: none;
   visibility: hidden;
-  opacity: 0;
   transform: translate3d(-100vw, 0, 0);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.45s;
+  transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.65s;
   will-change: transform;
   contain: strict;
   backface-visibility: hidden;
@@ -2429,20 +2428,19 @@ body.mq4-body,
 #naigc-pillar-slider.from-left {
   transform: translate3d(-100vw, 0, 0);
   border-right: 2px solid rgba(0, 240, 255, 0.5);
-  box-shadow: 20px 0 60px rgba(0, 240, 255, 0.25);
+  box-shadow: 25px 0 80px rgba(0, 240, 255, 0.3);
 }
 
 #naigc-pillar-slider.from-right {
   transform: translate3d(100vw, 0, 0);
   border-left: 2px solid rgba(255, 184, 0, 0.5);
-  box-shadow: -20px 0 60px rgba(255, 184, 0, 0.25);
+  box-shadow: -25px 0 80px rgba(255, 184, 0, 0.3);
 }
 
 #naigc-pillar-slider.is-open {
   transform: translate3d(0, 0, 0) !important;
   pointer-events: auto;
   visibility: visible;
-  opacity: 1;
 }
 
 #naigc-pillar-frame {
@@ -2519,21 +2517,21 @@ body.mq4-body,
 
 /* Zero GPU Blur - High-Performance Homepage Fade when Open */
 #naigc-pillars, .mq4-intro {
-  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.5s ease, transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
   will-change: opacity, transform;
 }
 
 body.pillar-open-left #naigc-pillars,
 body.pillar-open-left .mq4-intro {
-  transform: translate3d(8vw, 0, 0);
-  opacity: 0.25;
+  transform: translate3d(10vw, 0, 0) scale(0.96);
+  opacity: 0.2;
   pointer-events: none;
 }
 
 body.pillar-open-right #naigc-pillars,
 body.pillar-open-right .mq4-intro {
-  transform: translate3d(-8vw, 0, 0);
-  opacity: 0.25;
+  transform: translate3d(-10vw, 0, 0) scale(0.96);
+  opacity: 0.2;
   pointer-events: none;
 }
 
