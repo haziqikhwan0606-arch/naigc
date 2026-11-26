@@ -19,17 +19,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
-    /* Embedded Slider Performance Rules - Zero Lag & Zero Conflicting Animation */
-    html.is-embedded #at-loader,
-    html.is-embedded #at-transition-curtain {
-      display: none !important;
+    @view-transition {
+      navigation: auto;
     }
 
-    html.is-embedded #at-carousel-stage {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: translate3d(0, 0, 0) !important;
-    }
     :root {
       --at-bg: #030508;
       --at-cyan: #00F0FF;
@@ -85,108 +78,7 @@
       box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.95);
     }
 
-    /* ==========================================================================
-       1. ACTIVE THEORY PORTAL APERTURE LOADER
-       ========================================================================== */
-    #at-loader {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background-color: #010306;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.85s;
-    }
-
-    #at-loader.is-loaded {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .at-portal-wrapper {
-      position: relative;
-      width: 320px;
-      height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .at-portal-ring {
-      position: absolute;
-      inset: 20px;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.15);
-      animation: at-ring-pulse 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes at-ring-pulse {
-      0% { transform: scale(0.96); border-color: rgba(0, 240, 255, 0.25); }
-      100% { transform: scale(1.04); border-color: rgba(0, 240, 255, 0.75); }
-    }
-
-    .at-portal-core {
-      position: relative;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(2, 8, 22, 0.9) 70%);
-      border: 1.5px solid rgba(0, 240, 255, 0.7);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-    }
-
-    .at-loader-pct {
-      font-family: var(--at-font-mono);
-      font-size: 1.15rem;
-      letter-spacing: 0.18em;
-      color: #FFFFFF;
-      text-shadow: 0 0 10px #00F0FF;
-    }
-
-    .at-loader-sub {
-      font-family: var(--at-font-mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: var(--at-cyan);
-      margin-top: 4px;
-      text-transform: uppercase;
-    }
-
-    .at-filaments {
-      position: absolute;
-      inset: -50px;
-      width: calc(100% + 100px);
-      height: calc(100% + 100px);
-      pointer-events: none;
-      animation: at-spin-slow 28s linear infinite;
-    }
-
-    @keyframes at-spin-slow {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .at-enter-prompt {
-      margin-top: 2.5rem;
-      font-family: var(--at-font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.32em;
-      color: rgba(255, 255, 255, 0.6);
-      text-transform: uppercase;
-      animation: at-blink 1.4s infinite ease-in-out;
-    }
-
-    @keyframes at-blink {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 1; text-shadow: 0 0 10px #00F0FF; }
+    50% { opacity: 1; text-shadow: 0 0 10px #00F0FF; }
     }
 
     /* ==========================================================================
@@ -641,7 +533,9 @@
     }
 
     /* ==========================================================================
-       5. 3D FLOATING CARDS CAROUSEL WITH GYRO TILT & SHEEN & DIRECTIONAL TRANSITIONS
+       CAROUSEL STAGE & DIRECTIONAL 3D FLY-IN (120 FPS PURE GPU)
+       Pillars 1-4 fly in from LEFT ("like dia masuk ke home page mcm tu")
+       Pillars 5-8 fly in from RIGHT
        ========================================================================== */
     #at-carousel-stage {
       position: fixed;
@@ -655,185 +549,140 @@
       align-items: center;
       justify-content: center;
       transform-style: preserve-3d;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-
-    #at-carousel-stage.at-stage-ready {
       opacity: 1;
-    }
-
-    /* Entrance from Left (Pillars 1-4) */
-    .at-stage-enter-left {
-      animation: atStageSlideInFromLeft 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    /* Entrance from Right (Pillars 5-8) */
-    .at-stage-enter-right {
-      animation: atStageSlideInFromRight 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    /* Exit to Left (Pillars 1-4 returning to Core or moving left) */
-    .at-stage-exit-left {
-      animation: atStageSlideOutToLeft 0.45s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
-    }
-
-    /* Exit to Right (Pillars 5-8 returning to Core or moving right) */
-    .at-stage-exit-right {
-      animation: atStageSlideOutToRight 0.45s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
-    }
-
-    @keyframes atStageSlideInFromLeft {
-      0% {
-        transform: translateX(-55vw) rotateY(-26deg) scale(0.82);
-        opacity: 0;
-        filter: blur(16px);
-      }
-      100% {
-        transform: translateX(0) rotateY(0deg) scale(1);
-        opacity: 1;
-        filter: blur(0px);
-      }
-    }
-
-    @keyframes atStageSlideInFromRight {
-      0% {
-        transform: translateX(55vw) rotateY(26deg) scale(0.82);
-        opacity: 0;
-        filter: blur(16px);
-      }
-      100% {
-        transform: translateX(0) rotateY(0deg) scale(1);
-        opacity: 1;
-        filter: blur(0px);
-      }
-    }
-
-    @keyframes atStageSlideOutToLeft {
-      0% {
-        transform: translateX(0) rotateY(0deg) scale(1);
-        opacity: 1;
-        filter: blur(0px);
-      }
-      100% {
-        transform: translateX(-55vw) rotateY(-26deg) scale(0.82);
-        opacity: 0;
-        filter: blur(16px);
-      }
-    }
-
-    @keyframes atStageSlideOutToRight {
-      0% {
-        transform: translateX(0) rotateY(0deg) scale(1);
-        opacity: 1;
-        filter: blur(0px);
-      }
-      100% {
-        transform: translateX(55vw) rotateY(26deg) scale(0.82);
-        opacity: 0;
-        filter: blur(16px);
-      }
-    }
-
-    /* Directional Spatial Transition Curtain */
-    #at-transition-curtain {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 9999;
-      background: #010308;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    #at-transition-curtain.at-curtain-active {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    /* Reveal animations upon landing */
-    #at-transition-curtain.enter-reveal-left {
-      animation: atCurtainRevealLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      border-right: 3px solid #00F0FF;
-      box-shadow: 25px 0 80px rgba(0, 240, 255, 0.8);
-    }
-
-    #at-transition-curtain.enter-reveal-right {
-      animation: atCurtainRevealRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      border-left: 3px solid #FFB800;
-      box-shadow: -25px 0 80px rgba(255, 184, 0, 0.8);
-    }
-
-    @keyframes atCurtainRevealLeft {
-      0% { transform: translateX(0%); opacity: 1; }
-      100% { transform: translateX(100%); opacity: 0; visibility: hidden; }
-    }
-
-    @keyframes atCurtainRevealRight {
-      0% { transform: translateX(0%); opacity: 1; }
-      100% { transform: translateX(-100%); opacity: 0; visibility: hidden; }
-    }
-
-    /* Exit animations upon returning or moving */
-    #at-transition-curtain.exit-to-left {
-      animation: atCurtainExitLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      border-right: 3px solid #00F0FF;
-      box-shadow: 25px 0 80px rgba(0, 240, 255, 0.8);
-    }
-
-    #at-transition-curtain.exit-to-right {
-      animation: atCurtainExitRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      border-left: 3px solid #FFB800;
-      box-shadow: -25px 0 80px rgba(255, 184, 0, 0.8);
-    }
-
-    @keyframes atCurtainExitLeft {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(0%); }
-    }
-
-    @keyframes atCurtainExitRight {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(0%); }
-    }
-
-    .at-curtain-hud {
-      font-family: var(--at-font-mono);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      text-align: center;
-    }
-
-    .at-curtain-hud-tag {
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      color: var(--at-cyan);
-      text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
-    }
-
-    .at-curtain-hud-title {
-      font-family: var(--at-font-display);
-      font-size: clamp(1.2rem, 3vw, 2.2rem);
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      color: #FFFFFF;
-    }
-
-    .at-curtain-hud-wing {
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      color: rgba(255, 255, 255, 0.55);
     }
 
     .at-card-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    /* 3D Fly-In From Left for Pillars 1-4 (staggered 3D entrance matching homepage) */
+    .at-track-enter-left {
+      animation: atTrackFlyInLeft 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes atTrackFlyInLeft {
+      0% {
+        opacity: 0;
+        transform: perspective(1400px) translate3d(-160px, 0, -60px) rotateY(-22deg) scale(0.92);
+        filter: brightness(1.8);
+      }
+      70% {
+        opacity: 0.98;
+        transform: perspective(1400px) translate3d(14px, 0, 10px) rotateY(3deg) scale(1.01);
+        filter: brightness(1.15);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
+        filter: brightness(1);
+      }
+    }
+
+    /* 3D Fly-In From Right for Pillars 5-8 */
+    .at-track-enter-right {
+      animation: atTrackFlyInRight 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes atTrackFlyInRight {
+      0% {
+        opacity: 0;
+        transform: perspective(1400px) translate3d(160px, 0, -60px) rotateY(22deg) scale(0.92);
+        filter: brightness(1.8);
+      }
+      70% {
+        opacity: 0.98;
+        transform: perspective(1400px) translate3d(-14px, 0, 10px) rotateY(-3deg) scale(1.01);
+        filter: brightness(1.15);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
+        filter: brightness(1);
+      }
+    }
+
+    /* Exit Animations (Ultra-fast 200ms GPU glides when leaving) */
+    .at-track-exit-left {
+      animation: atTrackExitLeft 0.22s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+    }
+
+    @keyframes atTrackExitLeft {
+      0% {
+        transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
+        opacity: 1;
+        filter: brightness(1);
+      }
+      100% {
+        transform: perspective(1400px) translate3d(-160px, 0, -60px) rotateY(-22deg) scale(0.92);
+        opacity: 0;
+        filter: brightness(1.6);
+      }
+    }
+
+    .at-track-exit-right {
+      animation: atTrackExitRight 0.22s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+    }
+
+    @keyframes atTrackExitRight {
+      0% {
+        transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
+        opacity: 1;
+        filter: brightness(1);
+      }
+      100% {
+        transform: perspective(1400px) translate3d(160px, 0, -60px) rotateY(22deg) scale(0.92);
+        opacity: 0;
+        filter: brightness(1.6);
+      }
+    }
+
+    /* Individual Card Staggered Fly-In Content */
+    .at-card-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+    }
+
+    .at-card-fly-left .at-card-inner {
+      animation: atInnerFlyInLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes atInnerFlyInLeft {
+      0% {
+        opacity: 0;
+        transform: perspective(1000px) translateX(-45px) rotateY(-8deg);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1000px) translateX(0) rotateY(0deg);
+      }
+    }
+
+    .at-card-fly-right .at-card-inner {
+      animation: atInnerFlyInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes atInnerFlyInRight {
+      0% {
+        opacity: 0;
+        transform: perspective(1000px) translateX(45px) rotateY(8deg);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1000px) translateX(0) rotateY(0deg);
+      }
+    }
+.at-card-track {
       position: relative;
       width: 100%;
       height: 100%;
@@ -876,7 +725,8 @@
     }
 
     .at-card:not(.is-center) {
-      filter: brightness(0.65) blur(0.6px);
+      opacity: 0.65;
+      filter: brightness(0.72);
     }
 
     .at-card:hover {
@@ -1569,38 +1419,12 @@
 </head>
 <body>
 
-  <!-- Directional Spatial Transition Curtain (Left for 1-4, Right for 5-8) -->
-  <div id="at-transition-curtain" class="at-curtain-active enter-reveal-left">
-    <div class="at-curtain-hud">
-      <div class="at-curtain-hud-tag">// SPATIAL TELEMETRY MATRIX //</div>
-      <div class="at-curtain-hud-title">AI CREATIVE STUDIO</div>
-      <div class="at-curtain-hud-wing">ALPHA-WEST // WING LEFT [01-04]</div>
-    </div>
+  
   </div>
 
   <!-- WebGL Background Canvas -->
   <canvas id="at-canvas"></canvas>
   <div class="at-vignette"></div>
-
-  <!-- 1. Active Theory Circular Aperture Portal Loader -->
-  <div id="at-loader">
-    <div class="at-portal-wrapper">
-      <div class="at-portal-ring"></div>
-      
-      <svg class="at-filaments" viewBox="0 0 400 400" fill="none">
-        <path d="M200 40 C 230 110, 260 130, 200 200 C 140 270, 170 290, 200 360" stroke="rgba(0, 240, 255, 0.45)" stroke-width="1.5" />
-        <path d="M40 200 C 110 230, 130 260, 200 200 C 270 140, 290 170, 360 200" stroke="rgba(255, 184, 0, 0.45)" stroke-width="1.5" />
-        <path d="M87 87 C 150 140, 160 170, 200 200 C 240 230, 250 260, 313 313" stroke="rgba(0, 240, 255, 0.35)" stroke-width="1.2" />
-        <path d="M313 87 C 260 150, 230 160, 200 200 C 170 240, 140 250, 87 313" stroke="rgba(255, 184, 0, 0.35)" stroke-width="1.2" />
-      </svg>
-
-      <div class="at-portal-core">
-        <div class="at-loader-pct" id="at-counter">// 00 //</div>
-        <div class="at-loader-sub">INITIALISING</div>
-      </div>
-    </div>
-    <div class="at-enter-prompt">CLICK OR WAIT TO ENTER 3D SPACE</div>
-  </div>
 
   <!-- 2. UI Chrome (Active Theory HUD Layer) -->
   <div class="at-hud-layer">
@@ -1735,8 +1559,8 @@
   </div>
 
   <!-- 6. 3D Floating Cards Carousel Stage with Directional Entrance (Left for 1-4, Right for 5-8) -->
-  <div id="at-carousel-stage" class="at-stage-enter-left at-stage-ready">
-    <div class="at-card-track" id="at-track">
+  <div id="at-carousel-stage">
+    <div class="at-card-track at-track-enter-left" id="at-track">
       <!-- Generated by JavaScript with 3D Matrix Coordinates -->
     </div>
   </div>
@@ -1887,53 +1711,9 @@
       audioBtn.classList.toggle('is-muted', !sound.enabled);
     });
 
-    // --- 2. Loader Sequencing ---
-    let progress = 0;
-    const counterEl = document.getElementById('at-counter');
-    const loaderEl = document.getElementById('at-loader');
-    const isEmbedded = window.self !== window.top || window.location.search.includes('seamless=1');
-
-    if (isEmbedded) {
-      if (loaderEl) {
-        loaderEl.style.display = 'none';
-        loaderEl.classList.add('is-loaded');
-      }
-      const initialCurtain = document.getElementById('at-transition-curtain');
-      if (initialCurtain) {
-        initialCurtain.style.display = 'none';
-      }
-      const stage = document.getElementById('at-carousel-stage');
-      if (stage) {
-        stage.classList.add('at-stage-ready');
-      }
-    } else {
-      const loaderInterval = setInterval(() => {
-        progress += Math.floor(Math.random() * 8) + 4;
-        if (progress > 100) progress = 100;
-        counterEl.innerText = `// ${progress < 10 ? '0' + progress : progress} //`;
-
-        if (progress >= 100) {
-          clearInterval(loaderInterval);
-          setTimeout(dismissLoader, 350);
-        }
-      }, 45);
-
-      loaderEl.addEventListener('click', () => {
-        sound.init();
-        dismissLoader();
-      });
-    }
-
-    function dismissLoader() {
-      sound.init();
-      sound.playChime();
-      loaderEl.classList.add('is-loaded');
-      const stage = document.getElementById('at-carousel-stage');
-      if (stage && !stage.classList.contains('at-stage-ready')) {
-        stage.classList.add('at-stage-ready');
-        stage.classList.add(isCurrentLeft ? 'at-stage-enter-left' : 'at-stage-enter-right');
-      }
-    }
+    // --- 2. Direct Instant Initialization (Zero Lag & 120 FPS Composited) ---
+    const currentPillarNum = 2;
+    const isCurrentLeft = true;
 
     // --- 3. Modules Data Set ---
     const modulesData = [
@@ -2100,10 +1880,10 @@
     const N = modulesData.length;
     const angleStep = (Math.PI * 2) / N;
 
-    // Render Cards
+    // Render Cards with Staggered 3D Entrance ("like dia masuk ke home page mcm tu")
     modulesData.forEach((mod, i) => {
       const card = document.createElement('div');
-      card.className = 'at-card';
+      card.className = 'at-card ' + (isCurrentLeft ? 'at-card-fly-left' : 'at-card-fly-right');
       card.dataset.index = i;
 
       let visualHeaderHtml = '';
@@ -2132,6 +1912,7 @@
 
       card.innerHTML = `
         <div class="at-card-sheen"></div>
+        <div class="at-card-inner" style="animation-delay: ${(0.04 + i * 0.07).toFixed(2)}s">
         <div>
           ${visualHeaderHtml}
           <div class="at-card-tag">${mod.tag}</div>
@@ -2152,6 +1933,7 @@
           <button class="at-btn-select" data-open="${i}">
             <span>${buttonLabel}</span>
           </button>
+        </div>
         </div>
       `;
 
@@ -2189,6 +1971,9 @@
     const cards = Array.from(document.querySelectorAll('.at-card'));
     const dialCounter = document.getElementById('at-dial-counter');
     const dialDots = Array.from(document.querySelectorAll('.at-dial-dot'));
+    
+    // Initial 3D matrix coordinates calculation for instantaneous display
+    updateCarousel();
 
     function updateCarousel() {
       currentAngle += (targetAngle - currentAngle) * 0.12;
@@ -2444,56 +2229,27 @@
     });
 
     // --- 6. Spatial Directional Transition Orchestration (Left for 1-4, Right for 5-8) ---
-    const currentPillarNum = 2;
-    const isCurrentLeft = true;
-    const curtain = document.getElementById('at-transition-curtain');
-    const stage = document.getElementById('at-carousel-stage');
-
-    // Dismiss curtain reveal animation after page entrance
-    setTimeout(() => {
-      if (curtain) {
-        curtain.classList.remove('at-curtain-active');
-      }
-    }, 550);
-
-    function navigateWithDirection(targetUrl, direction, label) {
+    function navigateWithDirection(targetUrl, direction) {
       sound.init();
       sound.playSlide();
 
-      if (curtain) {
-        const hudTag = curtain.querySelector('.at-curtain-hud-tag');
-        const hudTitle = curtain.querySelector('.at-curtain-hud-title');
-        const hudWing = curtain.querySelector('.at-curtain-hud-wing');
-        if (hudTag) hudTag.innerText = '// WARPING SPATIAL FIELD //';
-        if (hudTitle) hudTitle.innerText = label || 'CENTRAL ECOSYSTEM HUB';
-        if (hudWing) hudWing.innerText = direction === 'left' ? 'EXITING VIA ALPHA-WEST CORRIDOR' : 'EXITING VIA BETA-EAST CORRIDOR';
-
-        curtain.className = direction === 'left' ? 'at-curtain-active exit-to-left' : 'at-curtain-active exit-to-right';
-      }
-
-      if (stage) {
-        stage.classList.remove('at-stage-enter-left', 'at-stage-enter-right');
-        stage.classList.add(direction === 'left' ? 'at-stage-exit-left' : 'at-stage-exit-right');
+      const track = document.getElementById('at-track');
+      if (track) {
+        track.classList.remove('at-track-enter-left', 'at-track-enter-right');
+        track.classList.add(direction === 'left' ? 'at-track-exit-left' : 'at-track-exit-right');
       }
 
       setTimeout(() => {
         window.location.href = targetUrl;
-      }, 420);
+      }, 190);
     }
 
     // Intercept Return to Homepage (Core Hub)
     document.querySelectorAll('a[href*="index.html"]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        if (isEmbedded) {
-          window.parent.postMessage({
-            type: 'NAIGC_CLOSE_PILLAR',
-            direction: isCurrentLeft ? 'left' : 'right'
-          }, '*');
-        } else {
-          const dir = isCurrentLeft ? 'left' : 'right';
-          navigateWithDirection('../index.html?return=' + dir, dir, 'CENTRAL CORE HUB');
-        }
+        const dir = isCurrentLeft ? 'left' : 'right';
+        navigateWithDirection('../index.html', dir);
       });
     });
 
@@ -2505,27 +2261,17 @@
 
         let targetNum = null;
         if (link.dataset.tooltip) {
-          const m = link.dataset.tooltip.match(/^(d+)/);
+          const m = link.dataset.tooltip.match(/^([0-9]+)/);
           if (m) targetNum = parseInt(m[1], 10);
         } else if (link.innerText) {
-          const m = link.innerText.match(/(d+)/);
+          const m = link.innerText.match(/([0-9]+)/);
           if (m) targetNum = parseInt(m[1], 10);
         }
 
         if (targetNum && targetNum !== currentPillarNum) {
           e.preventDefault();
           const dir = targetNum < currentPillarNum ? 'left' : 'right';
-          if (isEmbedded) {
-            window.parent.postMessage({
-              type: 'NAIGC_SWITCH_PILLAR',
-              num: targetNum,
-              url: href,
-              direction: dir
-            }, '*');
-          } else {
-            const label = link.dataset.tooltip || ('PILLAR 0' + targetNum);
-            navigateWithDirection(href, dir, label);
-          }
+          navigateWithDirection(href, dir);
         }
       });
     });
@@ -2535,63 +2281,67 @@
     const canvas = document.getElementById('at-canvas');
 
     function initThree() {
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
-      camera.position.z = 400;
+      try {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.position.z = 400;
 
-      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
 
-      // Cosmic Particles (Optimized)
-      const particleCount = 280;
-      const geometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(particleCount * 3);
-      const colors = new Float32Array(particleCount * 3);
+        // Cosmic Particles (Optimized)
+        const particleCount = 280;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
 
-      const colorCyan = new THREE.Color(0x00F0FF);
-      const colorGold = new THREE.Color(0xFFB800);
-      const colorWhite = new THREE.Color(0xFFFFFF);
+        const colorCyan = new THREE.Color(0x00F0FF);
+        const colorGold = new THREE.Color(0xFFB800);
+        const colorWhite = new THREE.Color(0xFFFFFF);
 
-      for (let i = 0; i < particleCount; i++) {
-        positions[i * 3] = (Math.random() - 0.5) * 1600;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 1200;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 1400;
+        for (let i = 0; i < particleCount; i++) {
+          positions[i * 3] = (Math.random() - 0.5) * 1600;
+          positions[i * 3 + 1] = (Math.random() - 0.5) * 1200;
+          positions[i * 3 + 2] = (Math.random() - 0.5) * 1400;
 
-        const pickColor = Math.random() < 0.6 ? colorCyan : (Math.random() < 0.85 ? colorGold : colorWhite);
-        colors[i * 3] = pickColor.r;
-        colors[i * 3 + 1] = pickColor.g;
-        colors[i * 3 + 2] = pickColor.b;
+          const pickColor = Math.random() < 0.6 ? colorCyan : (Math.random() < 0.85 ? colorGold : colorWhite);
+          colors[i * 3] = pickColor.r;
+          colors[i * 3 + 1] = pickColor.g;
+          colors[i * 3 + 2] = pickColor.b;
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const particleMaterial = new THREE.PointsMaterial({
+          size: 3.5,
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.75,
+          blending: THREE.AdditiveBlending
+        });
+
+        particles = new THREE.Points(geometry, particleMaterial);
+        scene.add(particles);
+
+        // Active Theory Signature Interactive Liquid Mesh Wave Plane (GPU-Accelerated)
+        const planeGeo = new THREE.PlaneGeometry(1600, 1100, 16, 12);
+        const planeMat = new THREE.MeshBasicMaterial({
+          color: 0x00F0FF,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.045,
+          blending: THREE.AdditiveBlending
+        });
+        meshPlane = new THREE.Mesh(planeGeo, planeMat);
+        meshPlane.position.z = -350;
+        scene.add(meshPlane);
+
+        window.addEventListener('resize', onWindowResize, { passive: true });
+      } catch (err) {
+        console.warn('WebGL initialization skipped:', err);
       }
-
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-      const particleMaterial = new THREE.PointsMaterial({
-        size: 3.5,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.75,
-        blending: THREE.AdditiveBlending
-      });
-
-      particles = new THREE.Points(geometry, particleMaterial);
-      scene.add(particles);
-
-      // Active Theory Signature Interactive Liquid Mesh Wave Plane (GPU-Accelerated)
-      const planeGeo = new THREE.PlaneGeometry(1600, 1100, 16, 12);
-      const planeMat = new THREE.MeshBasicMaterial({
-        color: 0x00F0FF,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.045,
-        blending: THREE.AdditiveBlending
-      });
-      meshPlane = new THREE.Mesh(planeGeo, planeMat);
-      meshPlane.position.z = -350;
-      scene.add(meshPlane);
-
-      window.addEventListener('resize', onWindowResize, { passive: true });
     }
 
     function onWindowResize() {
@@ -2626,7 +2376,9 @@
       camera.position.y += (-mouseY - camera.position.y) * 0.05;
       camera.lookAt(0, 0, 0);
 
-      renderer.render(scene, camera);
+      if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+      }
 
       // Only update carousel cards when motion is occurring
       if (Math.abs(targetAngle - currentAngle) > 0.0002 || isDragging || Math.abs(dragVelocity) > 0.0002) {

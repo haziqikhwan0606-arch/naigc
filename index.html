@@ -2283,262 +2283,84 @@ body.mq4-body,
   const introEl = document.querySelector('.mq4-intro') || document.body;
   ecoObserver.observe(introEl, { childList: true, subtree: true });
 
-  // --- SEAMLESS DIRECTIONAL SPATIAL SLIDER (LEFT FOR 1-4, RIGHT FOR 5-8) ---
-  const pillarSlider = document.createElement('div');
-  pillarSlider.id = 'naigc-pillar-slider';
-  pillarSlider.innerHTML = `
-    <div class="naigc-slider-hud">
-      <button id="naigc-slider-close" class="naigc-slider-back-btn" title="Return to Core Hub (Esc)">
-        <span class="naigc-slider-back-arrow">&larr;</span>
-        <span class="naigc-slider-back-text">CORE HUB</span>
-      </button>
-      <div class="naigc-slider-telemetry">
-        <span class="naigc-slider-telemetry-tag" id="naigc-slider-wing-tag">// ALPHA-WEST WING //</span>
-        <span class="naigc-slider-telemetry-title" id="naigc-slider-title">SYS//NODE ACCESS</span>
-      </div>
-    </div>
-    <iframe id="naigc-pillar-frame" title="NAIGC Pillar 3D Suite" src="about:blank"></iframe>
-  `;
-  document.body.appendChild(pillarSlider);
+  // --- ULTRA-SMOOTH HARDWARE-ACCELERATED TRANSITION TO PILLARS (120 FPS) ---
+  // Pillars 1-4 fly in from LEFT, Pillars 5-8 fly in from RIGHT
+  const prefetchCache = new Set();
+  function prefetchUrl(url) {
+    if (!url || prefetchCache.has(url)) return;
+    prefetchCache.add(url);
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = url;
+    document.head.appendChild(link);
+  }
 
-  const pillarFrame = document.getElementById('naigc-pillar-frame');
-  const sliderCloseBtn = document.getElementById('naigc-slider-close');
-  const sliderWingTag = document.getElementById('naigc-slider-wing-tag');
-  const sliderTitle = document.getElementById('naigc-slider-title');
-  let currentActivePillar = null;
-  let currentActiveDirection = null;
+  // Pre-fetch pillar URLs on hover for instant navigation
+  document.querySelectorAll('.naigc-holo-projection').forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      const href = link.getAttribute('href');
+      if (href) prefetchUrl(href);
+    }, { passive: true });
 
-  function openPillarSlider(rawUrl, pillarNum, isLeft, label) {
-    currentActivePillar = pillarNum;
-    currentActiveDirection = isLeft ? 'left' : 'right';
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      e.preventDefault();
 
-    sliderWingTag.innerText = isLeft ? '// ALPHA-WEST WING [01-04] //' : '// BETA-EAST WING [05-08] //';
-    sliderTitle.innerText = label ? `NODE.0${pillarNum} // ${label}` : `PILLAR 0${pillarNum}`;
+      const pillarNum = parseInt(link.dataset.pillar, 10);
+      const isLeft = pillarNum >= 1 && pillarNum <= 4;
 
-    pillarSlider.classList.remove('is-open');
-    pillarSlider.className = isLeft ? 'from-left' : 'from-right';
+      // Add high-tech departure animation
+      document.body.classList.add(isLeft ? 'naigc-departing-left' : 'naigc-departing-right');
+      link.classList.add('is-departing-target');
 
-    // Normalize target URL against origin to never create duplicate path segments
-    let resolvedUrl = rawUrl;
-    try {
-      resolvedUrl = new URL(rawUrl, window.location.origin + '/naigc/').href;
-    } catch(e) {}
-
-    const targetUrl = resolvedUrl.includes('?') ? `${resolvedUrl}&seamless=1` : `${resolvedUrl}?seamless=1`;
-    if (pillarFrame.getAttribute('data-loaded-src') !== targetUrl) {
-      pillarFrame.src = targetUrl;
-      pillarFrame.setAttribute('data-loaded-src', targetUrl);
-    }
-
-    void pillarSlider.offsetWidth;
-
-    requestAnimationFrame(() => {
-      pillarSlider.classList.add('is-open');
-      document.body.classList.remove('pillar-open-left', 'pillar-open-right');
-      document.body.classList.add('pillar-view-open', isLeft ? 'pillar-open-left' : 'pillar-open-right');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 190);
     });
-
-    try {
-      history.pushState({ pillar: pillarNum, resolvedUrl }, '', resolvedUrl);
-    } catch(e) {}
-  }
-
-  function closePillarSlider() {
-    if (!pillarSlider.classList.contains('is-open')) return;
-
-    pillarSlider.classList.remove('is-open');
-    document.body.classList.remove('pillar-view-open', 'pillar-open-left', 'pillar-open-right');
-
-    try {
-      const resetPath = window.location.pathname.includes('/pillars/') ? window.location.pathname.replace(/\/pillars\/.*$/, '/index.html') : window.location.pathname;
-      history.pushState(null, '', resetPath);
-    } catch(e) {}
-
-    currentActivePillar = null;
-    currentActiveDirection = null;
-  }
-
-  // Click handler to open seamless slider from left or right
-  document.addEventListener('click', (e) => {
-    const link = e.target.closest('.naigc-holo-projection');
-    if (!link) return;
-    const href = link.getAttribute('href');
-    if (!href) return;
-
-    e.preventDefault();
-    const pillarNum = parseInt(link.dataset.pillar, 10);
-    const isLeft = pillarNum >= 1 && pillarNum <= 4;
-    const nodeLabel = link.querySelector('.naigc-poly-title') ? link.querySelector('.naigc-poly-title').innerText : `PILLAR ${pillarNum}`;
-
-    openPillarSlider(href, pillarNum, isLeft, nodeLabel);
-  });
-
-  // Close button click
-  sliderCloseBtn.addEventListener('click', closePillarSlider);
-
-  // Keyboard Escape shortcut
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && pillarSlider.classList.contains('is-open')) {
-      closePillarSlider();
-    }
-  });
-
-  // Browser back / forward support
-  window.addEventListener('popstate', (e) => {
-    if (pillarSlider.classList.contains('is-open')) {
-      closePillarSlider();
-    }
-  });
-
-  // Listen to postMessage from inside iframe (e.g. Core Hub click or inter-pillar switch)
-  window.addEventListener('message', (e) => {
-    if (!e.data) return;
-    if (e.data.type === 'NAIGC_CLOSE_PILLAR') {
-      closePillarSlider();
-    } else if (e.data.type === 'NAIGC_SWITCH_PILLAR') {
-      const targetNum = e.data.num;
-      const isLeft = targetNum <= 4;
-      openPillarSlider(e.data.url, targetNum, isLeft, `PILLAR 0${targetNum}`);
-    }
   });
 })();
 </script>
 
 <style>
 /* ==========================================================================
-   HIGH-PERFORMANCE HARDWARE-ACCELERATED SPATIAL SLIDER (120 FPS)
+   ULTRA-SMOOTH GPU TRANSITIONS FOR PILLAR DEPARTURE & ARRIVAL (120 FPS)
    ========================================================================== */
-#naigc-pillar-slider {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 99990;
-  background: #010306;
-  pointer-events: none;
-  visibility: hidden;
-  transform: translate3d(-100vw, 0, 0);
-  transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.65s;
-  will-change: transform;
-  contain: strict;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+@view-transition {
+  navigation: auto;
 }
 
-#naigc-pillar-slider.from-left {
-  transform: translate3d(-100vw, 0, 0);
-  border-right: 2px solid rgba(0, 240, 255, 0.5);
-  box-shadow: 25px 0 80px rgba(0, 240, 255, 0.3);
+/* Instantaneous Departure Feedback (Zero Lag, Pure GPU Transform) */
+.naigc-departing-left .naigc-pillars-left .naigc-holo-projection {
+  transform: perspective(1000px) translate3d(50px, 0, 40px) rotateY(-8deg) scale(1.02);
+  opacity: 0;
+  filter: brightness(1.6);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease, filter 0.18s ease;
 }
 
-#naigc-pillar-slider.from-right {
-  transform: translate3d(100vw, 0, 0);
-  border-left: 2px solid rgba(255, 184, 0, 0.5);
-  box-shadow: -25px 0 80px rgba(255, 184, 0, 0.3);
-}
-
-#naigc-pillar-slider.is-open {
-  transform: translate3d(0, 0, 0) !important;
-  pointer-events: auto;
-  visibility: visible;
-}
-
-#naigc-pillar-frame {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: transparent;
-  display: block;
-}
-
-/* Slider Floating HUD Header */
-.naigc-slider-hud {
-  position: absolute;
-  top: 1.25rem;
-  left: 1.75rem;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  pointer-events: auto;
-}
-
-.naigc-slider-back-btn {
-  background: rgba(3, 9, 22, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(0, 240, 255, 0.35);
-  color: #00F0FF;
-  padding: 0.55rem 1.1rem;
-  border-radius: 30px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  cursor: pointer;
+.naigc-departing-left .naigc-pillars-right .naigc-holo-projection {
+  opacity: 0.15;
+  transform: perspective(1000px) translate3d(20px, 0, -20px) scale(0.96);
   transition: all 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0, 240, 255, 0.15);
 }
 
-.naigc-slider-back-btn:hover {
-  background: rgba(0, 240, 255, 0.15);
-  border-color: #00F0FF;
-  color: #FFFFFF;
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+.naigc-departing-right .naigc-pillars-right .naigc-holo-projection {
+  transform: perspective(1000px) translate3d(-50px, 0, 40px) rotateY(8deg) scale(1.02);
+  opacity: 0;
+  filter: brightness(1.6);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease, filter 0.18s ease;
 }
 
-.naigc-slider-back-arrow {
-  font-size: 0.95rem;
-  line-height: 1;
+.naigc-departing-right .naigc-pillars-left .naigc-holo-projection {
+  opacity: 0.15;
+  transform: perspective(1000px) translate3d(-20px, 0, -20px) scale(0.96);
+  transition: all 0.2s ease;
 }
 
-.naigc-slider-telemetry {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  font-family: 'Space Mono', monospace;
-}
-
-.naigc-slider-telemetry-tag {
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  color: #788A9E;
-}
-
-.naigc-slider-telemetry-title {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #FFFFFF;
-}
-
-/* Zero GPU Blur - High-Performance Homepage Fade when Open */
-#naigc-pillars, .mq4-intro {
-  transition: opacity 0.5s ease, transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
-  will-change: opacity, transform;
-}
-
-body.pillar-open-left #naigc-pillars,
-body.pillar-open-left .mq4-intro {
-  transform: translate3d(10vw, 0, 0) scale(0.96);
-  opacity: 0.2;
-  pointer-events: none;
-}
-
-body.pillar-open-right #naigc-pillars,
-body.pillar-open-right .mq4-intro {
-  transform: translate3d(-10vw, 0, 0) scale(0.96);
-  opacity: 0.2;
-  pointer-events: none;
-}
-
-/* Suspend homepage background WebGL rendering while viewing pillar slider */
-body.pillar-view-open .mq4-intro canvas,
-body.pillar-view-open #naigc-pillars canvas {
-  visibility: hidden !important;
+.naigc-holo-projection.is-departing-target {
+  box-shadow: 0 0 45px #00F0FF !important;
+  border-color: #00F0FF !important;
+  z-index: 100 !important;
 }
 </style>
 
