@@ -689,175 +689,56 @@
       height: 100%;
       transform-style: preserve-3d;
       pointer-events: none;
-      will-change: transform, opacity;
+      transition: transform 0.1s ease-out;
     }
 
-    /* 3D Fly-In From Left for Pillars 1-4 (staggered 3D entrance matching homepage) */
-    .at-track-enter-left {
-      animation: atTrackFlyInLeft 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    @keyframes atTrackFlyInLeft {
-      0% {
-        opacity: 0;
-        transform: perspective(1400px) translate3d(-160px, 0, -60px) rotateY(-22deg) scale(0.92);
-        filter: brightness(1.8);
-      }
-      70% {
-        opacity: 0.98;
-        transform: perspective(1400px) translate3d(14px, 0, 10px) rotateY(3deg) scale(1.01);
-        filter: brightness(1.15);
-      }
-      100% {
-        opacity: 1;
-        transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
-        filter: brightness(1);
-      }
-    }
-
-    /* 3D Fly-In From Right for Pillars 5-8 */
-    .at-track-enter-right {
-      animation: atTrackFlyInRight 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    @keyframes atTrackFlyInRight {
-      0% {
-        opacity: 0;
-        transform: perspective(1400px) translate3d(160px, 0, -60px) rotateY(22deg) scale(0.92);
-        filter: brightness(1.8);
-      }
-      70% {
-        opacity: 0.98;
-        transform: perspective(1400px) translate3d(-14px, 0, 10px) rotateY(-3deg) scale(1.01);
-        filter: brightness(1.15);
-      }
-      100% {
-        opacity: 1;
-        transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
-        filter: brightness(1);
-      }
-    }
-
-    /* Exit Animations (Ultra-fast 200ms GPU glides when leaving) */
-    .at-track-exit-left {
-      animation: atTrackExitLeft 0.22s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
-    }
-
-    @keyframes atTrackExitLeft {
-      0% {
-        transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
-        opacity: 1;
-        filter: brightness(1);
-      }
-      100% {
-        transform: perspective(1400px) translate3d(-160px, 0, -60px) rotateY(-22deg) scale(0.92);
-        opacity: 0;
-        filter: brightness(1.6);
-      }
-    }
-
-    .at-track-exit-right {
-      animation: atTrackExitRight 0.22s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
-    }
-
-    @keyframes atTrackExitRight {
-      0% {
-        transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
-        opacity: 1;
-        filter: brightness(1);
-      }
-      100% {
-        transform: perspective(1400px) translate3d(160px, 0, -60px) rotateY(22deg) scale(0.92);
-        opacity: 0;
-        filter: brightness(1.6);
-      }
-    }
-
-    /* Individual Card Staggered Fly-In Content */
-    .at-card-inner {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transform-style: preserve-3d;
-      will-change: transform, opacity;
-    }
-
-    .at-card-fly-left .at-card-inner {
-      animation: atInnerFlyInLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    @keyframes atInnerFlyInLeft {
-      0% {
-        opacity: 0;
-        transform: perspective(1000px) translateX(-45px) rotateY(-8deg);
-      }
-      100% {
-        opacity: 1;
-        transform: perspective(1000px) translateX(0) rotateY(0deg);
-      }
-    }
-
-    .at-card-fly-right .at-card-inner {
-      animation: atInnerFlyInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    @keyframes atInnerFlyInRight {
-      0% {
-        opacity: 0;
-        transform: perspective(1000px) translateX(45px) rotateY(8deg);
-      }
-      100% {
-        opacity: 1;
-        transform: perspective(1000px) translateX(0) rotateY(0deg);
-      }
-    }
-.at-card-track {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      pointer-events: none;
-    }
-
+    /* Authentic Active Theory Glass 3D Cards */
     .at-card {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: clamp(340px, 38vw, 520px);
-      height: clamp(520px, 68vh, 720px);
-      margin-left: calc(clamp(340px, 38vw, 520px) / -2);
-      margin-top: calc(clamp(520px, 68vh, 720px) / -2);
-      background: linear-gradient(145deg, rgba(10, 24, 48, 0.88) 0%, rgba(3, 9, 22, 0.94) 100%);
+      width: clamp(310px, 31vw, 450px);
+      height: clamp(480px, 62vh, 650px);
+      margin-left: calc(clamp(310px, 31vw, 450px) / -2);
+      margin-top: calc(clamp(480px, 62vh, 650px) / -2);
+      background: linear-gradient(145deg, rgba(8, 20, 42, 0.88) 0%, rgba(2, 6, 18, 0.94) 100%);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(0, 240, 255, 0.28);
+      border: 1px solid rgba(0, 240, 255, 0.22);
       border-radius: 20px;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 240, 255, 0.08);
-      padding: clamp(1.4rem, 2.5vw, 2rem);
+      padding: clamp(1.3rem, 2.2vw, 1.9rem);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       pointer-events: auto;
       cursor: pointer;
-      transition: border-color 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
       transform-style: preserve-3d;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       overflow: hidden;
-      position: absolute;
     }
 
+    /* Active Theory Focus Center Card */
     .at-card.is-center {
       border-color: #00F0FF;
-      box-shadow: 0 35px 95px rgba(0, 0, 0, 0.95), 0 0 60px rgba(0, 240, 255, 0.42);
-      filter: brightness(1.08) drop-shadow(0 0 25px rgba(0, 240, 255, 0.2));
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 55px rgba(0, 240, 255, 0.42);
+      filter: brightness(1.08) drop-shadow(0 0 20px rgba(0, 240, 255, 0.25));
+      opacity: 1 !important;
     }
 
+    /* Flanking / Side Cards (Receded into 3D Depth) */
     .at-card:not(.is-center) {
-      opacity: 0.65;
-      filter: brightness(0.72);
+      border-color: rgba(0, 240, 255, 0.12);
+      filter: brightness(0.55) blur(1px);
+      opacity: 0.38 !important;
+    }
+
+    .at-card:not(.is-center):hover {
+      border-color: rgba(0, 240, 255, 0.5);
+      filter: brightness(0.85) blur(0px);
+      opacity: 0.75 !important;
     }
 
     .at-card:hover {
@@ -1000,7 +881,7 @@
 
     .at-glitch-title {
       font-family: var(--at-font-display);
-      font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+      font-size: clamp(1.25rem, 2vw, 1.8rem);
       font-weight: 900;
       line-height: 1.15;
       letter-spacing: -0.02em;
@@ -1019,19 +900,22 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      opacity: 0.8;
+      opacity: 0;
+      transition: opacity 0.25s ease;
     }
 
-    .at-glitch-title::before {
+    .at-card:hover .at-glitch-title::before {
+      opacity: 0.6;
       color: #00F0FF;
-      transform: translate(-1.5px, 0);
+      transform: translate(-1px, 0);
       mix-blend-mode: screen;
       clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
     }
 
-    .at-glitch-title::after {
+    .at-card:hover .at-glitch-title::after {
+      opacity: 0.6;
       color: #FF0055;
-      transform: translate(1.5px, 0);
+      transform: translate(1px, 0);
       mix-blend-mode: screen;
       clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
     }
@@ -1697,9 +1581,9 @@
 
   </div>
 
-  <!-- 6. 3D Floating Cards Carousel Stage with Directional Entrance (Left for 1-4, Right for 5-8) -->
+  <!-- 6. Active Theory 3D Floating Cards Carousel Stage -->
   <div id="at-carousel-stage">
-    <div class="at-card-track at-track-enter-right" id="at-track">
+    <div class="at-card-track" id="at-track">
       <!-- Generated by JavaScript with 3D Matrix Coordinates -->
     </div>
   </div>
@@ -2015,14 +1899,16 @@
     let lastDragTime = 0;
     let dragVelocity = 0;
 
-    const RADIUS = 760;
+    // Active Theory Elliptical Geometry (prevents collision with HUD / left console)
+    const RADIUS_X = 580;
+    const RADIUS_Z = 680;
     const N = modulesData.length;
     const angleStep = (Math.PI * 2) / N;
 
-    // Render Cards with Staggered 3D Entrance ("like dia masuk ke home page mcm tu")
+    // Render Cards in 3D Cylinder Space
     modulesData.forEach((mod, i) => {
       const card = document.createElement('div');
-      card.className = 'at-card ' + (isCurrentLeft ? 'at-card-fly-left' : 'at-card-fly-right');
+      card.className = 'at-card';
       card.dataset.index = i;
 
       let visualHeaderHtml = '';
@@ -2051,11 +1937,10 @@
 
       card.innerHTML = `
         <div class="at-card-sheen"></div>
-        <div class="at-card-inner" style="animation-delay: ${(0.04 + i * 0.07).toFixed(2)}s">
         <div>
           ${visualHeaderHtml}
           <div class="at-card-tag">${mod.tag}</div>
-          <div class="at-glitch-title" data-text="${mod.glitch}">${mod.title}</div>
+          <div class="at-glitch-title" data-text="${mod.title}">${mod.title}</div>
           <p class="at-card-desc">${mod.desc}</p>
         </div>
 
@@ -2073,7 +1958,6 @@
             <span>${buttonLabel}</span>
           </button>
         </div>
-        </div>
       `;
 
       // 3D Gyro Tilt & Specular Sheen Listener
@@ -2084,8 +1968,8 @@
         card.style.setProperty('--mouse-x', `${(mouseX / rect.width) * 100}%`);
         card.style.setProperty('--mouse-y', `${(mouseY / rect.height) * 100}%`);
 
-        const tiltX = -((mouseY - rect.height / 2) / (rect.height / 2)) * 6;
-        const tiltY = ((mouseX - rect.width / 2) / (rect.width / 2)) * 6;
+        const tiltX = -((mouseY - rect.height / 2) / (rect.height / 2)) * 5;
+        const tiltY = ((mouseX - rect.width / 2) / (rect.width / 2)) * 5;
         card.dataset.tiltX = tiltX.toFixed(2);
         card.dataset.tiltY = tiltY.toFixed(2);
       });
@@ -2096,7 +1980,18 @@
       });
 
       card.addEventListener('mouseenter', () => sound.playHover());
-      card.addEventListener('click', () => {
+      card.addEventListener('click', (e) => {
+        const phi = currentAngle + i * angleStep;
+        const cosPhi = Math.cos(phi);
+
+        // Active Theory standard: Clicking a flanking card glides it into focus!
+        if (cosPhi <= 0.88) {
+          targetAngle = -i * angleStep;
+          snapToNearest();
+          sound.playSlide();
+          return;
+        }
+
         if (mod.isRoadmap) {
           openLightbox();
         } else {
@@ -2110,22 +2005,41 @@
     const cards = Array.from(document.querySelectorAll('.at-card'));
     const dialCounter = document.getElementById('at-dial-counter');
     const dialDots = Array.from(document.querySelectorAll('.at-dial-dot'));
-    
+
+    // Track gyro parallax
+    let mouseParallaxX = 0;
+    let mouseParallaxY = 0;
+
+    window.addEventListener('pointermove', (e) => {
+      mouseParallaxX = ((e.clientX - window.innerWidth / 2) / (window.innerWidth / 2)) * 2.5;
+      mouseParallaxY = -((e.clientY - window.innerHeight / 2) / (window.innerHeight / 2)) * 2.5;
+    }, { passive: true });
+
+    function snapToNearest() {
+      const rawIndex = -targetAngle / angleStep;
+      const nearest = Math.round(rawIndex);
+      targetAngle = -nearest * angleStep;
+    }
+
     // Initial 3D matrix coordinates calculation for instantaneous display
     updateCarousel();
 
     function updateCarousel() {
-      currentAngle += (targetAngle - currentAngle) * 0.12;
+      // Active Theory smooth spring lerp
+      currentAngle += (targetAngle - currentAngle) * 0.11;
 
       let centerIdx = 0;
       let maxCos = -2;
+
+      // Subtle track 3D parallax tilt
+      track.style.transform = `rotateY(${mouseParallaxX.toFixed(2)}deg) rotateX(${mouseParallaxY.toFixed(2)}deg)`;
 
       cards.forEach((card, i) => {
         const phi = currentAngle + i * angleStep;
         const cosPhi = Math.cos(phi);
 
-        // Backface occlusion
-        if (cosPhi < -0.05) {
+        // Active Theory backface occlusion (hide back half of cylinder)
+        if (cosPhi < -0.12) {
           card.style.opacity = '0';
           card.style.pointerEvents = 'none';
           card.style.visibility = 'hidden';
@@ -2135,19 +2049,17 @@
         card.style.visibility = 'visible';
         card.style.pointerEvents = 'auto';
 
-        const x = Math.sin(phi) * RADIUS;
-        const z = cosPhi * RADIUS - RADIUS;
-        const rotY = phi * (180 / Math.PI);
+        const x = Math.sin(phi) * RADIUS_X;
+        const z = (cosPhi - 1) * RADIUS_Z;
+        const rotY = phi * (180 / Math.PI) * 0.72; // Tangent facing camera comfortably
 
         const tiltX = parseFloat(card.dataset.tiltX || '0');
         const tiltY = parseFloat(card.dataset.tiltY || '0');
 
-        const depthNorm = (z + RADIUS * 2) / (RADIUS * 2);
-        const opacity = Math.max(0.2, Math.min(1, cosPhi * 0.8 + 0.3));
-        const scale = Math.max(0.78, Math.min(1.06, cosPhi * 0.28 + 0.78));
+        const depthNorm = (z + RADIUS_Z * 2) / (RADIUS_Z * 2);
+        const scale = Math.max(0.78, Math.min(1.05, cosPhi * 0.27 + 0.78));
 
         card.style.transform = `translate3d(${x.toFixed(2)}px, 0px, ${z.toFixed(2)}px) rotateY(${(rotY + tiltY).toFixed(2)}deg) rotateX(${tiltX.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
-        card.style.opacity = opacity.toFixed(2);
         card.style.zIndex = Math.round(depthNorm * 100);
 
         if (cosPhi > maxCos) {
@@ -2177,11 +2089,12 @@
       dot.addEventListener('click', () => {
         const idx = parseInt(dot.dataset.index, 10);
         targetAngle = -idx * angleStep;
+        snapToNearest();
         sound.playSlide();
       });
     });
 
-    // Touch & Drag Physics
+    // Touch & Drag Physics with Inertia & Snap
     window.addEventListener('pointerdown', (e) => {
       if (e.target.closest('#at-drawer') || e.target.closest('#at-lightbox') || e.target.closest('.at-top-bar') || e.target.closest('.at-left-console') || e.target.closest('.at-bottom-center-group')) return;
       isDragging = true;
@@ -2194,7 +2107,7 @@
       if (!isDragging) return;
       const dx = e.clientX - startX;
       startX = e.clientX;
-      const deltaRad = (dx / window.innerWidth) * Math.PI * 1.5;
+      const deltaRad = (dx / window.innerWidth) * Math.PI * 1.35;
       targetAngle += deltaRad;
       dragVelocity = deltaRad;
     });
@@ -2202,16 +2115,21 @@
     window.addEventListener('pointerup', () => {
       if (!isDragging) return;
       isDragging = false;
-      targetAngle += dragVelocity * 6;
+      targetAngle += dragVelocity * 4;
+      snapToNearest();
       sound.playSlide();
     });
 
+    // Mouse Wheel Navigation with Snap
+    let wheelTimer = null;
     window.addEventListener('wheel', (e) => {
       if (document.getElementById('at-drawer').classList.contains('is-open')) return;
       if (document.getElementById('at-lightbox').classList.contains('is-open')) return;
       const delta = Math.sign(e.deltaY || e.deltaX);
       targetAngle -= delta * angleStep;
       sound.playSlide();
+      clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(snapToNearest, 130);
     }, { passive: true });
 
     window.addEventListener('keydown', (e) => {
