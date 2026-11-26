@@ -107,68 +107,13 @@
       pointer-events: auto !important;
     }
 
-    .at-top-left-cluster {
-      position: relative;
-      z-index: 210;
-      display: flex;
-      align-items: center;
-      gap: 1.4rem;
-      pointer-events: auto !important;
-    }
-
-    .at-back-home-pill {
-      position: relative !important;
-      z-index: 220 !important;
-      pointer-events: auto !important;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      background: #00F0FF !important;
-      border: 2px solid #00F0FF !important;
-      color: #020610 !important;
-      padding: 0.65rem 1.45rem !important;
-      border-radius: 35px !important;
-      font-family: var(--at-font-sans) !important;
-      font-size: 0.82rem !important;
-      font-weight: 900 !important;
-      letter-spacing: 0.12em !important;
-      text-decoration: none !important;
-      cursor: pointer !important;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.75), 0 4px 15px rgba(0, 0, 0, 0.8) !important;
-    }
-
-    .at-back-home-pill:hover {
-      background: #FFFFFF !important;
-      border-color: #FFFFFF !important;
-      color: #000000 !important;
-      transform: translateX(-4px) scale(1.04) !important;
-      box-shadow: 0 0 35px rgba(255, 255, 255, 0.95) !important;
-    }
-
-    .at-back-home-arrow {
-      font-size: 1.15rem !important;
-      font-weight: 900 !important;
-      line-height: 1 !important;
-      color: #020610 !important;
-      transition: transform 0.2s ease !important;
-    }
-
-    .at-back-home-pill:hover .at-back-home-arrow {
-      transform: translateX(-3px) !important;
-      color: #000000 !important;
-    }
-
-    .at-back-home-text {
-      color: #020610 !important;
-      font-weight: 900 !important;
-    }
-
     .at-logo-group {
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
       text-decoration: none;
+      cursor: pointer;
+      pointer-events: auto !important;
     }
 
     .at-logo-brand {
@@ -444,48 +389,6 @@
       border-radius: 10px;
       background: var(--at-cyan);
       box-shadow: 0 0 10px #00F0FF;
-    }
-
-    .at-dock-home-node {
-      position: relative;
-      z-index: 220;
-      pointer-events: auto !important;
-      cursor: pointer !important;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.4rem 0.95rem;
-      border-radius: 20px;
-      background: rgba(0, 240, 255, 0.16);
-      border: 1.5px solid #00F0FF;
-      color: #FFFFFF;
-      font-family: var(--at-font-mono);
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-    }
-
-    .at-dock-home-node:hover {
-      background: #00F0FF;
-      color: #010408;
-      box-shadow: 0 0 25px #00F0FF;
-      transform: translateY(-2px);
-    }
-
-    .at-dock-home-icon {
-      width: 13px;
-      height: 13px;
-      stroke: currentColor;
-    }
-
-    .at-dock-divider {
-      width: 1px;
-      height: 20px;
-      background: rgba(0, 240, 255, 0.3);
-      margin: 0 0.25rem;
     }
 
     /* Floating Pillar Mini-Dock (01 to 08) */
@@ -1665,21 +1568,15 @@
   <!-- 2. UI Chrome (Active Theory HUD Layer) -->
   <div class="at-hud-layer">
 
-    <!-- Top Bar Navigation with Prominent BACK TO HOME Button -->
+    <!-- Top Bar Navigation -->
     <header class="at-top-bar">
-      <div class="at-top-left-cluster">
-        <a href="../index.html" class="at-back-home-pill" title="Return to Homepage (Esc)">
-          <span class="at-back-home-arrow">&larr;</span>
-          <span class="at-back-home-text">BACK TO HOME</span>
-        </a>
-        <a href="../index.html" class="at-logo-group" title="Return to NAIGC Homepage">
-          <div class="at-logo-brand">
-            <img src="../build/assets/logo-XvVq9OjC.png" alt="NAIGC Logo" class="at-logo-img">
-            <span class="at-logo-title">NAIGC</span>
-          </div>
-          <span class="at-logo-sub">3°09'N 101°42'E &bull; SYS//NODE.03 WORKFORCE & TALENT</span>
-        </a>
-      </div>
+      <a href="../index.html" class="at-logo-group" title="Return to NAIGC Homepage">
+        <div class="at-logo-brand">
+          <img src="../build/assets/logo-XvVq9OjC.png" alt="NAIGC Logo" class="at-logo-img">
+          <span class="at-logo-title">NAIGC</span>
+        </div>
+        <span class="at-logo-sub">3°09'N 101°42'E &bull; SYS//NODE.03 WORKFORCE & TALENT</span>
+      </a>
 
       <div>
         <nav class="at-menu-capsule">
@@ -1687,7 +1584,7 @@
           <svg class="at-sine-glyph" viewBox="0 0 30 10">
             <path d="M1 5 Q 8 -2, 15 5 T 29 5" />
           </svg>
-          <a href="../index.html" class="at-menu-item">BACK TO HOME</a>
+          <a href="../index.html" class="at-menu-item">CORE HUB</a>
         </nav>
 
         <div class="at-sub-pill-nav">
@@ -1746,16 +1643,8 @@
         </div>
       </div>
 
-      <!-- Floating Pillar Mini-Dock (01 to 08 with Home Shortcut) -->
+      <!-- Floating Pillar Mini-Dock (01 to 08) -->
       <nav class="at-pillar-dock" aria-label="Ecosystem Pillar Dock">
-        <a href="../index.html" class="at-dock-home-node" data-tooltip="Return to Homepage Hub">
-          <svg class="at-dock-home-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-          <span>HOME</span>
-        </a>
-        <span class="at-dock-divider"></span>
         
         <a href="academy.html" class="at-dock-node " data-tooltip="01. AI Academy">
           01
@@ -2341,9 +2230,11 @@
           closeLightbox();
           closeSearch();
         } else {
-          const returnWing = isCurrentLeft ? 'left' : 'right';
-          const sweepDir = isCurrentLeft ? 'left' : 'right';
-          navigateWithDirection('../index.html?return=' + returnWing, sweepDir);
+          try {
+            sessionStorage.setItem('naigc_return_to_stage', 'true');
+            sessionStorage.setItem('naigc_stage_scroll', '5120');
+          } catch(err) {}
+          window.location.href = '../index.html';
         }
       }
     });
@@ -2522,10 +2413,10 @@
     // Intercept Return to Homepage (Core Hub)
     document.querySelectorAll('a[href*="index.html"]').forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const returnWing = isCurrentLeft ? 'left' : 'right';
-        const sweepDir = isCurrentLeft ? 'left' : 'right';
-        navigateWithDirection('../index.html?return=' + returnWing, sweepDir);
+        try {
+          sessionStorage.setItem('naigc_return_to_stage', 'true');
+          sessionStorage.setItem('naigc_stage_scroll', '5120');
+        } catch(err) {}
       });
     });
 

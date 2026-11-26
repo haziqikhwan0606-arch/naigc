@@ -1642,6 +1642,26 @@ body.mq4-body,
 
 </style>
     <noscript><style>.mq4-loader{display:none}</style></noscript>
+    <script>
+      (function() {
+        try {
+          if (sessionStorage.getItem('naigc_return_to_stage') === 'true') {
+            document.documentElement.classList.add('naigc-skip-loader');
+          }
+        } catch(e) {}
+      })();
+    </script>
+    <style>
+      html.naigc-skip-loader body {
+        min-height: 6500px !important;
+      }
+      html.naigc-skip-loader #mq4-loader {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+    </style>
         
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-2G20GPL9V2"></script>
     <script>
@@ -2314,47 +2334,105 @@ body.mq4-body,
   const portalTitle = document.getElementById('naigc-portal-title');
   const portalWing = document.getElementById('naigc-portal-wing');
 
-  // Handle return transition reveal from Pillar pages
-  const urlParams = new URLSearchParams(window.location.search);
-  const returnDir = urlParams.get('return');
-  if (returnDir === 'left') {
-    portalWiper.className = 'wipe-out-right';
-    try { history.replaceState(null, '', window.location.pathname); } catch(e) {}
-  } else if (returnDir === 'right') {
-    portalWiper.className = 'wipe-out-left';
-    try { history.replaceState(null, '', window.location.pathname); } catch(e) {}
+  // Handle return to stage from Pillar pages (instant, zero loading screen)
+  function handleReturnToStage() {
+    // Instantly dismiss any lingering transition wiper overlay
+    if (portalWiper) {
+      portalWiper.className = '';
+      portalWiper.style.visibility = 'hidden';
+      portalWiper.style.transform = 'translate3d(-100vw, 0, 0)';
+    }
+    document.body.classList.remove('naigc-departing-left', 'naigc-departing-right');
+
+    var isReturning = false;
+    var targetScroll = 5120;
+    try {
+      isReturning = sessionStorage.getItem('naigc_return_to_stage') === 'true';
+      var savedScroll = sessionStorage.getItem('naigc_stage_scroll');
+      if (savedScroll) targetScroll = parseInt(savedScroll, 10) || 5120;
+    } catch(e) {}
+
+    if (isReturning || window.scrollY >= 4250) {
+      const loader = document.getElementById('mq4-loader');
+      if (loader) {
+        loader.style.display = 'none';
+        loader.style.opacity = '0';
+        loader.classList.remove('is-open');
+      }
+      document.documentElement.classList.remove('mq4-lock');
+
+      var scrollAttempts = 0;
+      var scrollTimer = setInterval(function() {
+        scrollAttempts++;
+        window.scrollTo(0, targetScroll);
+        updateStage();
+        if (window.scrollY >= 4250 || scrollAttempts > 40) {
+          clearInterval(scrollTimer);
+          setTimeout(function() {
+            window.scrollTo(0, targetScroll);
+            updateStage();
+            try { sessionStorage.removeItem('naigc_return_to_stage'); } catch(e) {}
+          }, 300);
+        }
+      }, 50);
+    }
   }
 
-  // Pre-fetch pillar URLs on hover for instant navigation
-  document.querySelectorAll('.naigc-holo-projection').forEach(link => {
-    link.addEventListener('mouseenter', () => {
+  window.addEventListener('pageshow', (e) => {
+    if (portalWiper) {
+      portalWiper.className = '';
+      portalWiper.style.visibility = 'hidden';
+      portalWiper.style.transform = 'translate3d(-100vw, 0, 0)';
+    }
+    document.body.classList.remove('naigc-departing-left', 'naigc-departing-right');
+    handleReturnToStage();
+  });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', handleReturnToStage);
+  } else {
+    handleReturnToStage();
+  }
+
+  // Delegated pre-fetch on mouseover/pointerenter
+  document.addEventListener('mouseover', (e) => {
+    const link = e.target.closest('.naigc-holo-projection');
+    if (link) {
       const href = link.getAttribute('href');
       if (href) prefetchUrl(href);
-    }, { passive: true });
+    }
+  }, { passive: true });
 
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      if (!href) return;
-      e.preventDefault();
+  // Delegated Click on Pillar Holograms
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('.naigc-holo-projection');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href) return;
+    e.preventDefault();
 
-      const pillarNum = parseInt(link.dataset.pillar, 10);
-      const isLeft = pillarNum >= 1 && pillarNum <= 4;
-      const titleEl = link.querySelector('.naigc-poly-title');
-      const nodeTitle = titleEl ? titleEl.innerText : `PILLAR 0${pillarNum}`;
+    // Save return stage info
+    try {
+      sessionStorage.setItem('naigc_return_to_stage', 'true');
+      sessionStorage.setItem('naigc_stage_scroll', (window.scrollY || 5120).toString());
+    } catch(err) {}
 
-      portalTitle.innerText = `NODE.0${pillarNum} // ${nodeTitle}`;
-      portalWing.innerText = isLeft ? '// ALPHA-WEST CORRIDOR [01-04] //' : '// BETA-EAST CORRIDOR [05-08] //';
+    const pillarNum = parseInt(link.dataset.pillar, 10);
+    const isLeft = pillarNum >= 1 && pillarNum <= 4;
+    const titleEl = link.querySelector('.naigc-poly-title');
+    const nodeTitle = titleEl ? titleEl.innerText : `PILLAR 0${pillarNum}`;
 
-      // Trigger ultra-smooth GPU wipe from left (1-4) or right (5-8)
-      portalWiper.className = isLeft ? 'wipe-in-left' : 'wipe-in-right';
+    if (portalTitle) portalTitle.innerText = `NODE.0${pillarNum} // ${nodeTitle}`;
+    if (portalWing) portalWing.innerText = isLeft ? '// ALPHA-WEST CORRIDOR [01-04] //' : '// BETA-EAST CORRIDOR [05-08] //';
 
-      // Subtle departure feedback on homepage cards
-      document.body.classList.add(isLeft ? 'naigc-departing-left' : 'naigc-departing-right');
+    // Trigger ultra-smooth GPU wipe from left (1-4) or right (5-8)
+    if (portalWiper) portalWiper.className = isLeft ? 'wipe-in-left' : 'wipe-in-right';
 
-      setTimeout(() => {
-        window.location.href = `${href}?from=${isLeft ? 'left' : 'right'}`;
-      }, 360);
-    });
+    // Subtle departure feedback on homepage cards
+    document.body.classList.add(isLeft ? 'naigc-departing-left' : 'naigc-departing-right');
+
+    setTimeout(() => {
+      window.location.href = `${href}?from=${isLeft ? 'left' : 'right'}`;
+    }, 360);
   });
 })();
 </script>
