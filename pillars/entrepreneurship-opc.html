@@ -107,6 +107,76 @@
       pointer-events: auto !important;
     }
 
+    .at-top-left-cluster {
+      position: relative;
+      z-index: 220;
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+      pointer-events: auto !important;
+    }
+
+    .at-nav-home-btn {
+      position: relative;
+      z-index: 230;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      color: #00F0FF;
+      padding: 0.45rem 1.05rem;
+      border-radius: 25px;
+      font-family: var(--at-font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.08);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto !important;
+    }
+
+    .at-nav-home-btn:hover {
+      background: #00F0FF;
+      color: #020610;
+      border-color: #00F0FF;
+      box-shadow: 0 0 28px rgba(0, 240, 255, 0.8), 0 4px 15px rgba(0, 0, 0, 0.8);
+      transform: translateX(-3px);
+    }
+
+    .at-home-back-arrow {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      transition: transform 0.2s ease;
+    }
+
+    .at-nav-home-btn:hover .at-home-back-arrow {
+      transform: translateX(-2.5px);
+    }
+
+    .at-btn-home-nav {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: var(--at-font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.8);
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+      padding: 0;
+    }
+
+    .at-btn-home-nav:hover {
+      color: var(--at-cyan);
+      text-shadow: 0 0 10px var(--at-cyan);
+    }
+
     .at-logo-group {
       display: flex;
       flex-direction: column;
@@ -466,6 +536,42 @@
       opacity: 1;
       visibility: visible;
       transform: translateX(-50%) translateY(0);
+    }
+
+    /* Floating Pillar Dock Home Button */
+    .at-dock-home-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0 0.85rem;
+      height: 34px;
+      border-radius: 20px;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      color: #00F0FF;
+      font-family: var(--at-font-mono);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.18);
+    }
+
+    .at-dock-home-btn:hover {
+      background: #00F0FF;
+      color: #020612;
+      border-color: #00F0FF;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .at-dock-home-icon {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
     }
 
     /* Bottom Right: Audio Equalizer & System Telemetry */
@@ -1454,13 +1560,23 @@
 
     <!-- Top Bar Navigation -->
     <header class="at-top-bar">
-      <a href="../index.html" class="at-logo-group" title="Return to NAIGC Homepage">
-        <div class="at-logo-brand">
-          <img src="../build/assets/logo-XvVq9OjC.png" alt="NAIGC Logo" class="at-logo-img">
-          <span class="at-logo-title">NAIGC</span>
-        </div>
-        <span class="at-logo-sub">3°09'N 101°42'E &bull; SYS//NODE.06 ENTREPRENEURSHIP & OPC</span>
-      </a>
+      <div class="at-top-left-cluster">
+        <button class="at-nav-home-btn" id="at-btn-back-home" title="Back to NAIGC Ecosystem (Esc)">
+          <svg class="at-home-back-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span class="at-home-back-label">BACK TO HOME</span>
+        </button>
+
+        <a href="../index.html" class="at-logo-group" id="at-logo-home" title="Return to NAIGC Homepage">
+          <div class="at-logo-brand">
+            <img src="../build/assets/logo-XvVq9OjC.png" alt="NAIGC Logo" class="at-logo-img">
+            <span class="at-logo-title">NAIGC</span>
+          </div>
+          <span class="at-logo-sub">3°09'N 101°42'E &bull; SYS//NODE.06 ENTREPRENEURSHIP & OPC</span>
+        </a>
+      </div>
 
       <div>
         <nav class="at-menu-capsule">
@@ -1468,7 +1584,7 @@
           <svg class="at-sine-glyph" viewBox="0 0 30 10">
             <path d="M1 5 Q 8 -2, 15 5 T 29 5" />
           </svg>
-          <a href="../index.html" class="at-menu-item">CORE HUB</a>
+          <button class="at-menu-item at-btn-home-nav" id="at-btn-core-hub" title="Return to NAIGC Ecosystem">CORE HUB</button>
         </nav>
 
         <div class="at-sub-pill-nav">
@@ -1529,6 +1645,13 @@
 
       <!-- Floating Pillar Mini-Dock (01 to 08) -->
       <nav class="at-pillar-dock" aria-label="Ecosystem Pillar Dock">
+        <button class="at-dock-home-btn" id="at-dock-home-btn" title="Back to NAIGC Ecosystem (Esc)">
+          <svg class="at-dock-home-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>HOME</span>
+        </button>
         
         <a href="academy.html" class="at-dock-node " data-tooltip="01. AI Academy">
           01
@@ -2358,14 +2481,51 @@
       }, 350);
     }
 
-    // Intercept Return to Homepage (Core Hub)
+    // Enhanced Return to Homepage / Stage (Identical to Chrome Back Button)
+    function goHomeBack(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      try {
+        sessionStorage.setItem('naigc_return_to_stage', 'true');
+        sessionStorage.setItem('naigc_stage_scroll', '5120');
+      } catch(err) {}
+
+      // Identical to Chrome's native back button: triggers BFCache pageshow instant restore
+      if (window.history.length > 1) {
+        window.history.back();
+        // Fallback in case history.back() doesn't leave the page within 350ms
+        setTimeout(() => {
+          if (!document.hidden) {
+            window.location.href = '../index.html';
+          }
+        }, 350);
+      } else {
+        window.location.href = '../index.html';
+      }
+    }
+
+    const homeTriggerIds = ['at-btn-back-home', 'at-btn-core-hub', 'at-dock-home-btn', 'at-logo-home'];
+    homeTriggerIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', goHomeBack);
+    });
+
     document.querySelectorAll('a[href*="index.html"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        try {
-          sessionStorage.setItem('naigc_return_to_stage', 'true');
-          sessionStorage.setItem('naigc_stage_scroll', '5120');
-        } catch(err) {}
-      });
+      link.addEventListener('click', goHomeBack);
+    });
+
+    // Keyboard shortcut: Escape returns to home/stage if no modals/drawers open
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const isDrawerOpen = drawer && drawer.classList.contains('is-open');
+        const isLightboxOpen = lightbox && lightbox.classList.contains('is-open');
+        const isSearchOpen = searchDialog && searchDialog.classList.contains('is-open');
+        if (!isDrawerOpen && !isLightboxOpen && !isSearchOpen) {
+          goHomeBack(e);
+        }
+      }
     });
 
     // Intercept Pillar Mini-Dock & Sub-Pill Navigation
