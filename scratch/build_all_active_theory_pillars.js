@@ -1056,6 +1056,7 @@ function buildActiveTheoryHTML(p) {
       height: 100vh;
       z-index: 1;
       display: block;
+      pointer-events: none !important;
     }
 
     /* Active Theory Signature Chromatic Noise & Vignette */
@@ -1063,12 +1064,9 @@ function buildActiveTheoryHTML(p) {
       position: fixed;
       inset: 0;
       z-index: 2;
-      pointer-events: none;
+      pointer-events: none !important;
       background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(1, 3, 7, 0.85) 100%);
       box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.95);
-    }
-
-    50% { opacity: 1; text-shadow: 0 0 10px #00F0FF; }
     }
 
     /* ==========================================================================
@@ -1077,8 +1075,8 @@ function buildActiveTheoryHTML(p) {
     .at-hud-layer {
       position: fixed;
       inset: 0;
-      z-index: 10;
-      pointer-events: none;
+      z-index: 100 !important;
+      pointer-events: none !important;
       padding: clamp(1.2rem, 3vh, 2.5rem);
       display: flex;
       flex-direction: column;
@@ -1086,23 +1084,32 @@ function buildActiveTheoryHTML(p) {
     }
 
     .at-hud-layer * {
-      pointer-events: auto;
+      pointer-events: auto !important;
     }
 
     .at-top-bar {
+      position: relative;
+      z-index: 200;
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
+      pointer-events: auto !important;
     }
 
     .at-top-left-cluster {
+      position: relative;
+      z-index: 210;
       display: flex;
       align-items: center;
       gap: 1.4rem;
+      pointer-events: auto !important;
     }
 
     .at-back-home-pill {
+      position: relative !important;
+      z-index: 220 !important;
+      pointer-events: auto !important;
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
@@ -1430,6 +1437,10 @@ function buildActiveTheoryHTML(p) {
     }
 
     .at-dock-home-node {
+      position: relative;
+      z-index: 220;
+      pointer-events: auto !important;
+      cursor: pointer !important;
       display: flex;
       align-items: center;
       gap: 0.45rem;
