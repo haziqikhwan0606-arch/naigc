@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Active Theory · NAIGC AI ACADEMY</title>
-  <meta name="description" content="NAIGC AI Academy — The national AI learning and talent development hub to build knowledge, skills and professional expertise. Inspired by Active Theory.">
+  <meta name="description" content="NAIGC AI ACADEMY — SYS//NODE.01 ACADEMY. Inspired by Active Theory.">
   <link rel="icon" href="../favicon.ico">
 
   <!-- Fonts matching Active Theory (Syne / Monument Grotesk style + Monospace) -->
@@ -112,7 +112,6 @@
       100% { transform: scale(1.04); border-color: rgba(0, 240, 255, 0.75); }
     }
 
-    /* Center Cyber Counter */
     .at-portal-core {
       position: relative;
       width: 140px;
@@ -144,7 +143,6 @@
       text-transform: uppercase;
     }
 
-    /* Radiating Sine Filament Curves */
     .at-filaments {
       position: absolute;
       inset: -50px;
@@ -192,7 +190,6 @@
       pointer-events: auto;
     }
 
-    /* Top Navigation Header */
     .at-top-bar {
       display: flex;
       justify-content: space-between;
@@ -200,7 +197,6 @@
       width: 100%;
     }
 
-    /* Top Left: Minimalist Logo & Telemetry Coordinates */
     .at-logo-group {
       display: flex;
       flex-direction: column;
@@ -237,7 +233,6 @@
       text-transform: uppercase;
     }
 
-    /* Top Right: Active Theory Signature Floating Pill Capsule Menu */
     .at-menu-capsule {
       display: flex;
       align-items: center;
@@ -273,7 +268,6 @@
       text-shadow: 0 0 10px var(--at-cyan);
     }
 
-    /* Active Theory Sine-Wave Glyph Divider in Pill */
     .at-sine-glyph {
       width: 28px;
       height: 10px;
@@ -289,7 +283,6 @@
       100% { opacity: 1; transform: scaleY(1.2); }
     }
 
-    /* Sub-pill Node Switcher */
     .at-sub-pill-nav {
       margin-top: 0.65rem;
       display: flex;
@@ -393,7 +386,6 @@
       text-shadow: 0 0 12px rgba(255, 184, 0, 0.8);
     }
 
-    /* Capsule Input Button (Ask Me Anything) */
     .at-ask-capsule {
       display: inline-flex;
       align-items: center;
@@ -447,7 +439,6 @@
       50% { opacity: 0.9; }
     }
 
-    /* Bottom Right: Audio & Telemetry Status */
     .at-bottom-right {
       position: absolute;
       right: clamp(1.2rem, 3vh, 2.5rem);
@@ -492,7 +483,7 @@
     }
 
     /* ==========================================================================
-       5. 3D FLOATING CARDS CAROUSEL (DOM OVERLAY & THREE.JS INTERSECTION)
+       5. 3D FLOATING CARDS CAROUSEL
        ========================================================================== */
     #at-carousel-stage {
       position: fixed;
@@ -516,7 +507,6 @@
       pointer-events: none;
     }
 
-    /* Individual 3D Glass Floating Card */
     .at-card {
       position: absolute;
       top: 50%;
@@ -544,7 +534,6 @@
       overflow: hidden;
     }
 
-    /* Center Card Neon Spotlight */
     .at-card.is-center {
       border-color: #00F0FF;
       box-shadow: 0 35px 95px rgba(0, 0, 0, 0.95), 0 0 60px rgba(0, 240, 255, 0.42);
@@ -561,7 +550,6 @@
       box-shadow: 0 35px 85px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 240, 255, 0.4);
     }
 
-    /* Visual Holographic Header Banner inside Card */
     .at-card-visual-header {
       position: relative;
       width: 100%;
@@ -629,7 +617,6 @@
       stroke-linejoin: round;
     }
 
-    /* Thumbnail for Roadmap Blueprint Card */
     .at-card-roadmap-thumb {
       width: 100%;
       height: 100%;
@@ -660,7 +647,6 @@
       z-index: 3;
     }
 
-    /* Active Theory RGB Glitch Splitting Header */
     .at-glitch-title {
       font-family: var(--at-font-display);
       font-size: clamp(1.4rem, 2.5vw, 2.1rem);
@@ -744,7 +730,6 @@
       font-weight: 700;
     }
 
-    /* Active Theory Button in Card */
     .at-btn-select {
       display: inline-flex;
       align-items: center;
@@ -912,7 +897,6 @@
       transform: translateY(-2px);
     }
 
-    /* Backdrop overlay when drawer is open */
     #at-drawer-backdrop {
       position: fixed;
       inset: 0;
@@ -1134,7 +1118,6 @@
     <div class="at-portal-wrapper">
       <div class="at-portal-ring"></div>
       
-      <!-- Sine Wave Filament Curve Vector -->
       <svg class="at-filaments" viewBox="0 0 400 400" fill="none">
         <path d="M200 40 C 230 110, 260 130, 200 200 C 140 270, 170 290, 200 360" stroke="rgba(0, 240, 255, 0.45)" stroke-width="1.5" />
         <path d="M40 200 C 110 230, 130 260, 200 200 C 270 140, 290 170, 360 200" stroke="rgba(255, 184, 0, 0.45)" stroke-width="1.5" />
@@ -1155,7 +1138,6 @@
 
     <!-- Top Bar Navigation -->
     <header class="at-top-bar">
-      <!-- Top Left Branding -->
       <a href="../index.html" class="at-logo-group" title="Return to NAIGC Core Hub">
         <div class="at-logo-brand">
           <img src="../build/assets/logo-XvVq9OjC.png" alt="NAIGC Logo" class="at-logo-img">
@@ -1164,11 +1146,9 @@
         <span class="at-logo-sub">3°09'N 101°42'E &bull; SYS//NODE.01 ACADEMY</span>
       </a>
 
-      <!-- Top Right Active Theory Floating Pill Capsule -->
       <div>
         <nav class="at-menu-capsule">
           <a href="#academy" class="at-menu-item is-active">ACADEMY</a>
-          <!-- Active Theory Signature Wave Glyph -->
           <svg class="at-sine-glyph" viewBox="0 0 30 10">
             <path d="M1 5 Q 8 -2, 15 5 T 29 5" />
           </svg>
@@ -1186,12 +1166,19 @@
     <div class="at-left-console">
       <div class="at-console-header">WHAT ARE YOU LOOKING FOR?</div>
       <ul class="at-console-menu">
+        
         <li><button class="at-console-btn is-active" data-index="0">AI FOUNDATIONS</button></li>
-        <li><button class="at-console-btn" data-index="1">AI ENGINEERING</button></li>
-        <li><button class="at-console-btn" data-index="2">INDUSTRY BOOTCAMPS</button></li>
-        <li><button class="at-console-btn" data-index="3">ENTERPRISE RESKILLING</button></li>
-        <li><button class="at-console-btn" data-index="4">MICRO-CREDENTIALS</button></li>
-        <li><button class="at-console-btn" data-index="5">TRAIN THE TRAINER</button></li>
+        
+        <li><button class="at-console-btn " data-index="1">AI ENGINEERING</button></li>
+        
+        <li><button class="at-console-btn " data-index="2">INDUSTRY SUITE</button></li>
+        
+        <li><button class="at-console-btn " data-index="3">CORP RESKILLING</button></li>
+        
+        <li><button class="at-console-btn " data-index="4">CERTIFICATION</button></li>
+        
+        <li><button class="at-console-btn " data-index="5">TRAIN THE TRAINER</button></li>
+        
         <li><button class="at-console-btn at-btn-roadmap" data-index="6">&#9733; STRATEGIC ROADMAP</button></li>
       </ul>
 
@@ -1228,14 +1215,12 @@
   <aside id="at-drawer" aria-hidden="true">
     <button class="at-drawer-close" id="at-drawer-close">&times;</button>
     <div>
-      <div class="at-drawer-tag" id="drawer-tag">SYS//NODE.01 &bull; ACADEMY MODULE</div>
-      <h2 class="at-drawer-title" id="drawer-title">AI FOUNDATIONS & LITERACY</h2>
-      <p class="at-drawer-body" id="drawer-desc">
-        Comprehensive grounding in modern Artificial Intelligence paradigms, generative LLMs, prompt engineering protocols, and cognitive automation strategy for decision-makers.
-      </p>
+      <div class="at-drawer-tag" id="drawer-tag">SYS//NODE.01 ACADEMY &bull; MODULE DETAILS</div>
+      <h2 class="at-drawer-title" id="drawer-title">MODULE TITLE</h2>
+      <p class="at-drawer-body" id="drawer-desc">Module description text goes here.</p>
 
       <div class="at-drawer-syllabus">
-        <h4>CURRICULUM BREAKDOWN & LAB MODULES</h4>
+        <h4>CURRICULUM BREAKDOWN & CORE CAPABILITIES</h4>
         <ul class="at-syllabus-list" id="drawer-syllabus">
           <!-- Populated dynamically -->
         </ul>
@@ -1243,7 +1228,7 @@
     </div>
 
     <div class="at-drawer-cta-group">
-      <button class="at-btn-cta" id="drawer-enroll-btn">ENROLL &bull; DAFTAR SEKARANG</button>
+      <button class="at-btn-cta" id="drawer-enroll-btn">COMMENCE &bull; HUBUNGI KAMI</button>
       <button class="at-btn-select" id="drawer-lightbox-btn" style="text-align: center; display: none;">&#128065; LIHAT HIGH-RES ROADMAP DIAGRAM</button>
       <a href="../index.html" class="at-btn-select" style="text-align: center; text-decoration: none;">&larr; KEMBALI KE CORE STAGE</a>
     </div>
@@ -1254,15 +1239,15 @@
     <button class="at-lightbox-close" id="at-lightbox-close">&times;</button>
     <div class="at-lightbox-content">
       <div class="at-lightbox-header">
-        <span class="at-lightbox-tag">NAIGC STRATEGIC ROADMAP // PILLAR 01: ACADEMY</span>
+        <span class="at-lightbox-tag">NAIGC STRATEGIC ROADMAP // PILLAR 01: AI ACADEMY</span>
         <span class="at-lightbox-title">OFFICIAL NATIONAL ARCHITECTURE BLUEPRINT</span>
       </div>
       <div class="at-lightbox-img-wrapper">
-        <img src="assets/pillar_01_academy.png" alt="NAIGC Pillar 01 Academy Strategic Roadmap" class="at-lightbox-img" id="at-lightbox-image">
+        <img src="assets/pillar_01_academy.png" alt="NAIGC Pillar 01 AI ACADEMY Strategic Roadmap" class="at-lightbox-img" id="at-lightbox-image">
       </div>
       <div class="at-lightbox-footer">
         <span>CLICK OUTSIDE OR PRESS ESC TO RETURN TO 3D SPACE</span>
-        <a href="assets/pillar_01_academy.png" download="NAIGC_Pillar_01_Academy_Roadmap.png" class="at-btn-download">DOWNLOAD FULL-RES PNG &darr;</a>
+        <a href="assets/pillar_01_academy.png" download="NAIGC_Pillar_01_Strategic_Roadmap.png" class="at-btn-download">DOWNLOAD FULL-RES PNG &darr;</a>
       </div>
     </div>
   </div>
@@ -1270,30 +1255,24 @@
   <!-- Interactive Search / Question Dialog -->
   <div id="at-search-dialog">
     <div class="at-search-box">
-      <input type="text" class="at-search-input" id="at-search-field" placeholder="Type a course, skill, or industry (e.g. LLM, Healthcare, Roadmap)..." autofocus>
+      <input type="text" class="at-search-input" id="at-search-field" placeholder="Type a capability or service (e.g. Prompt Engineering)..." autofocus>
       <div class="at-search-hints">
         Suggested queries: 
-        <span data-search="Prompt Engineering">#Prompt Engineering</span>, 
-        <span data-search="Strategic Roadmap">#Strategic Roadmap</span>, 
-        <span data-search="Corporate AI">#Corporate AI</span>, 
-        <span data-search="Train the Trainer">#Train the Trainer</span>, 
-        <span data-search="National Certification">#Certification</span>
+        <span data-search="Prompt Engineering">#Prompt Engineering</span>, <span data-search="Strategic Roadmap">#Strategic Roadmap</span>, <span data-search="Corporate AI">#Corporate AI</span>, <span data-search="Train the Trainer">#Train the Trainer</span>, <span data-search="National Certification">#National Certification</span>
       </div>
     </div>
   </div>
 
-  <!-- ==========================================================================
-       THREE.JS SCRIPT & ACTIVE THEORY 3D ENGINE
-       ========================================================================== -->
+  <!-- Three.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <script>
     /**
      * ACTIVE THEORY EXPERIENTIAL CORE ENGINE
-     * High-Performance 3D Space, Particle Flow, Sound Synthesis & Matrix Carousel
+     * Pillar: AI ACADEMY
      */
 
-    // --- 1. Sound Synthesis Engine (Web Audio API - Zero External Dependencies) ---
+    // --- 1. Sound Synthesis Engine (Web Audio API) ---
     class ATSoundEngine {
       constructor() {
         this.ctx = null;
@@ -1356,7 +1335,6 @@
     }
     const sound = new ATSoundEngine();
 
-    // Audio button toggle
     const audioBtn = document.getElementById('at-audio-toggle');
     const audioText = document.getElementById('at-audio-text');
     audioBtn.addEventListener('click', () => {
@@ -1393,129 +1371,157 @@
       loaderEl.classList.add('is-loaded');
     }
 
-    // --- 3. Academy Modules Data Set (Now 7 Items, including Official Roadmap) ---
-    const academyModules = [
-      {
-        tag: 'MOD.01 // EXECUTIVE & GENERAL',
-        title: 'AI FOUNDATIONS & LITERACY',
-        glitch: 'AI FOUNDATIONS',
-        desc: 'Demystifying modern machine learning, generative LLMs, and prompt engineering protocols for leaders, professionals, and students.',
-        category: 'FOUNDATIONS',
-        iconSvg: `<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>`,
-        gradient: 'radial-gradient(circle at 30% 20%, #00F0FF, #0044FF, transparent 75%)',
-        metrics: { DURATION: '4 Weeks', LEVEL: 'Beginner to Intermediate', FORMAT: 'Hybrid (Online + Lab)' },
-        syllabus: [
-          'Core Paradigms of Generative Artificial Intelligence & Deep Learning',
-          'Advanced Prompt Engineering & Cognitive Reasoning Frameworks',
-          'AI Ethics, Data Privacy (PDPA) & Sovereign Implementation',
-          'Practical Business Automation with Leading Multimodal Models',
-          'Capstone: Building a Functional Autonomous AI Department Agent'
-        ]
-      },
-      {
-        tag: 'MOD.02 // DEEP TECH ENGINEERING',
-        title: 'TECHNICAL AI ENGINEERING',
-        glitch: 'AI ENGINEERING',
-        desc: 'Comprehensive engineering bootcamps covering model fine-tuning, retrieval-augmented generation (RAG), vector databases, and scalable MLOps.',
-        category: 'ENGINEERING',
-        iconSvg: `<svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`,
-        gradient: 'radial-gradient(circle at 70% 30%, #00FFA3, #0066FF, transparent 75%)',
-        metrics: { DURATION: '12 Weeks', LEVEL: 'Advanced Engineers', FORMAT: 'Intensive Lab Hands-On' },
-        syllabus: [
-          'PyTorch & Modern Neural Architecture Foundations',
-          'Custom LLM Fine-Tuning, LoRA & Model Distillation Techniques',
-          'Vector Databases (Milvus, Pinecone) & Enterprise RAG Pipelines',
-          'Multi-Agent System Orchestration (LangChain, AutoGen, AGY SDK)',
-          'High-Throughput Inference Deployment on Cloud & Edge GPUs'
-        ]
-      },
-      {
-        tag: 'MOD.03 // APPLIED VERTICALS',
-        title: 'INDUSTRY-SPECIFIC BOOTCAMPS',
-        glitch: 'INDUSTRY SUITE',
-        desc: 'Tailored practical applications in high-impact national industries: FinTech, Media Production, Advanced Manufacturing, and Smart Health.',
-        category: 'INDUSTRY',
-        iconSvg: `<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>`,
-        gradient: 'radial-gradient(circle at 40% 60%, #FF0055, #7700FF, transparent 75%)',
-        metrics: { DURATION: '6 Weeks', LEVEL: 'Domain Specialists', FORMAT: 'Case Study & Production' },
-        syllabus: [
-          'AI-Driven Cinematic Video, Synthetic Audio & Creative Asset Pipelines',
-          'Predictive Financial Modelling, Fraud Detection & Risk Scoring',
-          'Industrial Computer Vision for Defect Detection in Manufacturing',
-          'Healthcare Data Processing & Diagnostics Decision Support',
-          'Public Sector Workflow Modernisation & Citizen Service Bots'
-        ]
-      },
-      {
-        tag: 'MOD.04 // ENTERPRISE STRATEGY',
-        title: 'CORPORATE WORKFORCE RESKILLING',
-        glitch: 'CORP RESKILLING',
-        desc: 'Customised in-house enterprise transformation contracts helping corporations transition legacy departments into high-velocity AI teams.',
-        category: 'ENTERPRISE',
-        iconSvg: `<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`,
-        gradient: 'radial-gradient(circle at 50% 20%, #FFB800, #FF3300, transparent 75%)',
-        metrics: { DURATION: 'Custom / Bespoke', LEVEL: 'Corporate Cohorts', FORMAT: 'On-Site Workshops' },
-        syllabus: [
-          'Enterprise AI Readiness & Operational Maturity Assessment',
-          'Cross-Departmental AI Workflow Discovery & Bottleneck Elimination',
-          'Departmental Prompt Playbooks & Custom Secure Internal Tools',
-          'Change Management, Culture Shift & Human-in-the-Loop Safeguards',
-          'Executive ROI Measurement & Long-Term Scaling Framework'
-        ]
-      },
-      {
-        tag: 'MOD.05 // NATIONAL STANDARDS',
-        title: 'NATIONAL MICRO-CREDENTIALS',
-        glitch: 'CERTIFICATION',
-        desc: 'Standardised competency assessments accredited under the National AI Framework, certifying job-ready capabilities for industry employers.',
-        category: 'ACCREDITATION',
-        iconSvg: `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>`,
-        gradient: 'radial-gradient(circle at 30% 70%, #00F0FF, #00FF88, transparent 75%)',
-        metrics: { DURATION: 'Self-Paced / Exam', LEVEL: 'All Tiers', FORMAT: 'Proctored Assessment' },
-        syllabus: [
-          'Standardised National Practical Competency Evaluation',
-          'Real-World Coding & Prompt Verification Under Sandbox Benchmarks',
-          'Digital Blockchain-Verified Credentials & Credly Badges',
-          'Direct Ingestion into NAIGC Industry Talent Placement Portal',
-          'Annual Recertification & Frontier Model Upgrade Standards'
-        ]
-      },
-      {
-        tag: 'MOD.06 // ACADEMIC EXPANSION',
-        title: 'TRAIN-THE-TRAINER (TTT)',
-        glitch: 'TRAIN THE TRAINER',
-        desc: 'Accreditation framework developing a certified nationwide cohort of university lecturers, polytechnic educators, and corporate trainers.',
-        category: 'ACADEMIC',
-        iconSvg: `<svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>`,
-        gradient: 'radial-gradient(circle at 70% 70%, #9D00FF, #00F0FF, transparent 75%)',
-        metrics: { DURATION: '8 Weeks', LEVEL: 'Educators & Trainers', FORMAT: 'Masterclass + Practicum' },
-        syllabus: [
-          'Pedagogical Strategies for Teaching Generative & Technical AI',
-          'Lab Environment Setup, Compute Allocation & Student Sandboxing',
-          'Designing Effective Applied Curriculum for Tertiary Institutions',
-          'Continuous Assessment Design & Detecting Generative Hallucinations',
-          'Certified Master Trainer License & NAIGC Ecosystem Accreditation'
-        ]
-      },
-      {
-        tag: 'BLUEPRINT // ARCHITECTURE',
-        title: 'OFFICIAL STRATEGIC ROADMAP',
-        glitch: 'STRATEGIC ROADMAP',
-        desc: 'Authorised architectural framework & multi-phase national talent development rollout plan for NAIGC Pillar 1 (Academy).',
-        category: 'ROADMAP',
-        isRoadmap: true,
-        image: 'assets/pillar_01_academy.png',
-        gradient: 'radial-gradient(circle at 50% 50%, #FFB800, #00F0FF, transparent 75%)',
-        metrics: { SCOPE: 'National Blueprint', STATUS: 'Active Rollout', ACCESS: 'Open Architecture' },
-        syllabus: [
-          'Phase 1: National AI Literacy & Awareness Baseline Campaign',
-          'Phase 2: Enterprise & Public Sector Reskilling Framework',
-          'Phase 3: High-End Engineering & Multi-Agent Deep Tech Bootcamps',
-          'Phase 4: Accredited Sovereign Micro-Credentials & Talent Registry',
-          'Phase 5: ASEAN Regional Collaboration & Master Trainer Guild'
-        ]
-      }
-    ];
+    // --- 3. Modules Data Set ---
+    const modulesData = [
+  {
+    "tag": "MOD.01 // EXECUTIVE & GENERAL",
+    "title": "AI FOUNDATIONS & LITERACY",
+    "glitch": "AI FOUNDATIONS",
+    "desc": "Demystifying modern machine learning, generative LLMs, and prompt engineering protocols for leaders, professionals, and students.",
+    "category": "FOUNDATIONS",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><path d=\"M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z\"/></svg>",
+    "gradient": "radial-gradient(circle at 30% 20%, #00F0FF, #0044FF, transparent 75%)",
+    "metrics": {
+      "DURATION": "4 Weeks",
+      "LEVEL": "Beginner to Intermediate",
+      "FORMAT": "Hybrid (Online + Lab)"
+    },
+    "syllabus": [
+      "Core Paradigms of Generative Artificial Intelligence & Deep Learning",
+      "Advanced Prompt Engineering & Cognitive Reasoning Frameworks",
+      "AI Ethics, Data Privacy (PDPA) & Sovereign Implementation",
+      "Practical Business Automation with Leading Multimodal Models",
+      "Capstone: Building a Functional Autonomous AI Department Agent"
+    ]
+  },
+  {
+    "tag": "MOD.02 // DEEP TECH ENGINEERING",
+    "title": "TECHNICAL AI ENGINEERING",
+    "glitch": "AI ENGINEERING",
+    "desc": "Comprehensive engineering bootcamps covering model fine-tuning, retrieval-augmented generation (RAG), vector databases, and scalable MLOps.",
+    "category": "ENGINEERING",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><polyline points=\"16 18 22 12 16 6\"></polyline><polyline points=\"8 6 2 12 8 18\"></polyline></svg>",
+    "gradient": "radial-gradient(circle at 70% 30%, #00FFA3, #0066FF, transparent 75%)",
+    "metrics": {
+      "DURATION": "12 Weeks",
+      "LEVEL": "Advanced Engineers",
+      "FORMAT": "Intensive Lab Hands-On"
+    },
+    "syllabus": [
+      "PyTorch & Modern Neural Architecture Foundations",
+      "Custom LLM Fine-Tuning, LoRA & Model Distillation Techniques",
+      "Vector Databases (Milvus, Pinecone) & Enterprise RAG Pipelines",
+      "Multi-Agent System Orchestration (LangChain, AutoGen, AGY SDK)",
+      "High-Throughput Inference Deployment on Cloud & Edge GPUs"
+    ]
+  },
+  {
+    "tag": "MOD.03 // APPLIED VERTICALS",
+    "title": "INDUSTRY-SPECIFIC BOOTCAMPS",
+    "glitch": "INDUSTRY SUITE",
+    "desc": "Tailored practical applications in high-impact national industries: FinTech, Media Production, Advanced Manufacturing, and Smart Health.",
+    "category": "INDUSTRY",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"7\" width=\"20\" height=\"14\" rx=\"2\" ry=\"2\"></rect><path d=\"M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\"></path></svg>",
+    "gradient": "radial-gradient(circle at 40% 60%, #FF0055, #7700FF, transparent 75%)",
+    "metrics": {
+      "DURATION": "6 Weeks",
+      "LEVEL": "Domain Specialists",
+      "FORMAT": "Case Study & Production"
+    },
+    "syllabus": [
+      "AI-Driven Cinematic Video, Synthetic Audio & Creative Asset Pipelines",
+      "Predictive Financial Modelling, Fraud Detection & Risk Scoring",
+      "Industrial Computer Vision for Defect Detection in Manufacturing",
+      "Healthcare Data Processing & Diagnostics Decision Support",
+      "Public Sector Workflow Modernisation & Citizen Service Bots"
+    ]
+  },
+  {
+    "tag": "MOD.04 // ENTERPRISE STRATEGY",
+    "title": "CORPORATE WORKFORCE RESKILLING",
+    "glitch": "CORP RESKILLING",
+    "desc": "Customised in-house enterprise transformation contracts helping corporations transition legacy departments into high-velocity AI teams.",
+    "category": "ENTERPRISE",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path><circle cx=\"9\" cy=\"7\" r=\"4\"></circle><path d=\"M23 21v-2a4 4 0 0 0-3-3.87\"></path><path d=\"M16 3.13a4 4 0 0 1 0 7.75\"></path></svg>",
+    "gradient": "radial-gradient(circle at 50% 20%, #FFB800, #FF3300, transparent 75%)",
+    "metrics": {
+      "DURATION": "Custom / Bespoke",
+      "LEVEL": "Corporate Cohorts",
+      "FORMAT": "On-Site Workshops"
+    },
+    "syllabus": [
+      "Enterprise AI Readiness & Operational Maturity Assessment",
+      "Cross-Departmental AI Workflow Discovery & Bottleneck Elimination",
+      "Departmental Prompt Playbooks & Custom Secure Internal Tools",
+      "Change Management, Culture Shift & Human-in-the-Loop Safeguards",
+      "Executive ROI Measurement & Long-Term Scaling Framework"
+    ]
+  },
+  {
+    "tag": "MOD.05 // NATIONAL STANDARDS",
+    "title": "NATIONAL MICRO-CREDENTIALS",
+    "glitch": "CERTIFICATION",
+    "desc": "Standardised competency assessments accredited under the National AI Framework, certifying job-ready capabilities for industry employers.",
+    "category": "ACCREDITATION",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"8\" r=\"7\"></circle><polyline points=\"8.21 13.89 7 23 12 20 17 23 15.79 13.88\"></polyline></svg>",
+    "gradient": "radial-gradient(circle at 30% 70%, #00F0FF, #00FF88, transparent 75%)",
+    "metrics": {
+      "DURATION": "Self-Paced / Exam",
+      "LEVEL": "All Tiers",
+      "FORMAT": "Proctored Assessment"
+    },
+    "syllabus": [
+      "Standardised National Practical Competency Evaluation",
+      "Real-World Coding & Prompt Verification Under Sandbox Benchmarks",
+      "Digital Blockchain-Verified Credentials & Credly Badges",
+      "Direct Ingestion into NAIGC Industry Talent Placement Portal",
+      "Annual Recertification & Frontier Model Upgrade Standards"
+    ]
+  },
+  {
+    "tag": "MOD.06 // ACADEMIC EXPANSION",
+    "title": "TRAIN-THE-TRAINER (TTT)",
+    "glitch": "TRAIN THE TRAINER",
+    "desc": "Accreditation framework developing a certified nationwide cohort of university lecturers, polytechnic educators, and corporate trainers.",
+    "category": "ACADEMIC",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><path d=\"M22 10v6M2 10l10-5 10 5-10 5z\"></path><path d=\"M6 12v5c3 3 9 3 12 0v-5\"></path></svg>",
+    "gradient": "radial-gradient(circle at 70% 70%, #9D00FF, #00F0FF, transparent 75%)",
+    "metrics": {
+      "DURATION": "8 Weeks",
+      "LEVEL": "Educators & Trainers",
+      "FORMAT": "Masterclass + Practicum"
+    },
+    "syllabus": [
+      "Pedagogical Strategies for Teaching Generative & Technical AI",
+      "Lab Environment Setup, Compute Allocation & Student Sandboxing",
+      "Designing Effective Applied Curriculum for Tertiary Institutions",
+      "Continuous Assessment Design & Detecting Generative Hallucinations",
+      "Certified Master Trainer License & NAIGC Ecosystem Accreditation"
+    ]
+  },
+  {
+    "tag": "BLUEPRINT // ARCHITECTURE",
+    "title": "OFFICIAL STRATEGIC ROADMAP",
+    "glitch": "STRATEGIC ROADMAP",
+    "desc": "Authorised architectural framework & multi-phase national rollout plan for NAIGC Pillar 01 (AI ACADEMY).",
+    "category": "ROADMAP",
+    "isRoadmap": true,
+    "image": "assets/pillar_01_academy.png",
+    "gradient": "radial-gradient(circle at 50% 50%, #FFB800, #00F0FF, transparent 75%)",
+    "metrics": {
+      "SCOPE": "National Blueprint",
+      "STATUS": "Active Rollout",
+      "ACCESS": "Open Architecture"
+    },
+    "syllabus": [
+      "Phase 1: National Baseline Architecture for AI ACADEMY",
+      "Phase 2: Enterprise & Ecosystem Partner Pilot Integration",
+      "Phase 3: High-End Operational Capability & Infrastructure Scaling",
+      "Phase 4: Accredited Sovereign Standards & Verified Registry",
+      "Phase 5: Regional ASEAN Expansion & International Benchmark"
+    ]
+  }
+];
 
     // --- 4. 3D Carousel Matrix Positioning Engine ---
     const track = document.getElementById('at-track');
@@ -1526,12 +1532,12 @@
     let lastDragTime = 0;
     let dragVelocity = 0;
 
-    const RADIUS = 760; // 3D cylinder depth radius
-    const N = academyModules.length; // 7 items
+    const RADIUS = 760;
+    const N = modulesData.length;
     const angleStep = (Math.PI * 2) / N;
 
-    // Render 3D Cards into Track
-    academyModules.forEach((mod, i) => {
+    // Render Cards
+    modulesData.forEach((mod, i) => {
       const card = document.createElement('div');
       card.className = 'at-card';
       card.dataset.index = i;
@@ -1556,7 +1562,7 @@
         `;
       }
 
-      const buttonLabel = mod.isRoadmap ? 'VIEW OFFICIAL BLUEPRINT &rarr;' : 'EXPLORE SYLLABUS &rarr;';
+      const buttonLabel = mod.isRoadmap ? 'VIEW OFFICIAL BLUEPRINT &rarr;' : 'EXPLORE DETAILS &rarr;';
 
       card.innerHTML = `
         <div>
@@ -1583,7 +1589,7 @@
       `;
 
       card.addEventListener('mouseenter', () => sound.playHover());
-      card.addEventListener('click', (e) => {
+      card.addEventListener('click', () => {
         if (mod.isRoadmap) {
           openLightbox();
         } else {
@@ -1596,16 +1602,14 @@
 
     const cards = Array.from(document.querySelectorAll('.at-card'));
 
-    // Smooth Update 3D Positions of Cards along Cylinder Carousel with Backface Occlusion
     function updateCarousel() {
-      // Smooth lerp damping
       currentAngle += (targetAngle - currentAngle) * 0.12;
 
       cards.forEach((card, i) => {
         const phi = currentAngle + i * angleStep;
         const cosPhi = Math.cos(phi);
 
-        // BACKFACE OCCLUSION: If the card is facing backwards (away from camera), hide it completely!
+        // Backface occlusion
         if (cosPhi < -0.05) {
           card.style.opacity = '0';
           card.style.pointerEvents = 'none';
@@ -1613,7 +1617,6 @@
           return;
         }
 
-        // Card is in front half of the 3D cylinder
         card.style.visibility = 'visible';
         card.style.pointerEvents = 'auto';
 
@@ -1621,7 +1624,6 @@
         const z = cosPhi * RADIUS - RADIUS;
         const rotY = phi * (180 / Math.PI);
 
-        // Depth calculations for scale, opacity, and layering
         const depthNorm = (z + RADIUS * 2) / (RADIUS * 2);
         const opacity = Math.max(0.2, Math.min(1, cosPhi * 0.8 + 0.3));
         const scale = Math.max(0.78, Math.min(1.06, cosPhi * 0.28 + 0.78));
@@ -1630,10 +1632,8 @@
         card.style.opacity = opacity.toFixed(2);
         card.style.zIndex = Math.round(depthNorm * 100);
 
-        // Highlight nearest active center card
         if (cosPhi > 0.88) {
           card.classList.add('is-center');
-          // sync left menu active button
           document.querySelectorAll('.at-console-btn').forEach((btn, bIdx) => {
             btn.classList.toggle('is-active', bIdx === i);
           });
@@ -1643,9 +1643,8 @@
       });
     }
 
-    // Touch & Mouse Dragging Physics
+    // Touch & Drag Physics
     window.addEventListener('pointerdown', (e) => {
-      // Don't drag if clicking buttons, menu, drawer, or lightbox
       if (e.target.closest('#at-drawer') || e.target.closest('#at-lightbox') || e.target.closest('.at-top-bar') || e.target.closest('.at-left-console')) return;
       isDragging = true;
       startX = e.clientX;
@@ -1665,12 +1664,10 @@
     window.addEventListener('pointerup', () => {
       if (!isDragging) return;
       isDragging = false;
-      // Add slight momentum glide
       targetAngle += dragVelocity * 6;
       sound.playSlide();
     });
 
-    // Mouse Wheel Navigation
     window.addEventListener('wheel', (e) => {
       if (document.getElementById('at-drawer').classList.contains('is-open')) return;
       if (document.getElementById('at-lightbox').classList.contains('is-open')) return;
@@ -1679,7 +1676,6 @@
       sound.playSlide();
     }, { passive: true });
 
-    // Keyboard Arrow Keys
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         targetAngle -= angleStep;
@@ -1694,14 +1690,14 @@
       }
     });
 
-    // Left Console Filter Buttons
+    // Left Console Buttons
     document.querySelectorAll('.at-console-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         sound.init();
         sound.playSlide();
         const idx = parseInt(btn.dataset.index, 10);
         targetAngle = -idx * angleStep;
-        if (academyModules[idx].isRoadmap) {
+        if (modulesData[idx].isRoadmap) {
           setTimeout(openLightbox, 400);
         }
       });
@@ -1720,7 +1716,7 @@
     function openDrawer(index) {
       sound.init();
       sound.playChime();
-      const mod = academyModules[index];
+      const mod = modulesData[index];
       drawerTag.innerHTML = `${mod.tag} &bull; NATIONAL STANDARD`;
       drawerTitle.innerText = mod.title;
       drawerDesc.innerText = mod.desc;
@@ -1752,11 +1748,11 @@
     drawerBackdrop.addEventListener('click', closeDrawer);
 
     document.getElementById('drawer-enroll-btn').addEventListener('click', () => {
-      alert('Permohonan pendaftaran untuk modul ini telah diterima! Pegawai NAIGC akan menghubungi anda dalam 24 jam.');
+      alert('Pertanyaan atau permohonan untuk unit ini telah direkodkan. Pasukan pengurusan NAIGC akan menghubungi anda dalam 24 jam.');
       closeDrawer();
     });
 
-    // --- 6. Full-Screen Lightbox for Roadmap ---
+    // --- 6. Full-Screen Lightbox ---
     const lightbox = document.getElementById('at-lightbox');
     const lightboxClose = document.getElementById('at-lightbox-close');
 
@@ -1797,11 +1793,11 @@
     searchInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const q = searchInput.value.toLowerCase().trim();
-        const found = academyModules.findIndex(m => m.title.toLowerCase().includes(q) || m.desc.toLowerCase().includes(q));
+        const found = modulesData.findIndex(m => m.title.toLowerCase().includes(q) || m.desc.toLowerCase().includes(q));
         if (found !== -1) {
           targetAngle = -found * angleStep;
           closeSearch();
-          if (academyModules[found].isRoadmap) {
+          if (modulesData[found].isRoadmap) {
             setTimeout(openLightbox, 400);
           } else {
             setTimeout(() => openDrawer(found), 400);
@@ -1832,7 +1828,6 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-      // Cosmic Stardust Particles
       const particleCount = 700;
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array(particleCount * 3);
@@ -1856,7 +1851,6 @@
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
       geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-      // Circular Soft Glow Shader Material
       const material = new THREE.PointsMaterial({
         size: 3.5,
         vertexColors: true,
@@ -1877,35 +1871,28 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
-    // Parallax mouse follow
     let mouseX = 0, mouseY = 0;
     window.addEventListener('pointermove', (e) => {
       mouseX = (e.clientX - window.innerWidth / 2) * 0.05;
       mouseY = (e.clientY - window.innerHeight / 2) * 0.05;
     }, { passive: true });
 
-    // Main 60-120 FPS RAF Loop
     function animate() {
       requestAnimationFrame(animate);
 
-      // Rotate particle field gently
       if (particles) {
         particles.rotation.y += 0.0006;
         particles.rotation.x += 0.0003;
       }
 
-      // Camera parallax tilt
       camera.position.x += (mouseX - camera.position.x) * 0.05;
       camera.position.y += (-mouseY - camera.position.y) * 0.05;
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
-
-      // Update 3D card carousel matrix
       updateCarousel();
     }
 
-    // Boot
     window.addEventListener('DOMContentLoaded', () => {
       initThree();
       animate();

@@ -1,243 +1,1903 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>AI WORKFORCE & TALENT | NAIGC Malaysia</title>
-  <meta name="description" content="A talent development and placement ecosystem to build, upskill and connect AI talent for industry, business and future jobs.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Active Theory · NAIGC AI WORKFORCE & TALENT</title>
+  <meta name="description" content="NAIGC AI WORKFORCE & TALENT — SYS//NODE.03 WORKFORCE & TALENT. Inspired by Active Theory.">
   <link rel="icon" href="../favicon.ico">
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Fonts matching Active Theory (Syne / Monument Grotesk style + Monospace) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --at-bg: #030508;
+      --at-cyan: #00F0FF;
+      --at-cyan-dim: rgba(0, 240, 255, 0.45);
+      --at-cyan-glow: rgba(0, 240, 255, 0.25);
+      --at-gold: #FFB800;
+      --at-gold-glow: rgba(255, 184, 0, 0.28);
+      --at-white: #FFFFFF;
+      --at-gray: #8A99AD;
+      --at-glass: rgba(10, 20, 36, 0.65);
+      --at-glass-border: rgba(0, 240, 255, 0.28);
+      --at-glass-card: rgba(8, 16, 32, 0.72);
+      --at-font-sans: 'Space Grotesk', -apple-system, sans-serif;
+      --at-font-display: 'Plus Jakarta Sans', sans-serif;
+      --at-font-mono: 'Space Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--at-bg);
+      color: var(--at-white);
+      font-family: var(--at-font-sans);
+      cursor: crosshair;
+    }
+
+    /* 3D WebGL Canvas Layer */
+    #at-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      display: block;
+    }
+
+    /* Active Theory Signature Chromatic Noise & Vignette */
+    .at-vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(1, 3, 7, 0.85) 100%);
+      box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.95);
+    }
+
+    /* ==========================================================================
+       1. ACTIVE THEORY PORTAL APERTURE LOADER
+       ========================================================================== */
+    #at-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background-color: #010306;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.85s;
+    }
+
+    #at-loader.is-loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .at-portal-wrapper {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .at-portal-ring {
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.15);
+      animation: at-ring-pulse 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes at-ring-pulse {
+      0% { transform: scale(0.96); border-color: rgba(0, 240, 255, 0.25); }
+      100% { transform: scale(1.04); border-color: rgba(0, 240, 255, 0.75); }
+    }
+
+    .at-portal-core {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(2, 8, 22, 0.9) 70%);
+      border: 1.5px solid rgba(0, 240, 255, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+    }
+
+    .at-loader-pct {
+      font-family: var(--at-font-mono);
+      font-size: 1.15rem;
+      letter-spacing: 0.18em;
+      color: #FFFFFF;
+      text-shadow: 0 0 10px #00F0FF;
+    }
+
+    .at-loader-sub {
+      font-family: var(--at-font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--at-cyan);
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    .at-filaments {
+      position: absolute;
+      inset: -50px;
+      width: calc(100% + 100px);
+      height: calc(100% + 100px);
+      pointer-events: none;
+      animation: at-spin-slow 28s linear infinite;
+    }
+
+    @keyframes at-spin-slow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .at-enter-prompt {
+      margin-top: 2.5rem;
+      font-family: var(--at-font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.32em;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      animation: at-blink 1.4s infinite ease-in-out;
+    }
+
+    @keyframes at-blink {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; text-shadow: 0 0 10px #00F0FF; }
+    }
+
+    /* ==========================================================================
+       2. ACTIVE THEORY UI CHROME & NAVIGATION (HUD LAYER)
+       ========================================================================== */
+    .at-hud-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      padding: clamp(1.2rem, 3vh, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .at-hud-layer * {
+      pointer-events: auto;
+    }
+
+    .at-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .at-logo-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      text-decoration: none;
+    }
+
+    .at-logo-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .at-logo-img {
+      width: 32px;
+      height: auto;
+      filter: drop-shadow(0 0 8px #00F0FF);
+    }
+
+    .at-logo-title {
+      font-family: var(--at-font-display);
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      color: #FFFFFF;
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+    }
+
+    .at-logo-sub {
+      font-family: var(--at-font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      color: rgba(0, 240, 255, 0.7);
+      text-transform: uppercase;
+    }
+
+    .at-menu-capsule {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      background: var(--at-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--at-glass-border);
+      padding: 0.55rem 1.6rem;
+      border-radius: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 18px rgba(0, 240, 255, 0.15);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .at-menu-capsule:hover {
+      border-color: var(--at-cyan);
+      box-shadow: 0 8px 36px rgba(0, 0, 0, 0.7), 0 0 28px rgba(0, 240, 255, 0.4);
+    }
+
+    .at-menu-item {
+      font-family: var(--at-font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .at-menu-item:hover, .at-menu-item.is-active {
+      color: var(--at-cyan);
+      text-shadow: 0 0 10px var(--at-cyan);
+    }
+
+    .at-sine-glyph {
+      width: 28px;
+      height: 10px;
+      stroke: var(--at-cyan);
+      stroke-width: 1.6;
+      fill: none;
+      opacity: 0.85;
+      animation: at-wave-drift 2.2s infinite ease-in-out alternate;
+    }
+
+    @keyframes at-wave-drift {
+      0% { opacity: 0.5; transform: scaleY(0.85); }
+      100% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    .at-sub-pill-nav {
+      margin-top: 0.65rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+    }
+
+    .at-sub-pill {
+      font-family: var(--at-font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      color: var(--at-gray);
+      background: rgba(3, 9, 22, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .at-sub-pill:hover {
+      color: var(--at-cyan);
+      border-color: var(--at-cyan);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+
+    /* ==========================================================================
+       3. LEFT FLOATING TERMINAL / FILTER CONSOLE
+       ========================================================================== */
+    .at-left-console {
+      position: absolute;
+      left: clamp(1.2rem, 3vh, 2.5rem);
+      bottom: clamp(1.5rem, 4vh, 3.5rem);
+      max-width: 290px;
+      z-index: 15;
+    }
+
+    .at-console-header {
+      font-family: var(--at-font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: #FFFFFF;
+      margin-bottom: 0.9rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .at-console-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .at-console-btn {
+      font-family: var(--at-font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: rgba(180, 195, 220, 0.7);
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      padding: 0.2rem 0;
+    }
+
+    .at-console-btn::before {
+      content: "->";
+      color: var(--at-cyan);
+      opacity: 0.5;
+      transition: all 0.2s ease;
+    }
+
+    .at-console-btn:hover, .at-console-btn.is-active {
+      color: var(--at-cyan);
+      text-shadow: 0 0 10px var(--at-cyan);
+      transform: translateX(4px);
+    }
+
+    .at-console-btn:hover::before, .at-console-btn.is-active::before {
+      opacity: 1;
+      transform: translateX(2px);
+    }
+
+    .at-console-btn.at-btn-roadmap {
+      color: var(--at-gold);
+      font-weight: 700;
+    }
+
+    .at-console-btn.at-btn-roadmap::before {
+      color: var(--at-gold);
+    }
+
+    .at-console-btn.at-btn-roadmap:hover, .at-console-btn.at-btn-roadmap.is-active {
+      color: #FFE600;
+      text-shadow: 0 0 12px rgba(255, 184, 0, 0.8);
+    }
+
+    .at-ask-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(8, 20, 42, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      padding: 0.55rem 1.25rem;
+      border-radius: 30px;
+      font-family: var(--at-font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .at-ask-capsule:hover {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--at-cyan);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       4. CENTER BOTTOM HINT & RIGHT CONTROLS
+       ========================================================================== */
+    .at-bottom-hint {
+      position: absolute;
+      bottom: clamp(1.2rem, 3vh, 2.5rem);
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--at-font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      color: rgba(255, 255, 255, 0.45);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      pointer-events: none;
+    }
+
+    .at-bottom-hint span {
+      animation: at-pulse-opacity 2s infinite ease-in-out;
+    }
+
+    @keyframes at-pulse-opacity {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.9; }
+    }
+
+    .at-bottom-right {
+      position: absolute;
+      right: clamp(1.2rem, 3vh, 2.5rem);
+      bottom: clamp(1.2rem, 3vh, 2.5rem);
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-family: var(--at-font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      color: var(--at-gray);
+    }
+
+    .at-audio-btn {
+      background: rgba(4, 12, 28, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.75);
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      font-family: var(--at-font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .at-audio-btn:hover {
+      border-color: var(--at-cyan);
+      color: var(--at-cyan);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+    }
+
+    .at-audio-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00F0FF;
+      box-shadow: 0 0 8px #00F0FF;
+    }
+
+    /* ==========================================================================
+       5. 3D FLOATING CARDS CAROUSEL
+       ========================================================================== */
+    #at-carousel-stage {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      pointer-events: none;
+      perspective: 1500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+    }
+
+    .at-card-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+
+    .at-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: clamp(340px, 38vw, 520px);
+      height: clamp(520px, 68vh, 720px);
+      margin-left: calc(clamp(340px, 38vw, 520px) / -2);
+      margin-top: calc(clamp(520px, 68vh, 720px) / -2);
+      background: linear-gradient(145deg, rgba(10, 24, 48, 0.85) 0%, rgba(3, 9, 22, 0.92) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 240, 255, 0.28);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 240, 255, 0.08);
+      padding: clamp(1.4rem, 2.5vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      pointer-events: auto;
+      cursor: pointer;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, transform 0.15s ease-out;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+
+    .at-card.is-center {
+      border-color: #00F0FF;
+      box-shadow: 0 35px 95px rgba(0, 0, 0, 0.95), 0 0 60px rgba(0, 240, 255, 0.42);
+      filter: brightness(1.08) drop-shadow(0 0 25px rgba(0, 240, 255, 0.2));
+    }
+
+    .at-card:not(.is-center) {
+      filter: brightness(0.65) blur(0.6px);
+    }
+
+    .at-card:hover {
+      border-color: #00F0FF;
+      filter: brightness(1.1) blur(0px);
+      box-shadow: 0 35px 85px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 240, 255, 0.4);
+    }
+
+    .at-card-visual-header {
+      position: relative;
+      width: 100%;
+      height: clamp(85px, 13vh, 120px);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 0.95rem;
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      background: #020712;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .at-card-visual-mesh {
+      position: absolute;
+      inset: 0;
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+      opacity: 0.9;
+    }
+
+    .at-card-visual-gradient {
+      position: absolute;
+      inset: 0;
+      opacity: 0.45;
+      mix-blend-mode: screen;
+      transition: opacity 0.3s ease;
+    }
+
+    .at-card:hover .at-card-visual-gradient {
+      opacity: 0.75;
+    }
+
+    .at-card-visual-icon {
+      position: relative;
+      z-index: 2;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(3, 10, 26, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .at-card:hover .at-card-visual-icon {
+      transform: scale(1.1);
+      border-color: #00F0FF;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.8);
+    }
+
+    .at-card-visual-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: #00F0FF;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .at-card-roadmap-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+
+    .at-card:hover .at-card-roadmap-thumb {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    .at-roadmap-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 184, 0, 0.25);
+      border: 1px solid #FFB800;
+      color: #FFB800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: var(--at-font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      text-shadow: 0 0 8px rgba(255, 184, 0, 0.8);
+      z-index: 3;
+    }
+
+    .at-glitch-title {
+      font-family: var(--at-font-display);
+      font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      position: relative;
+      margin-bottom: 0.65rem;
+      text-transform: uppercase;
+    }
+
+    .at-glitch-title::before,
+    .at-glitch-title::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .at-glitch-title::before {
+      color: #00F0FF;
+      transform: translate(-1.5px, 0);
+      mix-blend-mode: screen;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+
+    .at-glitch-title::after {
+      color: #FF0055;
+      transform: translate(1.5px, 0);
+      mix-blend-mode: screen;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    }
+
+    .at-card-tag {
+      font-family: var(--at-font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: var(--at-cyan);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .at-card-desc {
+      color: #A3B8CC;
+      font-size: clamp(0.8rem, 1.05vw, 0.92rem);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .at-card-meta-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 0.95rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 0.65rem;
+    }
+
+    .at-card-meta-item {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--at-font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+    }
+
+    .at-meta-k {
+      color: var(--at-gray);
+      text-transform: uppercase;
+    }
+
+    .at-meta-v {
+      color: #FFFFFF;
+      font-weight: 700;
+    }
+
+    .at-btn-select {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--at-cyan);
+      color: #FFFFFF;
+      padding: 0.75rem 1.5rem;
+      border-radius: 40px;
+      font-family: var(--at-font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: all 0.25s ease;
+      width: 100%;
+    }
+
+    .at-card:hover .at-btn-select {
+      background: var(--at-cyan);
+      color: #010408;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
+    }
+
+    /* ==========================================================================
+       6. SLIDE-OVER DETAIL DRAWER MODAL
+       ========================================================================== */
+    #at-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: clamp(380px, 45vw, 680px);
+      height: 100vh;
+      background: rgba(4, 10, 24, 0.95);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border-left: 1px solid rgba(0, 240, 255, 0.35);
+      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.85);
+      z-index: 100;
+      transform: translateX(105%);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+      padding: clamp(2rem, 4vw, 3.5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    #at-drawer.is-open {
+      transform: translateX(0%);
+    }
+
+    .at-drawer-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-family: var(--at-font-mono);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+
+    .at-drawer-close:hover {
+      background: var(--at-cyan);
+      color: #030814;
+      border-color: var(--at-cyan);
+      box-shadow: 0 0 15px #00F0FF;
+    }
+
+    .at-drawer-tag {
+      font-family: var(--at-font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      color: var(--at-cyan);
+      margin-bottom: 0.75rem;
+    }
+
+    .at-drawer-title {
+      font-family: var(--at-font-display);
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      color: #FFFFFF;
+    }
+
+    .at-drawer-body {
+      color: #C3D5E8;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .at-drawer-syllabus {
+      margin-bottom: 2.5rem;
+    }
+
+    .at-drawer-syllabus h4 {
+      font-family: var(--at-font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      color: var(--at-cyan);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .at-syllabus-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .at-syllabus-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      font-size: 0.92rem;
+      color: #E2EDF8;
+    }
+
+    .at-syllabus-item::before {
+      content: "✦";
+      color: var(--at-cyan);
+      flex-shrink: 0;
+    }
+
+    .at-drawer-cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .at-btn-cta {
+      background: var(--at-cyan);
+      color: #020712;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 40px;
+      font-family: var(--at-font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+    }
+
+    .at-btn-cta:hover {
+      background: #FFFFFF;
+      box-shadow: 0 0 35px #00F0FF;
+      transform: translateY(-2px);
+    }
+
+    #at-drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 90;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    #at-drawer-backdrop.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ==========================================================================
+       7. FULL-SCREEN LIGHTBOX MODAL (FOR STRATEGIC ROADMAP)
+       ========================================================================== */
+    #at-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 250;
+      background: rgba(1, 4, 10, 0.94);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+      padding: clamp(1rem, 3vw, 2.5rem);
+    }
+
+    #at-lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .at-lightbox-close {
+      position: absolute;
+      top: clamp(1rem, 3vh, 2rem);
+      right: clamp(1rem, 3vh, 2rem);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: #FFFFFF;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-family: var(--at-font-mono);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      z-index: 260;
+    }
+
+    .at-lightbox-close:hover {
+      background: var(--at-cyan);
+      color: #010408;
+      box-shadow: 0 0 20px #00F0FF;
+    }
+
+    .at-lightbox-content {
+      position: relative;
+      max-width: 1400px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .at-lightbox-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.25);
+      padding-bottom: 0.75rem;
+    }
+
+    .at-lightbox-tag {
+      font-family: var(--at-font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--at-cyan);
+      text-transform: uppercase;
+    }
+
+    .at-lightbox-title {
+      font-family: var(--at-font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: 0.05em;
+    }
+
+    .at-lightbox-img-wrapper {
+      position: relative;
+      max-height: 70vh;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 50px rgba(0, 240, 255, 0.2), 0 20px 60px rgba(0, 0, 0, 0.9);
+      background: #000;
+    }
+
+    .at-lightbox-img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+
+    .at-lightbox-footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      font-family: var(--at-font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--at-gray);
+    }
+
+    .at-btn-download {
+      background: rgba(255, 184, 0, 0.2);
+      border: 1px solid #FFB800;
+      color: #FFB800;
+      padding: 0.5rem 1.25rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.25s ease;
+    }
+
+    .at-btn-download:hover {
+      background: #FFB800;
+      color: #010408;
+      box-shadow: 0 0 20px rgba(255, 184, 0, 0.8);
+    }
+
+    /* Modal / Popup for Search or Dialog */
+    #at-search-dialog {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(1, 4, 10, 0.85);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    #at-search-dialog.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .at-search-box {
+      width: clamp(340px, 60vw, 720px);
+      background: rgba(6, 16, 36, 0.95);
+      border: 1px solid var(--at-cyan);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 240, 255, 0.3);
+      position: relative;
+    }
+
+    .at-search-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid var(--at-cyan);
+      color: #FFFFFF;
+      font-family: var(--at-font-display);
+      font-size: 1.4rem;
+      padding: 0.75rem 0;
+      outline: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .at-search-hints {
+      font-family: var(--at-font-mono);
+      font-size: 0.75rem;
+      color: var(--at-gray);
+      line-height: 1.8;
+    }
+
+    .at-search-hints span {
+      color: var(--at-cyan);
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body class="theme-cyan">
+<body>
 
-  <!-- Background Ambience -->
-  <div class="naigc-bg-canvas" aria-hidden="true"></div>
-  <div class="naigc-bg-grid" aria-hidden="true"></div>
+  <!-- WebGL Background Canvas -->
+  <canvas id="at-canvas"></canvas>
+  <div class="at-vignette"></div>
 
-  <div class="naigc-wrapper">
+  <!-- 1. Active Theory Circular Aperture Portal Loader -->
+  <div id="at-loader">
+    <div class="at-portal-wrapper">
+      <div class="at-portal-ring"></div>
+      
+      <svg class="at-filaments" viewBox="0 0 400 400" fill="none">
+        <path d="M200 40 C 230 110, 260 130, 200 200 C 140 270, 170 290, 200 360" stroke="rgba(0, 240, 255, 0.45)" stroke-width="1.5" />
+        <path d="M40 200 C 110 230, 130 260, 200 200 C 270 140, 290 170, 360 200" stroke="rgba(255, 184, 0, 0.45)" stroke-width="1.5" />
+        <path d="M87 87 C 150 140, 160 170, 200 200 C 240 230, 250 260, 313 313" stroke="rgba(0, 240, 255, 0.35)" stroke-width="1.2" />
+        <path d="M313 87 C 260 150, 230 160, 200 200 C 170 240, 140 250, 87 313" stroke="rgba(255, 184, 0, 0.35)" stroke-width="1.2" />
+      </svg>
 
-    <!-- Header Navigation -->
-    <header class="naigc-header">
-      <a href="../index.html" class="naigc-brand">
-        <img src="../build/assets/logo-XvVq9OjC.png" alt="NAIGC Logo" class="naigc-brand-logo">
-        <div class="naigc-brand-text">
-          <span class="naigc-brand-title">NAIGC</span>
-          <span class="naigc-brand-desc">Malaysia AI Generation Centre</span>
+      <div class="at-portal-core">
+        <div class="at-loader-pct" id="at-counter">// 00 //</div>
+        <div class="at-loader-sub">INITIALISING</div>
+      </div>
+    </div>
+    <div class="at-enter-prompt">CLICK OR WAIT TO ENTER 3D SPACE</div>
+  </div>
+
+  <!-- 2. UI Chrome (Active Theory HUD Layer) -->
+  <div class="at-hud-layer">
+
+    <!-- Top Bar Navigation -->
+    <header class="at-top-bar">
+      <a href="../index.html" class="at-logo-group" title="Return to NAIGC Core Hub">
+        <div class="at-logo-brand">
+          <img src="../build/assets/logo-XvVq9OjC.png" alt="NAIGC Logo" class="at-logo-img">
+          <span class="at-logo-title">NAIGC</span>
         </div>
+        <span class="at-logo-sub">3°09'N 101°42'E &bull; SYS//NODE.03 WORKFORCE & TALENT</span>
       </a>
 
-      <div class="naigc-nav-actions">
-        <div class="naigc-telemetry-badge">
-          <span class="naigc-status-dot"></span>
-          <span>SYS//NODE.03 // ONLINE</span>
+      <div>
+        <nav class="at-menu-capsule">
+          <a href="#workforce" class="at-menu-item is-active">WORKFORCE</a>
+          <svg class="at-sine-glyph" viewBox="0 0 30 10">
+            <path d="M1 5 Q 8 -2, 15 5 T 29 5" />
+          </svg>
+          <a href="../index.html" class="at-menu-item">CORE HUB</a>
+        </nav>
+
+        <div class="at-sub-pill-nav">
+          <a href="creative-studio.html" class="at-sub-pill">&laquo; 02. STUDIO</a>
+          <a href="business-solutions.html" class="at-sub-pill">04. SOLUTIONS &raquo;</a>
         </div>
-        <a href="../index.html" class="naigc-btn-back">
-          <span>&larr;</span>
-          <span>HUB UTAMA</span>
-        </a>
       </div>
     </header>
 
-    <!-- Main Hero Banner -->
-    <section class="naigc-hero">
-      <div class="naigc-hero-tagline">SYS//NODE.03 &bull; STRATEGIC PILLAR 03</div>
-      <h1 class="naigc-hero-title">AI WORKFORCE & TALENT</h1>
-      <p class="naigc-hero-subtitle">A talent development and placement ecosystem to build, upskill and connect AI talent for industry, business and future jobs.</p>
+    <!-- 3. Left Floating Interactive Console -->
+    <div class="at-left-console">
+      <div class="at-console-header">WHAT ARE YOU LOOKING FOR?</div>
+      <ul class="at-console-menu">
+        
+        <li><button class="at-console-btn is-active" data-index="0">TALENT PLACEMENT</button></li>
+        
+        <li><button class="at-console-btn " data-index="1">CORP RESKILLING</button></li>
+        
+        <li><button class="at-console-btn " data-index="2">APPRENTICESHIPS</button></li>
+        
+        <li><button class="at-console-btn " data-index="3">COMPETENCY REGISTRY</button></li>
+        
+        <li><button class="at-console-btn " data-index="4">FREELANCE GUILD</button></li>
+        
+        <li><button class="at-console-btn " data-index="5">EXECUTIVE FORUM</button></li>
+        
+        <li><button class="at-console-btn at-btn-roadmap" data-index="6">&#9733; STRATEGIC ROADMAP</button></li>
+      </ul>
 
-      <div class="naigc-hero-meta">
-        <div class="naigc-meta-item">
-          <span class="naigc-meta-label">STATUS</span>
-          <span class="naigc-meta-val" style="color: #00F0FF;">ACTIVE &bull; OPERATIONAL</span>
-        </div>
-        <div class="naigc-meta-item">
-          <span class="naigc-meta-label">LATENCY</span>
-          <span class="naigc-meta-val">0.8ms (Neural Link)</span>
-        </div>
-        <div class="naigc-meta-item">
-          <span class="naigc-meta-label">ECOSYSTEM</span>
-          <span class="naigc-meta-val">National AI Framework</span>
-        </div>
-        <div class="naigc-meta-item">
-          <span class="naigc-meta-label">COVERAGE</span>
-          <span class="naigc-meta-val">Nationwide (Malaysia)</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Bento Grid Section -->
-    <div class="naigc-grid">
-      <!-- Purpose Card -->
-      <div class="naigc-card col-6">
-        <div class="naigc-card-header">
-          <div class="naigc-card-icon">🎯</div>
-          <h2 class="naigc-card-title">PURPOSE & OBJECTIVES</h2>
-        </div>
-        <p class="naigc-card-p">To develop an AI-ready Malaysian workforce, enhance professional capabilities, and connect qualified talent to high-value industry opportunities.</p>
-      </div>
-
-      <!-- Target Market Card -->
-      <div class="naigc-card col-6">
-        <div class="naigc-card-header">
-          <div class="naigc-card-icon">👥</div>
-          <h2 class="naigc-card-title">TARGET MARKET</h2>
-        </div>
-        <ul class="naigc-list">
-          
-          <li class="naigc-list-item">
-            <span class="naigc-bullet"></span>
-            <span>Students and fresh graduates entering modern tech sectors</span>
-          </li>
-          <li class="naigc-list-item">
-            <span class="naigc-bullet"></span>
-            <span>Mid-career professionals transitioning into AI engineering & data</span>
-          </li>
-          <li class="naigc-list-item">
-            <span class="naigc-bullet"></span>
-            <span>SMEs and corporations expanding their digital headcount</span>
-          </li>
-          <li class="naigc-list-item">
-            <span class="naigc-bullet"></span>
-            <span>Public sector agencies building internal technical capabilities</span>
-          </li>
-          <li class="naigc-list-item">
-            <span class="naigc-bullet"></span>
-            <span>Recruitment firms, industry talent seekers and multinational employers</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Key Activities Card -->
-      <div class="naigc-card col-12">
-        <div class="naigc-card-header">
-          <div class="naigc-card-icon">⚡</div>
-          <h2 class="naigc-card-title">KEY ACTIVITIES & OPERATIONS</h2>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem;">
-          
-          <div style="background: rgba(3, 10, 26, 0.65); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight: 800; color: #00F0FF; margin-bottom: 0.45rem; font-size: 0.95rem;">Skills Training & Upskilling</div>
-            <div style="font-size: 0.88rem; color: var(--naigc-text-sub); line-height: 1.5;">Hands-on practical training aligned with actual technical stacks used in industry.</div>
-          </div>
-          <div style="background: rgba(3, 10, 26, 0.65); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight: 800; color: #00F0FF; margin-bottom: 0.45rem; font-size: 0.95rem;">Talent Matching & Placement</div>
-            <div style="font-size: 0.88rem; color: var(--naigc-text-sub); line-height: 1.5;">Direct matchmaking between vetted AI practitioners and hiring enterprises.</div>
-          </div>
-          <div style="background: rgba(3, 10, 26, 0.65); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight: 800; color: #00F0FF; margin-bottom: 0.45rem; font-size: 0.95rem;">Workforce Transformation</div>
-            <div style="font-size: 0.88rem; color: var(--naigc-text-sub); line-height: 1.5;">Helping companies restructure legacy departments into AI-enabled operational teams.</div>
-          </div>
-          <div style="background: rgba(3, 10, 26, 0.65); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight: 800; color: #00F0FF; margin-bottom: 0.45rem; font-size: 0.95rem;">Competency Assessments</div>
-            <div style="font-size: 0.88rem; color: var(--naigc-text-sub); line-height: 1.5;">Standardised testing benchmarks to validate technical skills and operational readiness.</div>
-          </div>
-          <div style="background: rgba(3, 10, 26, 0.65); padding: 1.25rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-            <div style="font-weight: 800; color: #00F0FF; margin-bottom: 0.45rem; font-size: 0.95rem;">Industry Apprenticeships</div>
-            <div style="font-size: 0.88rem; color: var(--naigc-text-sub); line-height: 1.5;">Structured internship placements and mentorship within leading technology partners.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Services & Offerings -->
-      <div class="naigc-card col-7">
-        <div class="naigc-card-header">
-          <div class="naigc-card-icon">🛠️</div>
-          <h2 class="naigc-card-title">SERVICES & OFFERINGS</h2>
-        </div>
-        <ul class="naigc-check-list">
-          
-          <li class="naigc-check-item">
-            <span class="naigc-check-icon">&check;</span>
-            <span>Role-Based AI Certification Pathways (Data Analyst, Prompt Engineer, AI Architect)</span>
-          </li>
-          <li class="naigc-check-item">
-            <span class="naigc-check-icon">&check;</span>
-            <span>Enterprise Talent Placement & Direct Headhunting Services</span>
-          </li>
-          <li class="naigc-check-item">
-            <span class="naigc-check-icon">&check;</span>
-            <span>Corporate Workforce Reskilling & Organisational Change Management</span>
-          </li>
-          <li class="naigc-check-item">
-            <span class="naigc-check-icon">&check;</span>
-            <span>High-Impact Industry Apprenticeship & Internship Programmes</span>
-          </li>
-          <li class="naigc-check-item">
-            <span class="naigc-check-icon">&check;</span>
-            <span>Standardised National AI Competency Benchmarking Framework</span>
-          </li>
-          <li class="naigc-check-item">
-            <span class="naigc-check-icon">&check;</span>
-            <span>Continuous Professional Development & Industry Mentorship Networks</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Revenue Opportunities -->
-      <div class="naigc-card col-5">
-        <div class="naigc-card-header">
-          <div class="naigc-card-icon">💎</div>
-          <h2 class="naigc-card-title">REVENUE & VALUE OPPORTUNITIES</h2>
-        </div>
-        <div class="naigc-revenue-grid">
-          
-          <div class="naigc-revenue-block">
-            <span class="naigc-rev-icon">👥</span>
-            <div class="naigc-rev-title">Talent Placement Services</div>
-          </div>
-          <div class="naigc-revenue-block">
-            <span class="naigc-rev-icon">📑</span>
-            <div class="naigc-rev-title">Certification & Assessment Fees</div>
-          </div>
-          <div class="naigc-revenue-block">
-            <span class="naigc-rev-icon">🔄</span>
-            <div class="naigc-rev-title">Corporate Reskilling Programmes</div>
-          </div>
-          <div class="naigc-revenue-block">
-            <span class="naigc-rev-icon">🤝</span>
-            <div class="naigc-rev-title">Employer Partnership Subscriptions</div>
-          </div>
-        </div>
-      </div>
+      <button class="at-ask-capsule" id="at-btn-ask">
+        <span>ASK ME ANYTHING...</span>
+      </button>
     </div>
 
-    <!-- Official Presentation Infographic Showcase -->
-    <section class="naigc-infographic-card">
-      <div class="naigc-infographic-header">
-        <div class="naigc-infographic-title">OFFICIAL NAIGC STRATEGIC ROADMAP &bull; PILLAR 03</div>
-        <div class="naigc-telemetry-badge">NATIONAL ARCHIVE &bull; AUTHORISED DOCUMENT</div>
-      </div>
-      <img src="assets/pillar_03_workforce_talent.png" alt="AI WORKFORCE & TALENT Official Infographic" class="naigc-infographic-img" loading="lazy">
-    </section>
+    <!-- Center Bottom Hint -->
+    <div class="at-bottom-hint">
+      <span>&larr; DRAG OR SCROLL WHEEL TO EXPLORE 3D SPACE &rarr;</span>
+    </div>
 
-    <!-- Footer Navigation (Pillar Switcher) -->
-    <nav class="naigc-footer-nav" aria-label="Pillar Navigation">
-      <a href="creative-studio.html" class="naigc-nav-link-card">
-        <span style="font-size: 1.4rem;">&larr;</span>
-        <div>
-          <div class="naigc-nav-node-num">SYS//NODE.02</div>
-          <div class="naigc-nav-node-name">AI Creative Studio</div>
-        </div>
-      </a>
-
-      <a href="../index.html" class="naigc-btn-back">
-        <span>KEMBALI KE HUB UTAMA (CORE STAGE)</span>
-      </a>
-
-      <a href="business-solutions.html" class="naigc-nav-link-card naigc-nav-link-right">
-        <div>
-          <div class="naigc-nav-node-num">SYS//NODE.04</div>
-          <div class="naigc-nav-node-name">AI Business Solutions</div>
-        </div>
-        <span style="font-size: 1.4rem;">&rarr;</span>
-      </a>
-    </nav>
-
-    <!-- Bottom Telemetry HUD -->
-    <div class="naigc-bottom-hud">
-      SYS//CORE ONLINE &bull; 8 ECOSYSTEM NODES OPERATIONAL &bull; MALAYSIA AI GENERATION CENTRE
+    <!-- 4. Bottom Right Status & Audio -->
+    <div class="at-bottom-right">
+      <span>SYS//ONLINE &bull; 60FPS</span>
+      <button class="at-audio-btn" id="at-audio-toggle">
+        <span class="at-audio-indicator"></span>
+        <span id="at-audio-text">SOUND ON</span>
+      </button>
     </div>
 
   </div>
+
+  <!-- 5. 3D Floating Cards Carousel Stage -->
+  <div id="at-carousel-stage">
+    <div class="at-card-track" id="at-track">
+      <!-- Generated by JavaScript with 3D Matrix Coordinates -->
+    </div>
+  </div>
+
+  <!-- 6. Slide-Over Detail Drawer Modal -->
+  <div id="at-drawer-backdrop"></div>
+  <aside id="at-drawer" aria-hidden="true">
+    <button class="at-drawer-close" id="at-drawer-close">&times;</button>
+    <div>
+      <div class="at-drawer-tag" id="drawer-tag">SYS//NODE.03 WORKFORCE & TALENT &bull; MODULE DETAILS</div>
+      <h2 class="at-drawer-title" id="drawer-title">MODULE TITLE</h2>
+      <p class="at-drawer-body" id="drawer-desc">Module description text goes here.</p>
+
+      <div class="at-drawer-syllabus">
+        <h4>CURRICULUM BREAKDOWN & CORE CAPABILITIES</h4>
+        <ul class="at-syllabus-list" id="drawer-syllabus">
+          <!-- Populated dynamically -->
+        </ul>
+      </div>
+    </div>
+
+    <div class="at-drawer-cta-group">
+      <button class="at-btn-cta" id="drawer-enroll-btn">COMMENCE &bull; HUBUNGI KAMI</button>
+      <button class="at-btn-select" id="drawer-lightbox-btn" style="text-align: center; display: none;">&#128065; LIHAT HIGH-RES ROADMAP DIAGRAM</button>
+      <a href="../index.html" class="at-btn-select" style="text-align: center; text-decoration: none;">&larr; KEMBALI KE CORE STAGE</a>
+    </div>
+  </aside>
+
+  <!-- 7. Full-Screen Lightbox Modal for Roadmap -->
+  <div id="at-lightbox" aria-hidden="true">
+    <button class="at-lightbox-close" id="at-lightbox-close">&times;</button>
+    <div class="at-lightbox-content">
+      <div class="at-lightbox-header">
+        <span class="at-lightbox-tag">NAIGC STRATEGIC ROADMAP // PILLAR 03: AI WORKFORCE & TALENT</span>
+        <span class="at-lightbox-title">OFFICIAL NATIONAL ARCHITECTURE BLUEPRINT</span>
+      </div>
+      <div class="at-lightbox-img-wrapper">
+        <img src="assets/pillar_03_workforce_talent.png" alt="NAIGC Pillar 03 AI WORKFORCE & TALENT Strategic Roadmap" class="at-lightbox-img" id="at-lightbox-image">
+      </div>
+      <div class="at-lightbox-footer">
+        <span>CLICK OUTSIDE OR PRESS ESC TO RETURN TO 3D SPACE</span>
+        <a href="assets/pillar_03_workforce_talent.png" download="NAIGC_Pillar_03_Strategic_Roadmap.png" class="at-btn-download">DOWNLOAD FULL-RES PNG &darr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Search / Question Dialog -->
+  <div id="at-search-dialog">
+    <div class="at-search-box">
+      <input type="text" class="at-search-input" id="at-search-field" placeholder="Type a capability or service (e.g. Talent Placement)..." autofocus>
+      <div class="at-search-hints">
+        Suggested queries: 
+        <span data-search="Talent Placement">#Talent Placement</span>, <span data-search="AI Reskilling">#AI Reskilling</span>, <span data-search="Apprenticeships">#Apprenticeships</span>, <span data-search="Competency Assessment">#Competency Assessment</span>, <span data-search="Headhunting">#Headhunting</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    /**
+     * ACTIVE THEORY EXPERIENTIAL CORE ENGINE
+     * Pillar: AI WORKFORCE & TALENT
+     */
+
+    // --- 1. Sound Synthesis Engine (Web Audio API) ---
+    class ATSoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
+      init() {
+        if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      }
+      playHover() {
+        if (!this.enabled || !this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(1320, this.ctx.currentTime + 0.05);
+          gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.05);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.05);
+        } catch(e) {}
+      }
+      playSlide() {
+        if (!this.enabled || !this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(240, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.12);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.12);
+        } catch(e) {}
+      }
+      playChime() {
+        if (!this.enabled || !this.ctx) return;
+        try {
+          [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, this.ctx.currentTime + i * 0.06);
+            gain.gain.setValueAtTime(0.06, this.ctx.currentTime + i * 0.06);
+            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + i * 0.06 + 0.4);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(this.ctx.currentTime + i * 0.06);
+            osc.stop(this.ctx.currentTime + i * 0.06 + 0.45);
+          });
+        } catch(e) {}
+      }
+    }
+    const sound = new ATSoundEngine();
+
+    const audioBtn = document.getElementById('at-audio-toggle');
+    const audioText = document.getElementById('at-audio-text');
+    audioBtn.addEventListener('click', () => {
+      sound.init();
+      sound.enabled = !sound.enabled;
+      audioText.innerText = sound.enabled ? 'SOUND ON' : 'MUTED';
+      audioBtn.style.opacity = sound.enabled ? '1' : '0.5';
+    });
+
+    // --- 2. Loader Sequencing ---
+    let progress = 0;
+    const counterEl = document.getElementById('at-counter');
+    const loaderEl = document.getElementById('at-loader');
+
+    const loaderInterval = setInterval(() => {
+      progress += Math.floor(Math.random() * 8) + 4;
+      if (progress > 100) progress = 100;
+      counterEl.innerText = `// ${progress < 10 ? '0' + progress : progress} //`;
+
+      if (progress >= 100) {
+        clearInterval(loaderInterval);
+        setTimeout(dismissLoader, 350);
+      }
+    }, 45);
+
+    loaderEl.addEventListener('click', () => {
+      sound.init();
+      dismissLoader();
+    });
+
+    function dismissLoader() {
+      sound.init();
+      sound.playChime();
+      loaderEl.classList.add('is-loaded');
+    }
+
+    // --- 3. Modules Data Set ---
+    const modulesData = [
+  {
+    "tag": "TALENT.01 // INDUSTRY MATCHING",
+    "title": "ENTERPRISE TALENT MATCHMAKING",
+    "glitch": "TALENT PLACEMENT",
+    "desc": "Direct algorithmic talent matchmaking connecting vetted AI engineers, data scientists, and prompt architects to hiring corporations.",
+    "category": "PLACEMENT",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path><circle cx=\"8.5\" cy=\"7\" r=\"4\"></circle><line x1=\"20\" y1=\"8\" x2=\"20\" y2=\"14\"></line><line x1=\"23\" y1=\"11\" x2=\"17\" y2=\"11\"></line></svg>",
+    "gradient": "radial-gradient(circle at 30% 20%, #00F0FF, #0044FF, transparent 75%)",
+    "metrics": {
+      "PLACEMENT": "Direct Hire",
+      "VETTING": "100% Benchmarked",
+      "GUARANTEE": "90-Day Fit"
+    },
+    "syllabus": [
+      "AI-Powered Capability Matrix & Candidate Coding Verification",
+      "Direct Interview Scheduling with Leading Tech & GLC Employers",
+      "Salary Benchmarking & Fair Compensation Standards",
+      "Cross-Disciplinary Placement for Non-IT Graduates",
+      "Post-Placement Mentorship & Career Progression Tracking"
+    ]
+  },
+  {
+    "tag": "TALENT.02 // CORPORATE SHIFT",
+    "title": "WORKFORCE TRANSFORMATION PROGRAMME",
+    "glitch": "CORP RESKILLING",
+    "desc": "Turnkey restructuring framework transitioning traditional operational personnel into high-efficiency AI copilot operators.",
+    "category": "TRANSFORMATION",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><polyline points=\"23 4 23 10 17 10\"></polyline><polyline points=\"1 20 1 14 7 14\"></polyline><path d=\"M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15\"></path></svg>",
+    "gradient": "radial-gradient(circle at 70% 30%, #FFB800, #FF0055, transparent 75%)",
+    "metrics": {
+      "EFFICIENCY": "+40% Productivity",
+      "RETENTION": "94%",
+      "DURATION": "8-12 Weeks"
+    },
+    "syllabus": [
+      "Organisational AI Maturity Audit & Redundancy Risk Analysis",
+      "Departmental Playbooks: Marketing, HR, Finance & Operations Copilots",
+      "Internal Hackathons & Proof-of-Value Automation Projects",
+      "Overcoming Employee AI Apprehension & Fostering Innovation Culture",
+      "Executive Dashboard for Measurable Productivity ROI"
+    ]
+  },
+  {
+    "tag": "TALENT.03 // APPRENTICESHIP",
+    "title": "HIGH-IMPACT INDUSTRY APPRENTICESHIPS",
+    "glitch": "APPRENTICESHIPS",
+    "desc": "6-month immersive apprenticeships embedding promising young talent directly into frontier AI projects with industry mentors.",
+    "category": "APPRENTICESHIP",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"></path></svg>",
+    "gradient": "radial-gradient(circle at 40% 60%, #00FFA3, #0055FF, transparent 75%)",
+    "metrics": {
+      "STIPEND": "Subsidised",
+      "DURATION": "6 Months",
+      "HIRING": "85% Full-Time Offer"
+    },
+    "syllabus": [
+      "Live Production Codebase Exposure & Git Workflow Standards",
+      "One-on-One Pairing with Principal Engineers & AI Architects",
+      "Real-World Enterprise Client Deployments & Problem-Solving",
+      "Soft Skills: Technical Presentation & Stakeholder Communication",
+      "Graduation Showcase to Venture Funds & Tier-1 Employers"
+    ]
+  },
+  {
+    "tag": "TALENT.04 // BENCHMARKING",
+    "title": "NATIONAL AI COMPETENCY REGISTRY",
+    "glitch": "COMPETENCY REGISTRY",
+    "desc": "Centralised verified ledger of Malaysian AI practitioners, mapped to the National AI Framework with transparent skill scoring.",
+    "category": "REGISTRY",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"></path><polyline points=\"14 2 14 8 20 8\"></polyline><line x1=\"16\" y1=\"13\" x2=\"8\" y2=\"13\"></line><line x1=\"16\" y1=\"17\" x2=\"8\" y2=\"17\"></line><polyline points=\"10 9 9 9 8 9\"></polyline></svg>",
+    "gradient": "radial-gradient(circle at 50% 20%, #9D00FF, #00F0FF, transparent 75%)",
+    "metrics": {
+      "ACCREDITATION": "National Framework",
+      "VERIFICATION": "Tamper-Proof",
+      "PORTABILITY": "ASEAN Wide"
+    },
+    "syllabus": [
+      "Standardised Rubric Across Machine Learning, Data & Prompts",
+      "Automated Code Evaluation & Algorithmic Benchmarks",
+      "Decentralised Credential Issuance with Cryptographic Integrity",
+      "Integration with SOCSO & Government Employment Portals",
+      "Periodic Recertification Based on Frontier Model Releases"
+    ]
+  },
+  {
+    "tag": "TALENT.05 // GIG & FREELANCE",
+    "title": "GLOBAL AI FREELANCER GUILD",
+    "glitch": "FREELANCE GUILD",
+    "desc": "Empowering independent Malaysian developers, annotators, and prompt creators to secure high-value remote international contracts.",
+    "category": "GIG ECONOMY",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"10\"></circle><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"></line><path d=\"M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\"></path></svg>",
+    "gradient": "radial-gradient(circle at 30% 70%, #FFB800, #FF3300, transparent 75%)",
+    "metrics": {
+      "CURRENCY": "USD / Global Remittance",
+      "ACCESS": "Cross-Border",
+      "LEGAL": "Automated Contracts"
+    },
+    "syllabus": [
+      "Mastering Global Platforms: Upwork, Toptal & Specialized AI Hubs",
+      "Contract Pricing, Proposal Pitching & High-Ticket Positioning",
+      "International Cross-Border Invoicing, Escrow & Tax Compliance",
+      "Collective Guild Bidding for Enterprise Offshore Contracts",
+      "Collaborative Shared Tooling & Model API Discounts for Members"
+    ]
+  },
+  {
+    "tag": "TALENT.06 // LEADERSHIP FORUM",
+    "title": "EXECUTIVE AI MASTERCLASS",
+    "glitch": "EXECUTIVE FORUM",
+    "desc": "High-level strategic briefing sessions for C-Suite executives, board directors, and policymakers navigating the AI economy.",
+    "category": "EXECUTIVE",
+    "iconSvg": "<svg viewBox=\"0 0 24 24\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"></polygon></svg>",
+    "gradient": "radial-gradient(circle at 70% 70%, #00F0FF, #7700FF, transparent 75%)",
+    "metrics": {
+      "AUDIENCE": "Board & C-Level",
+      "COHORTS": "Quarterly",
+      "FORMAT": "Roundtable Retreat"
+    },
+    "syllabus": [
+      "Strategic Capital Allocation & AI Investment Prioritisation",
+      "Navigating Board Governance, Risk & AI Compliance Legislation",
+      "Defensible Competitive Moats in the Era of Frontier Models",
+      "M&A and Tech Buyout Evaluation for AI Startups",
+      "Exclusive Peer Networking with Industry Leaders & Regulators"
+    ]
+  },
+  {
+    "tag": "BLUEPRINT // ARCHITECTURE",
+    "title": "OFFICIAL STRATEGIC ROADMAP",
+    "glitch": "STRATEGIC ROADMAP",
+    "desc": "Authorised architectural framework & multi-phase national rollout plan for NAIGC Pillar 03 (AI WORKFORCE & TALENT).",
+    "category": "ROADMAP",
+    "isRoadmap": true,
+    "image": "assets/pillar_03_workforce_talent.png",
+    "gradient": "radial-gradient(circle at 50% 50%, #FFB800, #00F0FF, transparent 75%)",
+    "metrics": {
+      "SCOPE": "National Blueprint",
+      "STATUS": "Active Rollout",
+      "ACCESS": "Open Architecture"
+    },
+    "syllabus": [
+      "Phase 1: National Baseline Architecture for AI WORKFORCE & TALENT",
+      "Phase 2: Enterprise & Ecosystem Partner Pilot Integration",
+      "Phase 3: High-End Operational Capability & Infrastructure Scaling",
+      "Phase 4: Accredited Sovereign Standards & Verified Registry",
+      "Phase 5: Regional ASEAN Expansion & International Benchmark"
+    ]
+  }
+];
+
+    // --- 4. 3D Carousel Matrix Positioning Engine ---
+    const track = document.getElementById('at-track');
+    let currentAngle = 0;
+    let targetAngle = 0;
+    let isDragging = false;
+    let startX = 0;
+    let lastDragTime = 0;
+    let dragVelocity = 0;
+
+    const RADIUS = 760;
+    const N = modulesData.length;
+    const angleStep = (Math.PI * 2) / N;
+
+    // Render Cards
+    modulesData.forEach((mod, i) => {
+      const card = document.createElement('div');
+      card.className = 'at-card';
+      card.dataset.index = i;
+
+      let visualHeaderHtml = '';
+      if (mod.isRoadmap) {
+        visualHeaderHtml = `
+          <div class="at-card-visual-header">
+            <span class="at-roadmap-badge">&#9733; OFFICIAL ROADMAP</span>
+            <img src="${mod.image}" alt="Strategic Roadmap Blueprint" class="at-card-roadmap-thumb">
+          </div>
+        `;
+      } else {
+        visualHeaderHtml = `
+          <div class="at-card-visual-header">
+            <div class="at-card-visual-mesh"></div>
+            <div class="at-card-visual-gradient" style="background: ${mod.gradient};"></div>
+            <div class="at-card-visual-icon">
+              ${mod.iconSvg}
+            </div>
+          </div>
+        `;
+      }
+
+      const buttonLabel = mod.isRoadmap ? 'VIEW OFFICIAL BLUEPRINT &rarr;' : 'EXPLORE DETAILS &rarr;';
+
+      card.innerHTML = `
+        <div>
+          ${visualHeaderHtml}
+          <div class="at-card-tag">${mod.tag}</div>
+          <div class="at-glitch-title" data-text="${mod.glitch}">${mod.title}</div>
+          <p class="at-card-desc">${mod.desc}</p>
+        </div>
+
+        <div>
+          <ul class="at-card-meta-list">
+            ${Object.entries(mod.metrics).map(([k, v]) => `
+              <li class="at-card-meta-item">
+                <span class="at-meta-k">${k}</span>
+                <span class="at-meta-v">${v}</span>
+              </li>
+            `).join('')}
+          </ul>
+
+          <button class="at-btn-select" data-open="${i}">
+            <span>${buttonLabel}</span>
+          </button>
+        </div>
+      `;
+
+      card.addEventListener('mouseenter', () => sound.playHover());
+      card.addEventListener('click', () => {
+        if (mod.isRoadmap) {
+          openLightbox();
+        } else {
+          openDrawer(i);
+        }
+      });
+
+      track.appendChild(card);
+    });
+
+    const cards = Array.from(document.querySelectorAll('.at-card'));
+
+    function updateCarousel() {
+      currentAngle += (targetAngle - currentAngle) * 0.12;
+
+      cards.forEach((card, i) => {
+        const phi = currentAngle + i * angleStep;
+        const cosPhi = Math.cos(phi);
+
+        // Backface occlusion
+        if (cosPhi < -0.05) {
+          card.style.opacity = '0';
+          card.style.pointerEvents = 'none';
+          card.style.visibility = 'hidden';
+          return;
+        }
+
+        card.style.visibility = 'visible';
+        card.style.pointerEvents = 'auto';
+
+        const x = Math.sin(phi) * RADIUS;
+        const z = cosPhi * RADIUS - RADIUS;
+        const rotY = phi * (180 / Math.PI);
+
+        const depthNorm = (z + RADIUS * 2) / (RADIUS * 2);
+        const opacity = Math.max(0.2, Math.min(1, cosPhi * 0.8 + 0.3));
+        const scale = Math.max(0.78, Math.min(1.06, cosPhi * 0.28 + 0.78));
+
+        card.style.transform = `translate3d(${x.toFixed(2)}px, 0px, ${z.toFixed(2)}px) rotateY(${rotY.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        card.style.opacity = opacity.toFixed(2);
+        card.style.zIndex = Math.round(depthNorm * 100);
+
+        if (cosPhi > 0.88) {
+          card.classList.add('is-center');
+          document.querySelectorAll('.at-console-btn').forEach((btn, bIdx) => {
+            btn.classList.toggle('is-active', bIdx === i);
+          });
+        } else {
+          card.classList.remove('is-center');
+        }
+      });
+    }
+
+    // Touch & Drag Physics
+    window.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('#at-drawer') || e.target.closest('#at-lightbox') || e.target.closest('.at-top-bar') || e.target.closest('.at-left-console')) return;
+      isDragging = true;
+      startX = e.clientX;
+      lastDragTime = performance.now();
+      dragVelocity = 0;
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      startX = e.clientX;
+      const deltaRad = (dx / window.innerWidth) * Math.PI * 1.5;
+      targetAngle += deltaRad;
+      dragVelocity = deltaRad;
+    });
+
+    window.addEventListener('pointerup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      targetAngle += dragVelocity * 6;
+      sound.playSlide();
+    });
+
+    window.addEventListener('wheel', (e) => {
+      if (document.getElementById('at-drawer').classList.contains('is-open')) return;
+      if (document.getElementById('at-lightbox').classList.contains('is-open')) return;
+      const delta = Math.sign(e.deltaY || e.deltaX);
+      targetAngle -= delta * angleStep;
+      sound.playSlide();
+    }, { passive: true });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        targetAngle -= angleStep;
+        sound.playSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        targetAngle += angleStep;
+        sound.playSlide();
+      } else if (e.key === 'Escape') {
+        closeDrawer();
+        closeLightbox();
+        closeSearch();
+      }
+    });
+
+    // Left Console Buttons
+    document.querySelectorAll('.at-console-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sound.init();
+        sound.playSlide();
+        const idx = parseInt(btn.dataset.index, 10);
+        targetAngle = -idx * angleStep;
+        if (modulesData[idx].isRoadmap) {
+          setTimeout(openLightbox, 400);
+        }
+      });
+    });
+
+    // --- 5. Slide-Over Detail Drawer ---
+    const drawer = document.getElementById('at-drawer');
+    const drawerBackdrop = document.getElementById('at-drawer-backdrop');
+    const drawerClose = document.getElementById('at-drawer-close');
+    const drawerTag = document.getElementById('drawer-tag');
+    const drawerTitle = document.getElementById('drawer-title');
+    const drawerDesc = document.getElementById('drawer-desc');
+    const drawerSyllabus = document.getElementById('drawer-syllabus');
+    const drawerLightboxBtn = document.getElementById('drawer-lightbox-btn');
+
+    function openDrawer(index) {
+      sound.init();
+      sound.playChime();
+      const mod = modulesData[index];
+      drawerTag.innerHTML = `${mod.tag} &bull; NATIONAL STANDARD`;
+      drawerTitle.innerText = mod.title;
+      drawerDesc.innerText = mod.desc;
+
+      drawerSyllabus.innerHTML = mod.syllabus.map(item => `
+        <li class="at-syllabus-item">${item}</li>
+      `).join('');
+
+      if (mod.isRoadmap) {
+        drawerLightboxBtn.style.display = 'block';
+        drawerLightboxBtn.onclick = () => {
+          closeDrawer();
+          openLightbox();
+        };
+      } else {
+        drawerLightboxBtn.style.display = 'none';
+      }
+
+      drawer.classList.add('is-open');
+      drawerBackdrop.classList.add('is-active');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('is-open');
+      drawerBackdrop.classList.remove('is-active');
+    }
+
+    drawerClose.addEventListener('click', closeDrawer);
+    drawerBackdrop.addEventListener('click', closeDrawer);
+
+    document.getElementById('drawer-enroll-btn').addEventListener('click', () => {
+      alert('Pertanyaan atau permohonan untuk unit ini telah direkodkan. Pasukan pengurusan NAIGC akan menghubungi anda dalam 24 jam.');
+      closeDrawer();
+    });
+
+    // --- 6. Full-Screen Lightbox ---
+    const lightbox = document.getElementById('at-lightbox');
+    const lightboxClose = document.getElementById('at-lightbox-close');
+
+    function openLightbox() {
+      sound.init();
+      sound.playChime();
+      lightbox.classList.add('is-open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Search Dialog
+    const searchBtn = document.getElementById('at-btn-ask');
+    const searchDialog = document.getElementById('at-search-dialog');
+    const searchInput = document.getElementById('at-search-field');
+
+    searchBtn.addEventListener('click', () => {
+      searchDialog.classList.add('is-active');
+      searchInput.value = '';
+      searchInput.focus();
+    });
+
+    searchDialog.addEventListener('click', (e) => {
+      if (e.target === searchDialog) closeSearch();
+    });
+
+    function closeSearch() {
+      searchDialog.classList.remove('is-active');
+    }
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const q = searchInput.value.toLowerCase().trim();
+        const found = modulesData.findIndex(m => m.title.toLowerCase().includes(q) || m.desc.toLowerCase().includes(q));
+        if (found !== -1) {
+          targetAngle = -found * angleStep;
+          closeSearch();
+          if (modulesData[found].isRoadmap) {
+            setTimeout(openLightbox, 400);
+          } else {
+            setTimeout(() => openDrawer(found), 400);
+          }
+        } else {
+          closeSearch();
+        }
+      }
+    });
+
+    document.querySelectorAll('.at-search-hints span').forEach(tag => {
+      tag.addEventListener('click', () => {
+        searchInput.value = tag.dataset.search;
+        searchInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      });
+    });
+
+    // --- 7. Three.js Ambient Particle Space ---
+    let scene, camera, renderer, particles;
+    const canvas = document.getElementById('at-canvas');
+
+    function initThree() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+      camera.position.z = 400;
+
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+      const particleCount = 700;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+
+      const colorCyan = new THREE.Color(0x00F0FF);
+      const colorGold = new THREE.Color(0xFFB800);
+      const colorWhite = new THREE.Color(0xFFFFFF);
+
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 1600;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 1200;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 1400;
+
+        const pickColor = Math.random() < 0.6 ? colorCyan : (Math.random() < 0.85 ? colorGold : colorWhite);
+        colors[i * 3] = pickColor.r;
+        colors[i * 3 + 1] = pickColor.g;
+        colors[i * 3 + 2] = pickColor.b;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 3.5,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.75,
+        blending: THREE.AdditiveBlending
+      });
+
+      particles = new THREE.Points(geometry, material);
+      scene.add(particles);
+
+      window.addEventListener('resize', onWindowResize, { passive: true });
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('pointermove', (e) => {
+      mouseX = (e.clientX - window.innerWidth / 2) * 0.05;
+      mouseY = (e.clientY - window.innerHeight / 2) * 0.05;
+    }, { passive: true });
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (particles) {
+        particles.rotation.y += 0.0006;
+        particles.rotation.x += 0.0003;
+      }
+
+      camera.position.x += (mouseX - camera.position.x) * 0.05;
+      camera.position.y += (-mouseY - camera.position.y) * 0.05;
+      camera.lookAt(0, 0, 0);
+
+      renderer.render(scene, camera);
+      updateCarousel();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initThree();
+      animate();
+    });
+  </script>
 
 </body>
 </html>
