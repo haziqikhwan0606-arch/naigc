@@ -64,8 +64,8 @@
       inset: 0;
       z-index: 2;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(1, 3, 7, 0.82) 100%);
-      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95);
+      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(1, 3, 7, 0.85) 100%);
+      box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.95);
     }
 
     /* ==========================================================================
@@ -323,7 +323,7 @@
       position: absolute;
       left: clamp(1.2rem, 3vh, 2.5rem);
       bottom: clamp(1.5rem, 4vh, 3.5rem);
-      max-width: 280px;
+      max-width: 290px;
       z-index: 15;
     }
 
@@ -341,13 +341,13 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.45rem;
       margin-bottom: 1.25rem;
     }
 
     .at-console-btn {
       font-family: var(--at-font-mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 0.14em;
       color: rgba(180, 195, 220, 0.7);
       background: transparent;
@@ -377,6 +377,20 @@
     .at-console-btn:hover::before, .at-console-btn.is-active::before {
       opacity: 1;
       transform: translateX(2px);
+    }
+
+    .at-console-btn.at-btn-roadmap {
+      color: var(--at-gold);
+      font-weight: 700;
+    }
+
+    .at-console-btn.at-btn-roadmap::before {
+      color: var(--at-gold);
+    }
+
+    .at-console-btn.at-btn-roadmap:hover, .at-console-btn.at-btn-roadmap.is-active {
+      color: #FFE600;
+      text-shadow: 0 0 12px rgba(255, 184, 0, 0.8);
     }
 
     /* Capsule Input Button (Ask Me Anything) */
@@ -487,7 +501,7 @@
       height: 100vh;
       z-index: 5;
       pointer-events: none;
-      perspective: 1400px;
+      perspective: 1500px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -507,42 +521,155 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: clamp(340px, 42vw, 560px);
-      height: clamp(440px, 58vh, 660px);
-      margin-left: calc(clamp(340px, 42vw, 560px) / -2);
-      margin-top: calc(clamp(440px, 58vh, 660px) / -2);
-      background: linear-gradient(145deg, rgba(12, 26, 52, 0.78) 0%, rgba(4, 11, 26, 0.88) 100%);
+      width: clamp(340px, 38vw, 520px);
+      height: clamp(520px, 68vh, 720px);
+      margin-left: calc(clamp(340px, 38vw, 520px) / -2);
+      margin-top: calc(clamp(520px, 68vh, 720px) / -2);
+      background: linear-gradient(145deg, rgba(10, 24, 48, 0.85) 0%, rgba(3, 9, 22, 0.92) 100%);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(0, 240, 255, 0.35);
+      border: 1px solid rgba(0, 240, 255, 0.28);
       border-radius: 20px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(0, 240, 255, 0.12);
-      padding: clamp(1.75rem, 3.5vw, 2.75rem);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 240, 255, 0.08);
+      padding: clamp(1.4rem, 2.5vw, 2rem);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       pointer-events: auto;
       cursor: pointer;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+      transition: border-color 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, transform 0.15s ease-out;
       transform-style: preserve-3d;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       overflow: hidden;
+    }
+
+    /* Center Card Neon Spotlight */
+    .at-card.is-center {
+      border-color: #00F0FF;
+      box-shadow: 0 35px 95px rgba(0, 0, 0, 0.95), 0 0 60px rgba(0, 240, 255, 0.42);
+      filter: brightness(1.08) drop-shadow(0 0 25px rgba(0, 240, 255, 0.2));
+    }
+
+    .at-card:not(.is-center) {
+      filter: brightness(0.65) blur(0.6px);
     }
 
     .at-card:hover {
       border-color: #00F0FF;
-      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 240, 255, 0.35);
+      filter: brightness(1.1) blur(0px);
+      box-shadow: 0 35px 85px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 240, 255, 0.4);
+    }
+
+    /* Visual Holographic Header Banner inside Card */
+    .at-card-visual-header {
+      position: relative;
+      width: 100%;
+      height: clamp(85px, 13vh, 120px);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 0.95rem;
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      background: #020712;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .at-card-visual-mesh {
+      position: absolute;
+      inset: 0;
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+      opacity: 0.9;
+    }
+
+    .at-card-visual-gradient {
+      position: absolute;
+      inset: 0;
+      opacity: 0.45;
+      mix-blend-mode: screen;
+      transition: opacity 0.3s ease;
+    }
+
+    .at-card:hover .at-card-visual-gradient {
+      opacity: 0.75;
+    }
+
+    .at-card-visual-icon {
+      position: relative;
+      z-index: 2;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(3, 10, 26, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .at-card:hover .at-card-visual-icon {
+      transform: scale(1.1);
+      border-color: #00F0FF;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.8);
+    }
+
+    .at-card-visual-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: #00F0FF;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Thumbnail for Roadmap Blueprint Card */
+    .at-card-roadmap-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+
+    .at-card:hover .at-card-roadmap-thumb {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    .at-roadmap-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 184, 0, 0.25);
+      border: 1px solid #FFB800;
+      color: #FFB800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 12px;
+      font-family: var(--at-font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      text-shadow: 0 0 8px rgba(255, 184, 0, 0.8);
+      z-index: 3;
     }
 
     /* Active Theory RGB Glitch Splitting Header */
     .at-glitch-title {
       font-family: var(--at-font-display);
-      font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+      font-size: clamp(1.4rem, 2.5vw, 2.1rem);
       font-weight: 900;
-      line-height: 1.1;
+      line-height: 1.15;
       letter-spacing: -0.02em;
       color: #FFFFFF;
       position: relative;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.65rem;
       text-transform: uppercase;
     }
 
@@ -574,36 +701,36 @@
 
     .at-card-tag {
       font-family: var(--at-font-mono);
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       letter-spacing: 0.22em;
       color: var(--at-cyan);
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.35rem;
       text-transform: uppercase;
       font-weight: 700;
     }
 
     .at-card-desc {
       color: #A3B8CC;
-      font-size: clamp(0.88rem, 1.2vw, 1.05rem);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
+      font-size: clamp(0.8rem, 1.05vw, 0.92rem);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
     }
 
     .at-card-meta-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      margin-bottom: 1.75rem;
+      gap: 0.35rem;
+      margin-bottom: 0.95rem;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 1.25rem;
+      padding-top: 0.65rem;
     }
 
     .at-card-meta-item {
       display: flex;
       justify-content: space-between;
       font-family: var(--at-font-mono);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       letter-spacing: 0.1em;
     }
 
@@ -626,10 +753,10 @@
       background: rgba(0, 240, 255, 0.1);
       border: 1px solid var(--at-cyan);
       color: #FFFFFF;
-      padding: 0.85rem 1.75rem;
+      padding: 0.75rem 1.5rem;
       border-radius: 40px;
       font-family: var(--at-font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       font-weight: 700;
@@ -802,6 +929,144 @@
       pointer-events: auto;
     }
 
+    /* ==========================================================================
+       7. FULL-SCREEN LIGHTBOX MODAL (FOR STRATEGIC ROADMAP)
+       ========================================================================== */
+    #at-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 250;
+      background: rgba(1, 4, 10, 0.94);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+      padding: clamp(1rem, 3vw, 2.5rem);
+    }
+
+    #at-lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .at-lightbox-close {
+      position: absolute;
+      top: clamp(1rem, 3vh, 2rem);
+      right: clamp(1rem, 3vh, 2rem);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      color: #FFFFFF;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-family: var(--at-font-mono);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      z-index: 260;
+    }
+
+    .at-lightbox-close:hover {
+      background: var(--at-cyan);
+      color: #010408;
+      box-shadow: 0 0 20px #00F0FF;
+    }
+
+    .at-lightbox-content {
+      position: relative;
+      max-width: 1400px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .at-lightbox-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.25);
+      padding-bottom: 0.75rem;
+    }
+
+    .at-lightbox-tag {
+      font-family: var(--at-font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--at-cyan);
+      text-transform: uppercase;
+    }
+
+    .at-lightbox-title {
+      font-family: var(--at-font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: 0.05em;
+    }
+
+    .at-lightbox-img-wrapper {
+      position: relative;
+      max-height: 70vh;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      box-shadow: 0 0 50px rgba(0, 240, 255, 0.2), 0 20px 60px rgba(0, 0, 0, 0.9);
+      background: #000;
+    }
+
+    .at-lightbox-img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+
+    .at-lightbox-footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      font-family: var(--at-font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--at-gray);
+    }
+
+    .at-btn-download {
+      background: rgba(255, 184, 0, 0.2);
+      border: 1px solid #FFB800;
+      color: #FFB800;
+      padding: 0.5rem 1.25rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.25s ease;
+    }
+
+    .at-btn-download:hover {
+      background: #FFB800;
+      color: #010408;
+      box-shadow: 0 0 20px rgba(255, 184, 0, 0.8);
+    }
+
     /* Modal / Popup for Search or Dialog */
     #at-search-dialog {
       position: fixed;
@@ -927,6 +1192,7 @@
         <li><button class="at-console-btn" data-index="3">ENTERPRISE RESKILLING</button></li>
         <li><button class="at-console-btn" data-index="4">MICRO-CREDENTIALS</button></li>
         <li><button class="at-console-btn" data-index="5">TRAIN THE TRAINER</button></li>
+        <li><button class="at-console-btn at-btn-roadmap" data-index="6">&#9733; STRATEGIC ROADMAP</button></li>
       </ul>
 
       <button class="at-ask-capsule" id="at-btn-ask">
@@ -978,17 +1244,37 @@
 
     <div class="at-drawer-cta-group">
       <button class="at-btn-cta" id="drawer-enroll-btn">ENROLL &bull; DAFTAR SEKARANG</button>
+      <button class="at-btn-select" id="drawer-lightbox-btn" style="text-align: center; display: none;">&#128065; LIHAT HIGH-RES ROADMAP DIAGRAM</button>
       <a href="../index.html" class="at-btn-select" style="text-align: center; text-decoration: none;">&larr; KEMBALI KE CORE STAGE</a>
     </div>
   </aside>
 
+  <!-- 7. Full-Screen Lightbox Modal for Roadmap -->
+  <div id="at-lightbox" aria-hidden="true">
+    <button class="at-lightbox-close" id="at-lightbox-close">&times;</button>
+    <div class="at-lightbox-content">
+      <div class="at-lightbox-header">
+        <span class="at-lightbox-tag">NAIGC STRATEGIC ROADMAP // PILLAR 01: ACADEMY</span>
+        <span class="at-lightbox-title">OFFICIAL NATIONAL ARCHITECTURE BLUEPRINT</span>
+      </div>
+      <div class="at-lightbox-img-wrapper">
+        <img src="assets/pillar_01_academy.png" alt="NAIGC Pillar 01 Academy Strategic Roadmap" class="at-lightbox-img" id="at-lightbox-image">
+      </div>
+      <div class="at-lightbox-footer">
+        <span>CLICK OUTSIDE OR PRESS ESC TO RETURN TO 3D SPACE</span>
+        <a href="assets/pillar_01_academy.png" download="NAIGC_Pillar_01_Academy_Roadmap.png" class="at-btn-download">DOWNLOAD FULL-RES PNG &darr;</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Interactive Search / Question Dialog -->
   <div id="at-search-dialog">
     <div class="at-search-box">
-      <input type="text" class="at-search-input" id="at-search-field" placeholder="Type a course, skill, or industry (e.g. LLM, Healthcare)..." autofocus>
+      <input type="text" class="at-search-input" id="at-search-field" placeholder="Type a course, skill, or industry (e.g. LLM, Healthcare, Roadmap)..." autofocus>
       <div class="at-search-hints">
         Suggested queries: 
         <span data-search="Prompt Engineering">#Prompt Engineering</span>, 
+        <span data-search="Strategic Roadmap">#Strategic Roadmap</span>, 
         <span data-search="Corporate AI">#Corporate AI</span>, 
         <span data-search="Train the Trainer">#Train the Trainer</span>, 
         <span data-search="National Certification">#Certification</span>
@@ -1107,7 +1393,7 @@
       loaderEl.classList.add('is-loaded');
     }
 
-    // --- 3. Academy Modules Data Set ---
+    // --- 3. Academy Modules Data Set (Now 7 Items, including Official Roadmap) ---
     const academyModules = [
       {
         tag: 'MOD.01 // EXECUTIVE & GENERAL',
@@ -1115,6 +1401,8 @@
         glitch: 'AI FOUNDATIONS',
         desc: 'Demystifying modern machine learning, generative LLMs, and prompt engineering protocols for leaders, professionals, and students.',
         category: 'FOUNDATIONS',
+        iconSvg: `<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>`,
+        gradient: 'radial-gradient(circle at 30% 20%, #00F0FF, #0044FF, transparent 75%)',
         metrics: { DURATION: '4 Weeks', LEVEL: 'Beginner to Intermediate', FORMAT: 'Hybrid (Online + Lab)' },
         syllabus: [
           'Core Paradigms of Generative Artificial Intelligence & Deep Learning',
@@ -1130,6 +1418,8 @@
         glitch: 'AI ENGINEERING',
         desc: 'Comprehensive engineering bootcamps covering model fine-tuning, retrieval-augmented generation (RAG), vector databases, and scalable MLOps.',
         category: 'ENGINEERING',
+        iconSvg: `<svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`,
+        gradient: 'radial-gradient(circle at 70% 30%, #00FFA3, #0066FF, transparent 75%)',
         metrics: { DURATION: '12 Weeks', LEVEL: 'Advanced Engineers', FORMAT: 'Intensive Lab Hands-On' },
         syllabus: [
           'PyTorch & Modern Neural Architecture Foundations',
@@ -1145,6 +1435,8 @@
         glitch: 'INDUSTRY SUITE',
         desc: 'Tailored practical applications in high-impact national industries: FinTech, Media Production, Advanced Manufacturing, and Smart Health.',
         category: 'INDUSTRY',
+        iconSvg: `<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>`,
+        gradient: 'radial-gradient(circle at 40% 60%, #FF0055, #7700FF, transparent 75%)',
         metrics: { DURATION: '6 Weeks', LEVEL: 'Domain Specialists', FORMAT: 'Case Study & Production' },
         syllabus: [
           'AI-Driven Cinematic Video, Synthetic Audio & Creative Asset Pipelines',
@@ -1160,6 +1452,8 @@
         glitch: 'CORP RESKILLING',
         desc: 'Customised in-house enterprise transformation contracts helping corporations transition legacy departments into high-velocity AI teams.',
         category: 'ENTERPRISE',
+        iconSvg: `<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`,
+        gradient: 'radial-gradient(circle at 50% 20%, #FFB800, #FF3300, transparent 75%)',
         metrics: { DURATION: 'Custom / Bespoke', LEVEL: 'Corporate Cohorts', FORMAT: 'On-Site Workshops' },
         syllabus: [
           'Enterprise AI Readiness & Operational Maturity Assessment',
@@ -1175,6 +1469,8 @@
         glitch: 'CERTIFICATION',
         desc: 'Standardised competency assessments accredited under the National AI Framework, certifying job-ready capabilities for industry employers.',
         category: 'ACCREDITATION',
+        iconSvg: `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>`,
+        gradient: 'radial-gradient(circle at 30% 70%, #00F0FF, #00FF88, transparent 75%)',
         metrics: { DURATION: 'Self-Paced / Exam', LEVEL: 'All Tiers', FORMAT: 'Proctored Assessment' },
         syllabus: [
           'Standardised National Practical Competency Evaluation',
@@ -1190,6 +1486,8 @@
         glitch: 'TRAIN THE TRAINER',
         desc: 'Accreditation framework developing a certified nationwide cohort of university lecturers, polytechnic educators, and corporate trainers.',
         category: 'ACADEMIC',
+        iconSvg: `<svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>`,
+        gradient: 'radial-gradient(circle at 70% 70%, #9D00FF, #00F0FF, transparent 75%)',
         metrics: { DURATION: '8 Weeks', LEVEL: 'Educators & Trainers', FORMAT: 'Masterclass + Practicum' },
         syllabus: [
           'Pedagogical Strategies for Teaching Generative & Technical AI',
@@ -1197,6 +1495,24 @@
           'Designing Effective Applied Curriculum for Tertiary Institutions',
           'Continuous Assessment Design & Detecting Generative Hallucinations',
           'Certified Master Trainer License & NAIGC Ecosystem Accreditation'
+        ]
+      },
+      {
+        tag: 'BLUEPRINT // ARCHITECTURE',
+        title: 'OFFICIAL STRATEGIC ROADMAP',
+        glitch: 'STRATEGIC ROADMAP',
+        desc: 'Authorised architectural framework & multi-phase national talent development rollout plan for NAIGC Pillar 1 (Academy).',
+        category: 'ROADMAP',
+        isRoadmap: true,
+        image: 'assets/pillar_01_academy.png',
+        gradient: 'radial-gradient(circle at 50% 50%, #FFB800, #00F0FF, transparent 75%)',
+        metrics: { SCOPE: 'National Blueprint', STATUS: 'Active Rollout', ACCESS: 'Open Architecture' },
+        syllabus: [
+          'Phase 1: National AI Literacy & Awareness Baseline Campaign',
+          'Phase 2: Enterprise & Public Sector Reskilling Framework',
+          'Phase 3: High-End Engineering & Multi-Agent Deep Tech Bootcamps',
+          'Phase 4: Accredited Sovereign Micro-Credentials & Talent Registry',
+          'Phase 5: ASEAN Regional Collaboration & Master Trainer Guild'
         ]
       }
     ];
@@ -1210,8 +1526,8 @@
     let lastDragTime = 0;
     let dragVelocity = 0;
 
-    const RADIUS = 720; // 3D cylinder depth radius
-    const N = academyModules.length;
+    const RADIUS = 760; // 3D cylinder depth radius
+    const N = academyModules.length; // 7 items
     const angleStep = (Math.PI * 2) / N;
 
     // Render 3D Cards into Track
@@ -1220,8 +1536,31 @@
       card.className = 'at-card';
       card.dataset.index = i;
 
+      let visualHeaderHtml = '';
+      if (mod.isRoadmap) {
+        visualHeaderHtml = `
+          <div class="at-card-visual-header">
+            <span class="at-roadmap-badge">&#9733; OFFICIAL ROADMAP</span>
+            <img src="${mod.image}" alt="Strategic Roadmap Blueprint" class="at-card-roadmap-thumb">
+          </div>
+        `;
+      } else {
+        visualHeaderHtml = `
+          <div class="at-card-visual-header">
+            <div class="at-card-visual-mesh"></div>
+            <div class="at-card-visual-gradient" style="background: ${mod.gradient};"></div>
+            <div class="at-card-visual-icon">
+              ${mod.iconSvg}
+            </div>
+          </div>
+        `;
+      }
+
+      const buttonLabel = mod.isRoadmap ? 'VIEW OFFICIAL BLUEPRINT &rarr;' : 'EXPLORE SYLLABUS &rarr;';
+
       card.innerHTML = `
         <div>
+          ${visualHeaderHtml}
           <div class="at-card-tag">${mod.tag}</div>
           <div class="at-glitch-title" data-text="${mod.glitch}">${mod.title}</div>
           <p class="at-card-desc">${mod.desc}</p>
@@ -1229,31 +1568,27 @@
 
         <div>
           <ul class="at-card-meta-list">
-            <li class="at-card-meta-item">
-              <span class="at-meta-k">DURATION</span>
-              <span class="at-meta-v">${mod.metrics.DURATION}</span>
-            </li>
-            <li class="at-card-meta-item">
-              <span class="at-meta-k">LEVEL</span>
-              <span class="at-meta-v">${mod.metrics.LEVEL}</span>
-            </li>
-            <li class="at-card-meta-item">
-              <span class="at-meta-k">FORMAT</span>
-              <span class="at-meta-v">${mod.metrics.FORMAT}</span>
-            </li>
+            ${Object.entries(mod.metrics).map(([k, v]) => `
+              <li class="at-card-meta-item">
+                <span class="at-meta-k">${k}</span>
+                <span class="at-meta-v">${v}</span>
+              </li>
+            `).join('')}
           </ul>
 
           <button class="at-btn-select" data-open="${i}">
-            <span>EXPLORE SYLLABUS</span>
-            <span>&rarr;</span>
+            <span>${buttonLabel}</span>
           </button>
         </div>
       `;
 
       card.addEventListener('mouseenter', () => sound.playHover());
       card.addEventListener('click', (e) => {
-        // If card clicked directly, open drawer
-        openDrawer(i);
+        if (mod.isRoadmap) {
+          openLightbox();
+        } else {
+          openDrawer(i);
+        }
       });
 
       track.appendChild(card);
@@ -1261,28 +1596,42 @@
 
     const cards = Array.from(document.querySelectorAll('.at-card'));
 
-    // Smooth Update 3D Positions of Cards along Cylinder Carousel
+    // Smooth Update 3D Positions of Cards along Cylinder Carousel with Backface Occlusion
     function updateCarousel() {
       // Smooth lerp damping
       currentAngle += (targetAngle - currentAngle) * 0.12;
 
       cards.forEach((card, i) => {
         const phi = currentAngle + i * angleStep;
+        const cosPhi = Math.cos(phi);
+
+        // BACKFACE OCCLUSION: If the card is facing backwards (away from camera), hide it completely!
+        if (cosPhi < -0.05) {
+          card.style.opacity = '0';
+          card.style.pointerEvents = 'none';
+          card.style.visibility = 'hidden';
+          return;
+        }
+
+        // Card is in front half of the 3D cylinder
+        card.style.visibility = 'visible';
+        card.style.pointerEvents = 'auto';
+
         const x = Math.sin(phi) * RADIUS;
-        const z = Math.cos(phi) * RADIUS - RADIUS;
+        const z = cosPhi * RADIUS - RADIUS;
         const rotY = phi * (180 / Math.PI);
 
-        // Compute normalized depth for opacity and scale
+        // Depth calculations for scale, opacity, and layering
         const depthNorm = (z + RADIUS * 2) / (RADIUS * 2);
-        const opacity = Math.max(0.15, Math.min(1, Math.cos(phi) * 0.7 + 0.45));
-        const scale = Math.max(0.75, Math.min(1.05, Math.cos(phi) * 0.25 + 0.8));
+        const opacity = Math.max(0.2, Math.min(1, cosPhi * 0.8 + 0.3));
+        const scale = Math.max(0.78, Math.min(1.06, cosPhi * 0.28 + 0.78));
 
         card.style.transform = `translate3d(${x.toFixed(2)}px, 0px, ${z.toFixed(2)}px) rotateY(${rotY.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
         card.style.opacity = opacity.toFixed(2);
         card.style.zIndex = Math.round(depthNorm * 100);
 
-        // Highlight nearest active card
-        if (Math.cos(phi) > 0.88) {
+        // Highlight nearest active center card
+        if (cosPhi > 0.88) {
           card.classList.add('is-center');
           // sync left menu active button
           document.querySelectorAll('.at-console-btn').forEach((btn, bIdx) => {
@@ -1296,8 +1645,8 @@
 
     // Touch & Mouse Dragging Physics
     window.addEventListener('pointerdown', (e) => {
-      // Don't drag if clicking buttons, menu, or drawer
-      if (e.target.closest('#at-drawer') || e.target.closest('.at-top-bar') || e.target.closest('.at-left-console')) return;
+      // Don't drag if clicking buttons, menu, drawer, or lightbox
+      if (e.target.closest('#at-drawer') || e.target.closest('#at-lightbox') || e.target.closest('.at-top-bar') || e.target.closest('.at-left-console')) return;
       isDragging = true;
       startX = e.clientX;
       lastDragTime = performance.now();
@@ -1308,7 +1657,7 @@
       if (!isDragging) return;
       const dx = e.clientX - startX;
       startX = e.clientX;
-      const deltaRad = (dx / window.innerWidth) * Math.PI * 1.6;
+      const deltaRad = (dx / window.innerWidth) * Math.PI * 1.5;
       targetAngle += deltaRad;
       dragVelocity = deltaRad;
     });
@@ -1322,9 +1671,9 @@
     });
 
     // Mouse Wheel Navigation
-    let wheelCooldown = false;
     window.addEventListener('wheel', (e) => {
       if (document.getElementById('at-drawer').classList.contains('is-open')) return;
+      if (document.getElementById('at-lightbox').classList.contains('is-open')) return;
       const delta = Math.sign(e.deltaY || e.deltaX);
       targetAngle -= delta * angleStep;
       sound.playSlide();
@@ -1340,6 +1689,7 @@
         sound.playSlide();
       } else if (e.key === 'Escape') {
         closeDrawer();
+        closeLightbox();
         closeSearch();
       }
     });
@@ -1351,6 +1701,9 @@
         sound.playSlide();
         const idx = parseInt(btn.dataset.index, 10);
         targetAngle = -idx * angleStep;
+        if (academyModules[idx].isRoadmap) {
+          setTimeout(openLightbox, 400);
+        }
       });
     });
 
@@ -1362,6 +1715,7 @@
     const drawerTitle = document.getElementById('drawer-title');
     const drawerDesc = document.getElementById('drawer-desc');
     const drawerSyllabus = document.getElementById('drawer-syllabus');
+    const drawerLightboxBtn = document.getElementById('drawer-lightbox-btn');
 
     function openDrawer(index) {
       sound.init();
@@ -1374,6 +1728,16 @@
       drawerSyllabus.innerHTML = mod.syllabus.map(item => `
         <li class="at-syllabus-item">${item}</li>
       `).join('');
+
+      if (mod.isRoadmap) {
+        drawerLightboxBtn.style.display = 'block';
+        drawerLightboxBtn.onclick = () => {
+          closeDrawer();
+          openLightbox();
+        };
+      } else {
+        drawerLightboxBtn.style.display = 'none';
+      }
 
       drawer.classList.add('is-open');
       drawerBackdrop.classList.add('is-active');
@@ -1390,6 +1754,25 @@
     document.getElementById('drawer-enroll-btn').addEventListener('click', () => {
       alert('Permohonan pendaftaran untuk modul ini telah diterima! Pegawai NAIGC akan menghubungi anda dalam 24 jam.');
       closeDrawer();
+    });
+
+    // --- 6. Full-Screen Lightbox for Roadmap ---
+    const lightbox = document.getElementById('at-lightbox');
+    const lightboxClose = document.getElementById('at-lightbox-close');
+
+    function openLightbox() {
+      sound.init();
+      sound.playChime();
+      lightbox.classList.add('is-open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
     });
 
     // Search Dialog
@@ -1418,7 +1801,11 @@
         if (found !== -1) {
           targetAngle = -found * angleStep;
           closeSearch();
-          setTimeout(() => openDrawer(found), 400);
+          if (academyModules[found].isRoadmap) {
+            setTimeout(openLightbox, 400);
+          } else {
+            setTimeout(() => openDrawer(found), 400);
+          }
         } else {
           closeSearch();
         }
@@ -1432,7 +1819,7 @@
       });
     });
 
-    // --- 6. Three.js Ambient Particle Space ---
+    // --- 7. Three.js Ambient Particle Space ---
     let scene, camera, renderer, particles;
     const canvas = document.getElementById('at-canvas');
 
@@ -1446,7 +1833,7 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
       // Cosmic Stardust Particles
-      const particleCount = 650;
+      const particleCount = 700;
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array(particleCount * 3);
       const colors = new Float32Array(particleCount * 3);
