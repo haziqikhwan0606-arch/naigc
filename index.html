@@ -2282,8 +2282,158 @@ body.mq4-body,
   });
   const introEl = document.querySelector('.mq4-intro') || document.body;
   ecoObserver.observe(introEl, { childList: true, subtree: true });
+
+  // --- CYBER DIMENSIONAL TRANSITION HANDLER (LEFT FOR 1-4, RIGHT FOR 5-8) ---
+  const transitionCurtain = document.createElement('div');
+  transitionCurtain.id = 'naigc-pillar-transition-curtain';
+  transitionCurtain.innerHTML = `
+    <div class="naigc-curtain-laser"></div>
+    <div class="naigc-curtain-telemetry">
+      <div class="naigc-curtain-counter" id="naigc-curtain-code">// WARPING DIMENSION //</div>
+      <div class="naigc-curtain-sub" id="naigc-curtain-node">SYS//NODE ACCESS</div>
+    </div>
+  `;
+  document.body.appendChild(transitionCurtain);
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('.naigc-holo-projection');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href) return;
+
+    const pillarNum = parseInt(link.dataset.pillar, 10);
+    const isLeft = pillarNum >= 1 && pillarNum <= 4;
+
+    e.preventDefault();
+
+    const nodeLabel = link.querySelector('.naigc-poly-title') ? link.querySelector('.naigc-poly-title').innerText : `PILLAR ${pillarNum}`;
+    document.getElementById('naigc-curtain-code').innerText = `// INITIALISING NODE.0${pillarNum} //`;
+    document.getElementById('naigc-curtain-node').innerText = nodeLabel;
+
+    transitionCurtain.className = isLeft ? 'is-active slide-from-left' : 'is-active slide-from-right';
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 420);
+  });
+
+  // Handle return parameter from pillars (?return=left or ?return=right)
+  const urlParams = new URLSearchParams(window.location.search);
+  const returnDir = urlParams.get('return');
+  if (returnDir === 'left') {
+    document.getElementById('naigc-curtain-code').innerText = '// RETURNING TO CORE STAGE //';
+    document.getElementById('naigc-curtain-node').innerText = 'ALPHA-WEST RE-ENTRY';
+    transitionCurtain.className = 'is-active slide-away-left';
+    setTimeout(() => {
+      transitionCurtain.className = '';
+      if (window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }, 500);
+  } else if (returnDir === 'right') {
+    document.getElementById('naigc-curtain-code').innerText = '// RETURNING TO CORE STAGE //';
+    document.getElementById('naigc-curtain-node').innerText = 'BETA-EAST RE-ENTRY';
+    transitionCurtain.className = 'is-active slide-away-right';
+    setTimeout(() => {
+      transitionCurtain.className = '';
+      if (window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }, 500);
+  }
 })();
 </script>
+
+<style>
+/* Directional Transition Curtain Styles */
+#naigc-pillar-transition-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #02050B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s;
+}
+
+#naigc-pillar-transition-curtain.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#naigc-pillar-transition-curtain.slide-from-left {
+  animation: naigcWipeFromLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  border-right: 3px solid #00F0FF;
+  box-shadow: 25px 0 80px rgba(0, 240, 255, 0.8);
+}
+
+#naigc-pillar-transition-curtain.slide-from-right {
+  animation: naigcWipeFromRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  border-left: 3px solid #FFB800;
+  box-shadow: -25px 0 80px rgba(255, 184, 0, 0.8);
+}
+
+#naigc-pillar-transition-curtain.slide-away-left {
+  animation: naigcWipeAwayLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  border-right: 3px solid #00F0FF;
+  box-shadow: 25px 0 80px rgba(0, 240, 255, 0.8);
+}
+
+#naigc-pillar-transition-curtain.slide-away-right {
+  animation: naigcWipeAwayRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  border-left: 3px solid #FFB800;
+  box-shadow: -25px 0 80px rgba(255, 184, 0, 0.8);
+}
+
+@keyframes naigcWipeAwayLeft {
+  0% { transform: translateX(0%); opacity: 1; }
+  100% { transform: translateX(-100%); opacity: 0; visibility: hidden; }
+}
+
+@keyframes naigcWipeAwayRight {
+  0% { transform: translateX(0%); opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; visibility: hidden; }
+}
+
+@keyframes naigcWipeFromLeft {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes naigcWipeFromRight {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0%); }
+}
+
+.naigc-curtain-telemetry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Space Mono', monospace;
+  text-align: center;
+}
+
+.naigc-curtain-counter {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #FFFFFF;
+  text-shadow: 0 0 15px #00F0FF;
+}
+
+.naigc-curtain-sub {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: #00F0FF;
+  text-transform: uppercase;
+}
+</style>
 
 </body>
 </html>

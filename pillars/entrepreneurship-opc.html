@@ -624,7 +624,7 @@
     }
 
     /* ==========================================================================
-       5. 3D FLOATING CARDS CAROUSEL WITH GYRO TILT & SHEEN
+       5. 3D FLOATING CARDS CAROUSEL WITH GYRO TILT & SHEEN & DIRECTIONAL TRANSITIONS
        ========================================================================== */
     #at-carousel-stage {
       position: fixed;
@@ -638,6 +638,182 @@
       align-items: center;
       justify-content: center;
       transform-style: preserve-3d;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    #at-carousel-stage.at-stage-ready {
+      opacity: 1;
+    }
+
+    /* Entrance from Left (Pillars 1-4) */
+    .at-stage-enter-left {
+      animation: atStageSlideInFromLeft 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Entrance from Right (Pillars 5-8) */
+    .at-stage-enter-right {
+      animation: atStageSlideInFromRight 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Exit to Left (Pillars 1-4 returning to Core or moving left) */
+    .at-stage-exit-left {
+      animation: atStageSlideOutToLeft 0.45s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+    }
+
+    /* Exit to Right (Pillars 5-8 returning to Core or moving right) */
+    .at-stage-exit-right {
+      animation: atStageSlideOutToRight 0.45s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+    }
+
+    @keyframes atStageSlideInFromLeft {
+      0% {
+        transform: translateX(-55vw) rotateY(-26deg) scale(0.82);
+        opacity: 0;
+        filter: blur(16px);
+      }
+      100% {
+        transform: translateX(0) rotateY(0deg) scale(1);
+        opacity: 1;
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes atStageSlideInFromRight {
+      0% {
+        transform: translateX(55vw) rotateY(26deg) scale(0.82);
+        opacity: 0;
+        filter: blur(16px);
+      }
+      100% {
+        transform: translateX(0) rotateY(0deg) scale(1);
+        opacity: 1;
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes atStageSlideOutToLeft {
+      0% {
+        transform: translateX(0) rotateY(0deg) scale(1);
+        opacity: 1;
+        filter: blur(0px);
+      }
+      100% {
+        transform: translateX(-55vw) rotateY(-26deg) scale(0.82);
+        opacity: 0;
+        filter: blur(16px);
+      }
+    }
+
+    @keyframes atStageSlideOutToRight {
+      0% {
+        transform: translateX(0) rotateY(0deg) scale(1);
+        opacity: 1;
+        filter: blur(0px);
+      }
+      100% {
+        transform: translateX(55vw) rotateY(26deg) scale(0.82);
+        opacity: 0;
+        filter: blur(16px);
+      }
+    }
+
+    /* Directional Spatial Transition Curtain */
+    #at-transition-curtain {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      background: #010308;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #at-transition-curtain.at-curtain-active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* Reveal animations upon landing */
+    #at-transition-curtain.enter-reveal-left {
+      animation: atCurtainRevealLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      border-right: 3px solid #00F0FF;
+      box-shadow: 25px 0 80px rgba(0, 240, 255, 0.8);
+    }
+
+    #at-transition-curtain.enter-reveal-right {
+      animation: atCurtainRevealRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      border-left: 3px solid #FFB800;
+      box-shadow: -25px 0 80px rgba(255, 184, 0, 0.8);
+    }
+
+    @keyframes atCurtainRevealLeft {
+      0% { transform: translateX(0%); opacity: 1; }
+      100% { transform: translateX(100%); opacity: 0; visibility: hidden; }
+    }
+
+    @keyframes atCurtainRevealRight {
+      0% { transform: translateX(0%); opacity: 1; }
+      100% { transform: translateX(-100%); opacity: 0; visibility: hidden; }
+    }
+
+    /* Exit animations upon returning or moving */
+    #at-transition-curtain.exit-to-left {
+      animation: atCurtainExitLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      border-right: 3px solid #00F0FF;
+      box-shadow: 25px 0 80px rgba(0, 240, 255, 0.8);
+    }
+
+    #at-transition-curtain.exit-to-right {
+      animation: atCurtainExitRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      border-left: 3px solid #FFB800;
+      box-shadow: -25px 0 80px rgba(255, 184, 0, 0.8);
+    }
+
+    @keyframes atCurtainExitLeft {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(0%); }
+    }
+
+    @keyframes atCurtainExitRight {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0%); }
+    }
+
+    .at-curtain-hud {
+      font-family: var(--at-font-mono);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .at-curtain-hud-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: var(--at-cyan);
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+    }
+
+    .at-curtain-hud-title {
+      font-family: var(--at-font-display);
+      font-size: clamp(1.2rem, 3vw, 2.2rem);
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      color: #FFFFFF;
+    }
+
+    .at-curtain-hud-wing {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.55);
     }
 
     .at-card-track {
@@ -1376,6 +1552,15 @@
 </head>
 <body>
 
+  <!-- Directional Spatial Transition Curtain (Left for 1-4, Right for 5-8) -->
+  <div id="at-transition-curtain" class="at-curtain-active enter-reveal-right">
+    <div class="at-curtain-hud">
+      <div class="at-curtain-hud-tag">// SPATIAL TELEMETRY MATRIX //</div>
+      <div class="at-curtain-hud-title">AI ENTREPRENEURSHIP & OPC</div>
+      <div class="at-curtain-hud-wing">BETA-EAST // WING RIGHT [05-08]</div>
+    </div>
+  </div>
+
   <!-- WebGL Background Canvas -->
   <canvas id="at-canvas"></canvas>
   <div class="at-vignette"></div>
@@ -1532,8 +1717,8 @@
 
   </div>
 
-  <!-- 6. 3D Floating Cards Carousel Stage -->
-  <div id="at-carousel-stage">
+  <!-- 6. 3D Floating Cards Carousel Stage with Directional Entrance (Left for 1-4, Right for 5-8) -->
+  <div id="at-carousel-stage" class="at-stage-enter-right at-stage-ready">
     <div class="at-card-track" id="at-track">
       <!-- Generated by JavaScript with 3D Matrix Coordinates -->
     </div>
@@ -1710,6 +1895,11 @@
       sound.init();
       sound.playChime();
       loaderEl.classList.add('is-loaded');
+      const stage = document.getElementById('at-carousel-stage');
+      if (stage && !stage.classList.contains('at-stage-ready')) {
+        stage.classList.add('at-stage-ready');
+        stage.classList.add(isCurrentLeft ? 'at-stage-enter-left' : 'at-stage-enter-right');
+      }
     }
 
     // --- 3. Modules Data Set ---
@@ -2217,6 +2407,77 @@
       tag.addEventListener('click', () => {
         searchInput.value = tag.dataset.search;
         searchInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      });
+    });
+
+    // --- 6. Spatial Directional Transition Orchestration (Left for 1-4, Right for 5-8) ---
+    const currentPillarNum = 6;
+    const isCurrentLeft = false;
+    const curtain = document.getElementById('at-transition-curtain');
+    const stage = document.getElementById('at-carousel-stage');
+
+    // Dismiss curtain reveal animation after page entrance
+    setTimeout(() => {
+      if (curtain) {
+        curtain.classList.remove('at-curtain-active');
+      }
+    }, 550);
+
+    function navigateWithDirection(targetUrl, direction, label) {
+      sound.init();
+      sound.playSlide();
+
+      if (curtain) {
+        const hudTag = curtain.querySelector('.at-curtain-hud-tag');
+        const hudTitle = curtain.querySelector('.at-curtain-hud-title');
+        const hudWing = curtain.querySelector('.at-curtain-hud-wing');
+        if (hudTag) hudTag.innerText = '// WARPING SPATIAL FIELD //';
+        if (hudTitle) hudTitle.innerText = label || 'CENTRAL ECOSYSTEM HUB';
+        if (hudWing) hudWing.innerText = direction === 'left' ? 'EXITING VIA ALPHA-WEST CORRIDOR' : 'EXITING VIA BETA-EAST CORRIDOR';
+
+        curtain.className = direction === 'left' ? 'at-curtain-active exit-to-left' : 'at-curtain-active exit-to-right';
+      }
+
+      if (stage) {
+        stage.classList.remove('at-stage-enter-left', 'at-stage-enter-right');
+        stage.classList.add(direction === 'left' ? 'at-stage-exit-left' : 'at-stage-exit-right');
+      }
+
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 420);
+    }
+
+    // Intercept Return to Homepage (Core Hub)
+    document.querySelectorAll('a[href*="index.html"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const dir = isCurrentLeft ? 'left' : 'right';
+        navigateWithDirection('../index.html?return=' + dir, dir, 'CENTRAL CORE HUB');
+      });
+    });
+
+    // Intercept Pillar Mini-Dock & Sub-Pill Navigation
+    document.querySelectorAll('.at-dock-node, .at-sub-pill').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || href.includes('index.html')) return;
+
+        let targetNum = null;
+        if (link.dataset.tooltip) {
+          const m = link.dataset.tooltip.match(/^(d+)/);
+          if (m) targetNum = parseInt(m[1], 10);
+        } else if (link.innerText) {
+          const m = link.innerText.match(/(d+)/);
+          if (m) targetNum = parseInt(m[1], 10);
+        }
+
+        if (targetNum && targetNum !== currentPillarNum) {
+          e.preventDefault();
+          const dir = targetNum < currentPillarNum ? 'left' : 'right';
+          const label = link.dataset.tooltip || ('PILLAR 0' + targetNum);
+          navigateWithDirection(href, dir, label);
+        }
       });
     });
 
