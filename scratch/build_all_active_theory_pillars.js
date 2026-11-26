@@ -3313,12 +3313,12 @@ function buildActiveTheoryHTML(p) {
       camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
       camera.position.z = 400;
 
-      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
       renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
 
-      // Cosmic Particles
-      const particleCount = 700;
+      // Cosmic Particles (Optimized)
+      const particleCount = 280;
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array(particleCount * 3);
       const colors = new Float32Array(particleCount * 3);
@@ -3352,8 +3352,8 @@ function buildActiveTheoryHTML(p) {
       particles = new THREE.Points(geometry, particleMaterial);
       scene.add(particles);
 
-      // Active Theory Signature Interactive Liquid Mesh Wave Plane
-      const planeGeo = new THREE.PlaneGeometry(1600, 1100, 48, 36);
+      // Active Theory Signature Interactive Liquid Mesh Wave Plane (GPU-Accelerated)
+      const planeGeo = new THREE.PlaneGeometry(1600, 1100, 16, 12);
       const planeMat = new THREE.MeshBasicMaterial({
         color: 0x00F0FF,
         wireframe: true,
@@ -3376,8 +3376,8 @@ function buildActiveTheoryHTML(p) {
 
     let mouseX = 0, mouseY = 0;
     window.addEventListener('pointermove', (e) => {
-      mouseX = (e.clientX - window.innerWidth / 2) * 0.05;
-      mouseY = (e.clientY - window.innerHeight / 2) * 0.05;
+      mouseX = (e.clientX - window.innerWidth / 2) * 0.04;
+      mouseY = (e.clientY - window.innerHeight / 2) * 0.04;
     }, { passive: true });
 
     let clock = 0;
@@ -3390,16 +3390,10 @@ function buildActiveTheoryHTML(p) {
         particles.rotation.x += 0.0003;
       }
 
-      // Deform Liquid Mesh Wave
-      if (meshPlane && meshPlane.geometry && meshPlane.geometry.attributes && meshPlane.geometry.attributes.position) {
-        const posAttr = meshPlane.geometry.attributes.position;
-        const arr = posAttr.array;
-        for (let i = 0; i < arr.length; i += 3) {
-          const u = arr[i];
-          const v = arr[i + 1];
-          arr[i + 2] = Math.sin(u * 0.006 + clock) * Math.cos(v * 0.006 + clock * 0.8) * 38;
-        }
-        posAttr.needsUpdate = true;
+      // Smooth GPU-driven mesh movement with 0 CPU vertex manipulation overhead
+      if (meshPlane) {
+        meshPlane.rotation.z += 0.0008;
+        meshPlane.rotation.x = -0.28 + Math.sin(clock * 0.35) * 0.06;
       }
 
       camera.position.x += (mouseX - camera.position.x) * 0.05;
@@ -3407,7 +3401,11 @@ function buildActiveTheoryHTML(p) {
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
-      updateCarousel();
+
+      // Only update carousel cards when motion is occurring
+      if (Math.abs(targetAngle - currentAngle) > 0.0002 || isDragging || Math.abs(dragVelocity) > 0.0002) {
+        updateCarousel();
+      }
     }
 
     window.addEventListener('DOMContentLoaded', () => {

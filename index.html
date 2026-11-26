@@ -2358,19 +2358,6 @@ body.mq4-body,
     currentActiveDirection = null;
   }
 
-  // Hover pre-warming for zero-lag instant opening
-  document.addEventListener('mouseover', (e) => {
-    const link = e.target.closest('.naigc-holo-projection');
-    if (!link || pillarSlider.classList.contains('is-open')) return;
-    const href = link.getAttribute('href');
-    if (!href) return;
-    const targetUrl = href.includes('?') ? `${href}&seamless=1` : `${href}?seamless=1`;
-    if (pillarFrame.getAttribute('data-loaded-src') !== targetUrl) {
-      pillarFrame.src = targetUrl;
-      pillarFrame.setAttribute('data-loaded-src', targetUrl);
-    }
-  }, { passive: true });
-
   // Click handler to open seamless slider from left or right
   document.addEventListener('click', (e) => {
     const link = e.target.closest('.naigc-holo-projection');
@@ -2419,7 +2406,7 @@ body.mq4-body,
 
 <style>
 /* ==========================================================================
-   SEAMLESS SPATIAL SLIDER (LEFT FOR 1-4, RIGHT FOR 5-8)
+   HIGH-PERFORMANCE HARDWARE-ACCELERATED SPATIAL SLIDER (120 FPS)
    ========================================================================== */
 #naigc-pillar-slider {
   position: fixed;
@@ -2431,24 +2418,28 @@ body.mq4-body,
   pointer-events: none;
   visibility: hidden;
   opacity: 0;
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.65s;
+  transform: translate3d(-100vw, 0, 0);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.45s;
   will-change: transform;
+  contain: strict;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 #naigc-pillar-slider.from-left {
-  transform: translateX(-100vw);
-  border-right: 2px solid rgba(0, 240, 255, 0.6);
-  box-shadow: 35px 0 95px rgba(0, 240, 255, 0.4);
+  transform: translate3d(-100vw, 0, 0);
+  border-right: 2px solid rgba(0, 240, 255, 0.5);
+  box-shadow: 20px 0 60px rgba(0, 240, 255, 0.25);
 }
 
 #naigc-pillar-slider.from-right {
-  transform: translateX(100vw);
-  border-left: 2px solid rgba(255, 184, 0, 0.6);
-  box-shadow: -35px 0 95px rgba(255, 184, 0, 0.4);
+  transform: translate3d(100vw, 0, 0);
+  border-left: 2px solid rgba(255, 184, 0, 0.5);
+  box-shadow: -20px 0 60px rgba(255, 184, 0, 0.25);
 }
 
 #naigc-pillar-slider.is-open {
-  transform: translateX(0) !important;
+  transform: translate3d(0, 0, 0) !important;
   pointer-events: auto;
   visibility: visible;
   opacity: 1;
@@ -2476,8 +2467,8 @@ body.mq4-body,
 
 .naigc-slider-back-btn {
   background: rgba(3, 9, 22, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(0, 240, 255, 0.35);
   color: #00F0FF;
   padding: 0.55rem 1.1rem;
@@ -2490,16 +2481,15 @@ body.mq4-body,
   align-items: center;
   gap: 0.6rem;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.15);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 240, 255, 0.15);
 }
 
 .naigc-slider-back-btn:hover {
   background: rgba(0, 240, 255, 0.15);
   border-color: #00F0FF;
   color: #FFFFFF;
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
-  transform: translateX(-3px);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
 }
 
 .naigc-slider-back-arrow {
@@ -2527,26 +2517,30 @@ body.mq4-body,
   color: #FFFFFF;
 }
 
-/* Smooth Parallax Transition on Homepage when Pillar is Open */
+/* Zero GPU Blur - High-Performance Homepage Fade when Open */
 #naigc-pillars, .mq4-intro {
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.65s ease, opacity 0.65s ease;
-  will-change: transform, filter, opacity;
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 body.pillar-open-left #naigc-pillars,
 body.pillar-open-left .mq4-intro {
-  transform: translateX(20vw) scale(0.93);
-  filter: blur(8px) brightness(0.5);
-  opacity: 0.35;
+  transform: translate3d(8vw, 0, 0);
+  opacity: 0.25;
   pointer-events: none;
 }
 
 body.pillar-open-right #naigc-pillars,
 body.pillar-open-right .mq4-intro {
-  transform: translateX(-20vw) scale(0.93);
-  filter: blur(8px) brightness(0.5);
-  opacity: 0.35;
+  transform: translate3d(-8vw, 0, 0);
+  opacity: 0.25;
   pointer-events: none;
+}
+
+/* Suspend homepage background WebGL rendering while viewing pillar slider */
+body.pillar-view-open .mq4-intro canvas,
+body.pillar-view-open #naigc-pillars canvas {
+  visibility: hidden !important;
 }
 </style>
 
