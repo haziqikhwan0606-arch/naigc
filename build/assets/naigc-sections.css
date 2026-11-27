@@ -1,0 +1,674 @@
+/* ==========================================================================
+   NAIGC FUTURISTIC 3D HOLOGRAPHIC STAGE: STYLE 1 START BUTTON & ABOUT US
+   Active Theory Cybernetic Holographic Architecture (No Box / Full Dimensional)
+   ========================================================================== */
+
+:root {
+  --naigc-cyan: #00F0FF;
+  --naigc-cyan-dim: rgba(0, 240, 255, 0.45);
+  --naigc-cyan-glow: rgba(0, 240, 255, 0.35);
+  --naigc-gold: #FFB800;
+  --naigc-gold-dim: rgba(255, 184, 0, 0.45);
+  --naigc-gold-glow: rgba(255, 184, 0, 0.35);
+  --naigc-dark-bg: rgba(3, 11, 28, 0.94);
+  --naigc-font-display: 'Orbitron', 'Space Grotesk', sans-serif;
+  --naigc-font-sans: 'Space Grotesk', -apple-system, sans-serif;
+  --naigc-font-mono: 'Space Mono', monospace;
+}
+
+/* --------------------------------------------------------------------------
+   1. STYLE 1: GLOWING CYBER START BUTTON (Home Hero Deck)
+   -------------------------------------------------------------------------- */
+.naigc-home-start-deck {
+  display: none !important;
+  position: fixed;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  pointer-events: auto;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.naigc-home-start-deck.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(20px);
+}
+
+.naigc-holo-start-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 2.2rem;
+  border-radius: 40px;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.22) 0%, rgba(3, 15, 38, 0.92) 100%);
+  border: 1.5px solid var(--naigc-cyan);
+  box-shadow: 
+    0 0 25px rgba(0, 240, 255, 0.45),
+    0 0 50px rgba(0, 240, 255, 0.2),
+    inset 0 0 15px rgba(0, 240, 255, 0.25);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.naigc-holo-start-btn:hover {
+  transform: scale(1.05);
+  border-color: #FFFFFF;
+  box-shadow: 
+    0 0 40px rgba(0, 240, 255, 0.8),
+    0 0 70px rgba(0, 240, 255, 0.4),
+    inset 0 0 25px rgba(0, 240, 255, 0.4);
+}
+
+.naigc-holo-start-btn:active {
+  transform: scale(0.98);
+}
+
+/* Pulsing Cyber Pip */
+.naigc-btn-pip {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--naigc-cyan);
+  box-shadow: 0 0 12px var(--naigc-cyan), 0 0 20px var(--naigc-cyan);
+  animation: naigcStartPip 1.5s infinite;
+}
+
+@keyframes naigcStartPip {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.naigc-btn-tag {
+  font-family: var(--naigc-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--naigc-cyan);
+  padding: 0.2rem 0.55rem;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 4px;
+}
+
+.naigc-btn-text {
+  font-family: var(--naigc-font-display);
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+}
+
+.naigc-btn-arrow {
+  color: var(--naigc-cyan);
+  font-size: 0.9rem;
+  letter-spacing: -0.1em;
+  transition: transform 0.25s ease;
+}
+
+.naigc-holo-start-btn:hover .naigc-btn-arrow {
+  transform: translateX(4px);
+  color: #FFFFFF;
+}
+
+/* Traveling Light Sweep */
+.naigc-btn-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.4), transparent);
+  transform: skewX(-25deg);
+  animation: naigcBtnSweep 3.2s infinite;
+}
+
+@keyframes naigcBtnSweep {
+  0% { left: -100%; }
+  35%, 100% { left: 200%; }
+}
+
+.naigc-btn-subline {
+  font-family: var(--naigc-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: rgba(224, 242, 254, 0.75);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+}
+
+/* --------------------------------------------------------------------------
+   2. ABOUT US: 3D HOLOGRAPHIC PROJECTION STAGE (No Box, In-Scene Wings)
+   -------------------------------------------------------------------------- */
+.naigc-about-stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 25;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 2rem 1.2rem 2rem;
+  box-sizing: border-box;
+}
+
+.naigc-about-stage.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Visor Outward Holographic Shockwave on Stage Activation */
+.naigc-about-shockwave {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 2px solid var(--naigc-cyan);
+  box-shadow: 0 0 35px var(--naigc-cyan), inset 0 0 20px var(--naigc-cyan);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+}
+
+.naigc-about-stage.is-active .naigc-about-shockwave {
+  animation: naigcAboutShockwave 1.1s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes naigcAboutShockwave {
+  0% { transform: translate(-50%, -50%) scale(0.1); opacity: 1; }
+  50% { opacity: 0.85; }
+  100% { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+}
+
+/* Top Floating Cyber Deck */
+.naigc-about-top-deck {
+  text-align: center;
+  z-index: 20;
+  pointer-events: none;
+  margin-top: 0.5rem;
+}
+
+.naigc-deck-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 1rem;
+  border-radius: 100px;
+  background: rgba(3, 12, 30, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  font-family: var(--naigc-font-mono);
+  font-size: 0.74rem;
+  color: #FFFFFF;
+  letter-spacing: 0.1em;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.naigc-deck-title {
+  font-family: var(--naigc-font-display);
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0.4rem 0 0 0;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 25px rgba(0, 240, 255, 0.5), 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+/* 3-Column Holographic Dimensional Grid Flanking Robot */
+.naigc-about-grid {
+  display: grid;
+  grid-template-columns: minmax(360px, 460px) minmax(260px, 1fr) minmax(360px, 460px);
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  align-items: center;
+  gap: 1.5rem;
+  box-sizing: border-box;
+  flex: 1;
+}
+
+/* Columns */
+.naigc-about-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+/* Center Spacer (Allows 3D Robot Mascot to Stand Free and Majestic) */
+.naigc-about-center-spacer {
+  pointer-events: none;
+  min-height: 200px;
+}
+
+/* Holographic Projection Panels */
+.naigc-about-panel {
+  position: relative;
+  background: radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.08), transparent 60%),
+              rgba(3, 12, 32, 0.94);
+  border: 1px solid rgba(0, 240, 255, 0.32);
+  border-radius: 12px;
+  padding: 1.25rem 1.45rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(0, 240, 255, 0.15),
+    inset 0 0 15px rgba(0, 240, 255, 0.06);
+  transition: all 0.25s ease;
+}
+
+.naigc-about-panel:hover {
+  border-color: var(--naigc-cyan);
+  transform: translateY(-3px);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(0, 240, 255, 0.35);
+}
+
+.naigc-about-panel.naigc-theme-gold {
+  border-color: rgba(255, 184, 0, 0.38);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(255, 184, 0, 0.15);
+}
+
+.naigc-about-panel.naigc-theme-gold:hover {
+  border-color: var(--naigc-gold);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(255, 184, 0, 0.35);
+}
+
+/* Panel Header Row */
+.naigc-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+}
+
+.naigc-panel-badge {
+  font-family: var(--naigc-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--naigc-cyan);
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: 4px;
+  padding: 0.2rem 0.55rem;
+}
+
+.naigc-panel-badge.gold {
+  color: var(--naigc-gold);
+  background: rgba(255, 184, 0, 0.12);
+  border-color: rgba(255, 184, 0, 0.35);
+}
+
+.naigc-panel-tag {
+  font-family: var(--naigc-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: #8A99AD;
+}
+
+.naigc-panel-title {
+  font-family: var(--naigc-font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.45rem 0;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.naigc-panel-title.gold {
+  color: #FFB800;
+  text-shadow: 0 0 15px rgba(255, 184, 0, 0.4);
+}
+
+.naigc-panel-body {
+  font-family: var(--naigc-font-sans);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #F1F5F9;
+  margin: 0 0 0.75rem 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.naigc-chips-row {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.naigc-chips-row span {
+  font-family: var(--naigc-font-mono);
+  font-size: 0.7rem;
+  color: #FFFFFF;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 4px;
+  padding: 0.22rem 0.55rem;
+}
+
+/* Strategic Objectives Node List */
+.naigc-obj-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.naigc-obj-list li {
+  font-family: var(--naigc-font-sans);
+  font-size: 0.86rem;
+  color: #E2E8F0;
+  line-height: 1.45;
+  background: rgba(2, 8, 22, 0.7);
+  border: 1px solid rgba(0, 240, 255, 0.18);
+  border-radius: 6px;
+  padding: 0.4rem 0.7rem;
+}
+
+.naigc-obj-list li strong {
+  color: var(--naigc-cyan);
+  font-family: var(--naigc-font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  margin-right: 0.35rem;
+}
+
+/* Foundations Chips */
+.naigc-foundations-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+.naigc-foundations-chips span {
+  font-family: var(--naigc-font-mono);
+  font-size: 0.72rem;
+  color: #FFFFFF;
+  background: rgba(255, 184, 0, 0.12);
+  border: 1px solid rgba(255, 184, 0, 0.32);
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+}
+
+.naigc-gov-summary {
+  font-family: var(--naigc-font-sans);
+  font-size: 0.84rem;
+  color: #E2E8F0;
+  line-height: 1.45;
+  border-top: 1px dashed rgba(255, 184, 0, 0.3);
+  padding-top: 0.55rem;
+}
+
+.naigc-gov-summary strong {
+  color: var(--naigc-gold);
+  font-family: var(--naigc-font-display);
+  font-size: 0.78rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. BOTTOM COMMAND DECK TELEMETRY HUD (Floating Cyber Deck)
+   -------------------------------------------------------------------------- */
+.naigc-about-bottom-deck {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.85rem 1.8rem;
+  background: rgba(2, 9, 24, 0.92);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  border-radius: 8px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(0, 240, 255, 0.2);
+  z-index: 25;
+  pointer-events: auto;
+  max-width: 1680px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.naigc-deck-data {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-family: var(--naigc-font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+}
+
+.naigc-deck-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.naigc-deck-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.25rem;
+  border-radius: 6px;
+  font-family: var(--naigc-font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.naigc-deck-btn.cyan {
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid var(--naigc-cyan);
+  color: var(--naigc-cyan);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+}
+
+.naigc-deck-btn.cyan:hover {
+  background: var(--naigc-cyan);
+  color: #020716;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.75);
+}
+
+.naigc-deck-btn.gold {
+  background: rgba(255, 184, 0, 0.12);
+  border: 1px solid var(--naigc-gold);
+  color: var(--naigc-gold);
+  box-shadow: 0 0 15px rgba(255, 184, 0, 0.25);
+}
+
+.naigc-deck-btn.gold:hover {
+  background: var(--naigc-gold);
+  color: #020716;
+  box-shadow: 0 0 25px rgba(255, 184, 0, 0.75);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .naigc-about-grid {
+    grid-template-columns: 1fr;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  .naigc-about-center-spacer {
+    display: none;
+  }
+  .naigc-about-stage {
+    padding: 1rem;
+  }
+}
+
+/* ==========================================================================
+   THEME TOGGLE BUTTON FOR CORE HUB (INDEX.HTML)
+   ========================================================================== */
+.at-theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.42rem 0.95rem;
+  border-radius: 40px;
+  background: rgba(3, 12, 32, 0.75);
+  border: 1px solid rgba(255, 184, 0, 0.45);
+  color: #FFD166;
+  font-family: var(--naigc-font-mono, monospace);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+  box-shadow: 0 0 12px rgba(255, 184, 0, 0.2);
+}
+
+.at-theme-toggle-btn:hover {
+  border-color: #FFB800;
+  color: #FFFFFF;
+  box-shadow: 0 0 18px rgba(255, 184, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+.at-theme-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.at-theme-icon-sun {
+  display: inline-block;
+  color: #FFB800;
+  text-shadow: 0 0 8px #FFB800;
+}
+
+.at-theme-icon-moon {
+  display: none;
+}
+
+.naigc-corehub-theme-btn {
+  position: fixed;
+  top: max(1.25rem, calc(var(--mq4-safe-top, 0px) + .75rem));
+  right: calc(max(1.25rem, calc(var(--mq4-safe-right, 0px) + .75rem)) + 3.4rem);
+  z-index: 55;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .naigc-corehub-theme-btn {
+    top: auto;
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+}
+
+/* ==========================================================================
+   BRIGHT MODE FOR CORE HUB (INDEX.HTML)
+   ========================================================================== */
+html.at-bright-mode,
+body.at-bright-mode {
+  --mq4-bg: #F4F7FC !important;
+  background-color: #F4F7FC !important;
+  color: #0F172A !important;
+}
+
+/* Menu overlay in bright mode */
+body.at-bright-mode #mq4-menu,
+body.at-bright-mode .mq4-menu {
+  background: rgba(244, 247, 252, 0.97) !important;
+}
+
+body.at-bright-mode .mq4-menu__links a,
+body.at-bright-mode .mq4-menu__list a {
+  color: #0B192C !important;
+}
+
+body.at-bright-mode .mq4-menu__links a:hover,
+body.at-bright-mode .mq4-menu__list a:hover {
+  color: #0284C7 !important;
+  text-shadow: 0 0 15px rgba(2, 132, 199, 0.35) !important;
+}
+
+body.at-bright-mode .mq4-menu__n {
+  color: #0284C7 !important;
+}
+
+body.at-bright-mode .mq4-menu__word {
+  color: #0B192C !important;
+}
+
+/* 8 Pillars container on index.html in bright mode */
+body.at-bright-mode .naigc-pillars-container {
+  background: #F4F7FC !important;
+}
+
+body.at-bright-mode .naigc-pillar-card {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border: 1.5px solid rgba(2, 132, 199, 0.28) !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07) !important;
+}
+
+body.at-bright-mode .naigc-pillar-card h3,
+body.at-bright-mode .naigc-pillar-card .pillar-title {
+  color: #0B192C !important;
+}
+
+body.at-bright-mode .naigc-pillar-card p,
+body.at-bright-mode .naigc-pillar-card .pillar-desc {
+  color: #475569 !important;
+}
+
+/* Theme Toggle Button in Bright Mode */
+body.at-bright-mode .at-theme-toggle-btn {
+  background: rgba(241, 245, 249, 0.95) !important;
+  border: 1.5px solid rgba(2, 132, 199, 0.4) !important;
+  color: #0284C7 !important;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.15) !important;
+}
+
+body.at-bright-mode .at-theme-toggle-btn:hover {
+  border-color: #0284C7 !important;
+  background: #0284C7 !important;
+  color: #FFFFFF !important;
+}
+
+body.at-bright-mode .at-theme-icon-sun {
+  display: none !important;
+}
+
+body.at-bright-mode .at-theme-icon-moon {
+  display: inline-block !important;
+  color: #0284C7 !important;
+}
+
+body.at-bright-mode .at-theme-toggle-btn:hover .at-theme-icon-moon {
+  color: #FFFFFF !important;
+}

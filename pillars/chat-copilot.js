@@ -14,7 +14,8 @@
     const pageTitle = document.title || '';
     const logoSub = document.querySelector('.at-logo-sub')?.textContent || '';
     let pillarName = 'AI STRATEGIC PILLAR';
-    if (pageTitle.includes('ACADEMY')) pillarName = 'AI ACADEMY';
+    if (pageTitle.includes('ABOUT')) pillarName = 'ABOUT NAIGC // STRATEGIC BLUEPRINT';
+    else if (pageTitle.includes('ACADEMY')) pillarName = 'AI ACADEMY';
     else if (pageTitle.includes('BUSINESS')) pillarName = 'AI BUSINESS SOLUTIONS';
     else if (pageTitle.includes('CREATIVE')) pillarName = 'AI CREATIVE STUDIO';
     else if (pageTitle.includes('ENTERPRISE')) pillarName = 'AI ENTERPRISE & GOVT';
@@ -32,7 +33,13 @@
     });
 
     // Default universal chips
-    const defaultChips = [
+    const defaultChips = pageTitle.includes('ABOUT') ? [
+      'Vision & Mandate 2030',
+      'Commercial AI Ecosystem',
+      '5 Strategic Objectives',
+      'Menara Olympia (HQ)',
+      '2030 Macro KPIs'
+    ] : [
       'Modules & Curriculum',
       'Strategic Roadmap',
       'Certification & Standards',
@@ -465,5 +472,50 @@
     document.addEventListener('DOMContentLoaded', initChatCopilot);
   } else {
     initChatCopilot();
+  }
+})();
+
+// ==========================================================================
+// NAIGC UNIVERSAL THEME SWITCH ENGINE (DARK / BRIGHT MODE)
+// ==========================================================================
+(function() {
+  function applyTheme(theme) {
+    var isBright = (theme === 'bright');
+    if (isBright) {
+      document.documentElement.classList.add('at-bright-mode');
+      if (document.body) document.body.classList.add('at-bright-mode');
+    } else {
+      document.documentElement.classList.remove('at-bright-mode');
+      if (document.body) document.body.classList.remove('at-bright-mode');
+    }
+    var label = document.getElementById('at-theme-label');
+    var btn = document.getElementById('at-theme-toggle');
+    if (label) label.textContent = isBright ? 'DARK MODE' : 'BRIGHT MODE';
+    if (btn) {
+      btn.setAttribute('title', isBright ? 'Switch to Dark Mode' : 'Switch to Bright Mode');
+      btn.setAttribute('aria-label', isBright ? 'Switch to Dark Mode' : 'Switch to Bright Mode');
+    }
+    try { localStorage.setItem('naigc_theme', theme); } catch (e) {}
+  }
+
+  function initPillarTheme() {
+    var saved = 'dark';
+    try { saved = localStorage.getItem('naigc_theme') || 'dark'; } catch (e) {}
+    applyTheme(saved);
+
+    var btn = document.getElementById('at-theme-toggle');
+    if (btn && !btn._themeInitialized) {
+      btn._themeInitialized = true;
+      btn.addEventListener('click', function() {
+        var isCurrentBright = document.body && document.body.classList.contains('at-bright-mode');
+        applyTheme(isCurrentBright ? 'dark' : 'bright');
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPillarTheme);
+  } else {
+    initPillarTheme();
   }
 })();

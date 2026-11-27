@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('naigc_theme') === 'bright') {
+          document.documentElement.classList.add('at-bright-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Active Theory · NAIGC AI WORKFORCE & TALENT</title>
@@ -1422,7 +1431,13 @@
           </svg>
           <a href="../index.html" class="at-menu-item">CORE HUB</a>
         </nav>
-
+        <button type="button" class="at-theme-toggle-btn" id="at-theme-toggle" aria-label="Toggle Bright / Dark Mode" title="Switch to Bright Mode" style="margin-left: 0.75rem;">
+          <span class="at-theme-indicator">
+            <span class="at-theme-icon-sun">☀</span>
+            <span class="at-theme-icon-moon">☾</span>
+          </span>
+          <span class="at-theme-mode-text" id="at-theme-label">BRIGHT MODE</span>
+        </button>
         <div class="at-sub-pill-nav">
           <a href="creative-studio.html" class="at-sub-pill">&laquo; 02. STUDIO</a>
           <a href="business-solutions.html" class="at-sub-pill">04. SOLUTIONS &raquo;</a>
